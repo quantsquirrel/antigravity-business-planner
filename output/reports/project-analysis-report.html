@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity 사업 기획 도구 - 프로젝트 분석 보고서</title>
+    <style>
+        /* ============================================
+           ANTIGRAVITY COSMIC DESIGN SYSTEM
+           Deep Space Theme with Rainbow Aurora Accents
+           ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #0a0e27;
+            --bg-space: #0d1117;
+            --bg-card: rgba(15, 20, 40, 0.8);
+            --bg-card-hover: rgba(20, 30, 60, 0.9);
+            --bg-card-alt: rgba(12, 16, 32, 0.6);
+            --text-primary: #e8edf5;
+            --text-secondary: #8892b0;
+            --text-muted: #5a6785;
+            --accent-gold: #ffd700;
+            --accent-gold-glow: rgba(255, 215, 0, 0.3);
+            --accent-blue: #667eea;
+            --accent-cyan: #00d2ff;
+            --accent-green: #43e97b;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glass-hover: rgba(255, 255, 255, 0.15);
+            --glow-blue: rgba(102, 126, 234, 0.4);
+            --glow-gold: rgba(255, 215, 0, 0.3);
+            --glow-green: rgba(67, 233, 123, 0.3);
+            --glow-pink: rgba(255, 107, 157, 0.3);
+            --rainbow: linear-gradient(135deg, #667eea, #00d2ff, #43e97b, #f7971e, #ff6b9d, #c471ed);
+            --rainbow-subtle: linear-gradient(135deg, rgba(102,126,234,0.5), rgba(0,210,255,0.5), rgba(67,233,123,0.5), rgba(247,151,30,0.5), rgba(255,107,157,0.5), rgba(196,113,237,0.5));
+            --glass-blur: blur(20px);
+            --font-mono: 'SF Mono', 'Monaco', 'Fira Code', 'Courier New', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-deep);
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           ANIMATED STAR FIELD (Pure CSS)
+           ============================================ */
+
+        .stars, .stars2, .stars3 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .stars {
+            background: transparent;
+            animation: starScroll 120s linear infinite;
+        }
+
+        .stars::after {
+            content: '';
+            position: absolute;
+            top: -200vh;
+            left: 0;
+            width: 100%;
+            height: 300vh;
+            background: transparent;
+            box-shadow:
+                24px 89px #fff, 150px 220px #fff, 380px 45px #fff,
+                520px 310px #fff, 670px 125px #fff, 810px 455px #fff,
+                950px 68px #fff, 1100px 390px #fff, 1230px 175px #fff,
+                1380px 510px #fff, 55px 620px #fff, 200px 740px #fff,
+                340px 555px #fff, 490px 830px #fff, 625px 680px #fff,
+                780px 910px #fff, 915px 595px #fff, 1060px 760px #fff,
+                1200px 880px #fff, 1350px 650px #fff, 88px 1050px #fff,
+                230px 1180px #fff, 365px 990px #fff, 510px 1260px #fff,
+                660px 1120px #fff, 790px 1340px #fff, 940px 1020px #fff,
+                1080px 1200px #fff, 1220px 1310px #fff, 1370px 1090px #fff,
+                130px 1420px #fff, 275px 1580px #fff, 410px 1370px #fff,
+                560px 1640px #fff, 700px 1490px #fff, 845px 1720px #fff,
+                990px 1400px #fff, 1135px 1570px #fff, 1270px 1680px #fff,
+                1420px 1460px #fff;
+        }
+
+        .stars2 {
+            animation: starScroll 180s linear infinite;
+        }
+
+        .stars2::after {
+            content: '';
+            position: absolute;
+            top: -200vh;
+            left: 0;
+            width: 100%;
+            height: 300vh;
+            background: transparent;
+            box-shadow:
+                75px 140px 1px rgba(255,255,255,0.6),
+                310px 55px 1px rgba(255,255,255,0.5),
+                545px 380px 1px rgba(255,255,255,0.7),
+                720px 210px 1px rgba(255,255,255,0.4),
+                1000px 480px 1px rgba(255,255,255,0.6),
+                180px 530px 1px rgba(255,255,255,0.5),
+                440px 710px 1px rgba(255,255,255,0.7),
+                650px 960px 1px rgba(255,255,255,0.4),
+                890px 630px 1px rgba(255,255,255,0.6),
+                1150px 820px 1px rgba(255,255,255,0.5),
+                260px 1100px 1px rgba(255,255,255,0.7),
+                530px 1300px 1px rgba(255,255,255,0.4),
+                800px 1150px 1px rgba(255,255,255,0.6),
+                1050px 1400px 1px rgba(255,255,255,0.5),
+                120px 1600px 1px rgba(255,255,255,0.7);
+        }
+
+        .stars3 {
+            animation: starScroll 240s linear infinite;
+        }
+
+        .stars3::after {
+            content: '';
+            position: absolute;
+            top: -200vh;
+            left: 0;
+            width: 100%;
+            height: 300vh;
+            background: transparent;
+            box-shadow:
+                190px 95px 2px rgba(255,215,0,0.15),
+                580px 290px 2px rgba(102,126,234,0.15),
+                830px 560px 2px rgba(255,215,0,0.12),
+                1120px 140px 2px rgba(0,210,255,0.12),
+                350px 800px 2px rgba(255,215,0,0.15),
+                740px 1070px 2px rgba(102,126,234,0.12),
+                1050px 1300px 2px rgba(0,210,255,0.15),
+                200px 1500px 2px rgba(255,215,0,0.12);
+        }
+
+        @keyframes starScroll {
+            from { transform: translateY(0); }
+            to { transform: translateY(200vh); }
+        }
+
+        /* ============================================
+           FLOATING PARTICLES
+           ============================================ */
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .particle:nth-child(1) {
+            left: 10%; top: 20%;
+            animation: floatParticle 15s ease-in-out infinite;
+        }
+        .particle:nth-child(2) {
+            left: 30%; top: 60%;
+            animation: floatParticle 20s ease-in-out infinite 2s;
+            width: 3px; height: 3px;
+            background: rgba(102, 126, 234, 0.3);
+        }
+        .particle:nth-child(3) {
+            left: 50%; top: 35%;
+            animation: floatParticle 18s ease-in-out infinite 5s;
+        }
+        .particle:nth-child(4) {
+            left: 70%; top: 75%;
+            animation: floatParticle 22s ease-in-out infinite 3s;
+            width: 3px; height: 3px;
+            background: rgba(255, 215, 0, 0.2);
+        }
+        .particle:nth-child(5) {
+            left: 85%; top: 15%;
+            animation: floatParticle 16s ease-in-out infinite 7s;
+        }
+        .particle:nth-child(6) {
+            left: 20%; top: 85%;
+            animation: floatParticle 25s ease-in-out infinite 1s;
+            width: 3px; height: 3px;
+            background: rgba(0, 210, 255, 0.2);
+        }
+        .particle:nth-child(7) {
+            left: 60%; top: 50%;
+            animation: floatParticle 19s ease-in-out infinite 4s;
+        }
+        .particle:nth-child(8) {
+            left: 90%; top: 40%;
+            animation: floatParticle 21s ease-in-out infinite 6s;
+            background: rgba(255, 107, 157, 0.2);
+        }
+
+        @keyframes floatParticle {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            25% { transform: translate(30px, -40px) scale(1.5); opacity: 0.6; }
+            50% { transform: translate(-20px, -80px) scale(1); opacity: 0.4; }
+            75% { transform: translate(40px, -40px) scale(1.3); opacity: 0.5; }
+        }
+
+        /* ============================================
+           PROGRESS BAR (Rainbow)
+           ============================================ */
+
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--rainbow);
+            background-size: 200% 100%;
+            animation: rainbowShift 3s linear infinite;
+            z-index: 9999;
+            transition: width 0.2s ease;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5), 0 0 20px rgba(0, 210, 255, 0.3);
+        }
+
+        @keyframes rainbowShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(ellipse at 50% 50%, rgba(15, 20, 50, 1) 0%, var(--bg-deep) 70%, #000 100%);
+            padding: 40px 20px;
+        }
+
+        /* Starburst effect */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            transform: translate(-50%, -55%);
+            background:
+                radial-gradient(ellipse at center, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at center, rgba(255, 245, 204, 0.04) 0%, transparent 35%);
+            animation: starburstPulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* Aurora / iridescent ribbon */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: -10%;
+            width: 120%;
+            height: 200px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(102, 126, 234, 0.06) 15%,
+                rgba(0, 210, 255, 0.08) 30%,
+                rgba(67, 233, 123, 0.06) 45%,
+                rgba(247, 151, 30, 0.05) 60%,
+                rgba(255, 107, 157, 0.06) 75%,
+                rgba(196, 113, 237, 0.05) 90%,
+                transparent 100%
+            );
+            filter: blur(40px);
+            transform: rotate(-5deg);
+            animation: auroraDrift 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes starburstPulse {
+            0%, 100% { opacity: 0.6; transform: translate(-50%, -55%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -55%) scale(1.15); }
+        }
+
+        @keyframes auroraDrift {
+            0%, 100% { transform: rotate(-5deg) translateX(0); }
+            50% { transform: rotate(-3deg) translateX(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+            background: var(--rainbow);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 4s linear infinite;
+            text-shadow: none;
+            line-height: 1.2;
+        }
+
+        @keyframes rainbowText {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.03em;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+
+        .hero-meta-item {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            padding: 10px 22px;
+            border-radius: 50px;
+            border: 1px solid var(--border-glass);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-meta-item:hover {
+            border-color: var(--border-glass-hover);
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.15);
+            color: var(--text-primary);
+        }
+
+        /* Diamond sparkle decorations in hero */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-gold);
+            clip-path: polygon(50% 0%, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0% 50%, 35% 35%);
+            animation: sparkleGlow 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .sparkle:nth-child(1) { top: 15%; left: 15%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 25%; right: 20%; animation-delay: 1s; width: 6px; height: 6px; }
+        .sparkle:nth-child(3) { bottom: 30%; left: 25%; animation-delay: 2s; width: 5px; height: 5px; }
+        .sparkle:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 0.5s; }
+        .sparkle:nth-child(5) { top: 40%; left: 8%; animation-delay: 1.5s; width: 3px; height: 3px; }
+        .sparkle:nth-child(6) { top: 60%; right: 10%; animation-delay: 2.5s; width: 5px; height: 5px; }
+
+        @keyframes sparkleGlow {
+            0%, 100% { opacity: 0.2; transform: scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.5) rotate(45deg); }
+        }
+
+        /* ============================================
+           CONTAINER LAYOUT
+           ============================================ */
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+           SIDEBAR TOC (Glass Morphism)
+           ============================================ */
+
+        .toc {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid var(--border-glass);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .toc h2 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .toc h2::before {
+            display: none;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 4px;
+        }
+
+        .toc a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-left: 2px solid transparent;
+            transition: all 0.3s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .toc a:hover {
+            background: rgba(102, 126, 234, 0.08);
+            color: var(--text-primary);
+            border-left-color: var(--accent-gold);
+            padding-left: 16px;
+            box-shadow: 0 0 10px var(--accent-gold-glow);
+        }
+
+        .toc a.active {
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--text-primary);
+            font-weight: 500;
+            border-left: 2px solid transparent;
+            border-image: var(--rainbow) 1;
+            box-shadow: 0 0 12px var(--glow-blue);
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+
+        .content {
+            min-width: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+           SECTIONS (Glass Cards)
+           ============================================ */
+
+        section {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-glass);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            will-change: opacity, transform;
+        }
+
+        section:hover {
+            border-color: var(--border-glass-hover);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(102, 126, 234, 0.05);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.3s; }
+        section:nth-child(4) { animation-delay: 0.4s; }
+        section:nth-child(5) { animation-delay: 0.5s; }
+
+        /* ============================================
+           HEADINGS
+           ============================================ */
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 25px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 0.03em;
+            position: relative;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 1.8rem;
+            background: var(--rainbow);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100px;
+            height: 1px;
+            background: var(--rainbow);
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin: 30px 0 20px;
+            padding-left: 16px;
+            border-left: 3px solid transparent;
+            border-image: linear-gradient(180deg, var(--accent-blue), var(--accent-cyan)) 1;
+            letter-spacing: 0.02em;
+        }
+
+        h4 {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin: 25px 0 15px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        p, li {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        ul {
+            margin-left: 25px;
+        }
+
+        ul li::marker {
+            color: var(--accent-blue);
+        }
+
+        ol li::marker {
+            color: var(--accent-gold);
+        }
+
+        /* ============================================
+           CODE / TREE BLOCKS
+           ============================================ */
+
+        .tree, pre {
+            background: var(--bg-space);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 24px;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin: 20px 0;
+            color: #7ee787;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+            white-space: pre;
+        }
+
+        .tree {
+            color: #8892b0;
+        }
+
+        code {
+            background: rgba(102, 126, 234, 0.12);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.88em;
+            color: var(--accent-cyan);
+            border: 1px solid rgba(102, 126, 234, 0.15);
+        }
+
+        /* ============================================
+           STATS GRID (Glass + Rainbow)
+           ============================================ */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glass);
+            border-top: 2px solid transparent;
+            border-image: var(--rainbow) 1;
+            border-image-slice: 1 1 0 1;
+            padding: 28px 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--rainbow);
+            background-size: 200% 100%;
+            animation: rainbowShift 3s linear infinite;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px var(--accent-gold-glow), 0 0 20px rgba(102, 126, 234, 0.1);
+            border-color: var(--border-glass-hover);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 300;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px var(--accent-gold-glow);
+            animation: numberPulse 3s ease-in-out infinite;
+            letter-spacing: 0.02em;
+        }
+
+        @keyframes numberPulse {
+            0%, 100% { text-shadow: 0 0 15px var(--accent-gold-glow); }
+            50% { text-shadow: 0 0 30px var(--accent-gold-glow), 0 0 50px rgba(255, 215, 0, 0.15); }
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        /* ============================================
+           TABLES (Dark Glass)
+           ============================================ */
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            font-size: 0.92rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-glass);
+        }
+
+        thead {
+            position: relative;
+        }
+
+        thead::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--rainbow);
+        }
+
+        thead tr {
+            background: rgba(102, 126, 234, 0.12);
+        }
+
+        th {
+            padding: 14px 18px;
+            text-align: left;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: 0.03em;
+            font-size: 0.88rem;
+        }
+
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-glass);
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        }
+
+        tbody tr:hover {
+            background: rgba(102, 126, 234, 0.06);
+            border-left-color: var(--accent-gold);
+        }
+
+        tbody tr:hover td {
+            color: var(--text-primary);
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        tbody tr:nth-child(even):hover {
+            background: rgba(102, 126, 234, 0.06);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ============================================
+           HIGHLIGHT CARDS (Features)
+           ============================================ */
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .highlight-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glass);
+            border-left: 3px solid transparent;
+            border-image: linear-gradient(180deg, #667eea, #00d2ff, #43e97b) 1;
+            border-image-slice: 0 0 0 3;
+            padding: 25px;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .highlight-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2), 0 0 15px var(--accent-gold-glow);
+            border-color: rgba(255, 215, 0, 0.15);
+            transform: translateX(4px);
+        }
+
+        .highlight-card h4 {
+            color: var(--text-primary);
+            margin: 0 0 12px 0;
+            font-size: 1.05rem;
+            font-weight: 500;
+            text-shadow: 0 0 15px var(--accent-gold-glow);
+        }
+
+        .highlight-card p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           TIMELINE (Rainbow Line + Golden Markers)
+           ============================================ */
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--rainbow);
+            background-size: 100% 200%;
+            animation: rainbowVertical 4s linear infinite;
+        }
+
+        @keyframes rainbowVertical {
+            0% { background-position: 50% 0%; }
+            100% { background-position: 50% 200%; }
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 70px;
+            margin-bottom: 36px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 21px;
+            top: 4px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gold);
+            border: 3px solid var(--bg-deep);
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px var(--accent-gold), 0 0 15px var(--accent-gold-glow);
+            animation: markerPulse 2s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(2) .timeline-marker { animation-delay: 0.3s; }
+        .timeline-item:nth-child(3) .timeline-marker { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) .timeline-marker { animation-delay: 0.9s; }
+        .timeline-item:nth-child(5) .timeline-marker { animation-delay: 1.2s; }
+        .timeline-item:nth-child(6) .timeline-marker { animation-delay: 1.5s; }
+        .timeline-item:nth-child(7) .timeline-marker { animation-delay: 1.8s; }
+
+        @keyframes markerPulse {
+            0%, 100% { box-shadow: 0 0 0 2px var(--accent-gold), 0 0 10px var(--accent-gold-glow); }
+            50% { box-shadow: 0 0 0 4px var(--accent-gold), 0 0 25px var(--accent-gold-glow), 0 0 40px rgba(255, 215, 0, 0.1); }
+        }
+
+        .timeline-content {
+            background: var(--bg-card-alt);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-glass);
+            border-left: 2px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-left-color: var(--accent-gold);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+            letter-spacing: 0.02em;
+        }
+
+        .timeline-meta {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            letter-spacing: 0.03em;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           BADGES (Glass + Glow)
+           ============================================ */
+
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            background: rgba(102, 126, 234, 0.2);
+            color: var(--accent-blue);
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            margin-left: 8px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            letter-spacing: 0.05em;
+            animation: badgeGlow 3s ease-in-out infinite;
+        }
+
+        .badge.easy {
+            background: rgba(67, 233, 123, 0.15);
+            color: var(--accent-green);
+            border-color: rgba(67, 233, 123, 0.3);
+        }
+
+        .badge.medium {
+            background: rgba(247, 151, 30, 0.15);
+            color: #f7971e;
+            border-color: rgba(247, 151, 30, 0.3);
+        }
+
+        .badge.hard {
+            background: rgba(255, 107, 157, 0.15);
+            color: #ff6b9d;
+            border-color: rgba(255, 107, 157, 0.3);
+        }
+
+        @keyframes badgeGlow {
+            0%, 100% { box-shadow: none; }
+            50% { box-shadow: 0 0 8px rgba(102, 126, 234, 0.15); }
+        }
+
+        /* ============================================
+           INFO / WARNING / SUCCESS BOXES (Glass)
+           ============================================ */
+
+        .info-box {
+            background: rgba(102, 126, 234, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-left: 3px solid var(--accent-blue);
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            border-left: 3px solid var(--accent-blue);
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.08);
+        }
+
+        .info-box strong {
+            color: var(--accent-cyan);
+        }
+
+        .warning-box {
+            background: rgba(255, 215, 0, 0.06);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.12);
+            border-left: 3px solid var(--accent-gold);
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.05);
+        }
+
+        .warning-box strong {
+            color: var(--accent-gold);
+        }
+
+        .success-box {
+            background: rgba(67, 233, 123, 0.06);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(67, 233, 123, 0.12);
+            border-left: 3px solid var(--accent-green);
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px var(--glow-green);
+        }
+
+        .success-box h4 {
+            color: var(--accent-green);
+            margin-top: 0;
+        }
+
+        /* ============================================
+           FOOTER (Deep Space)
+           ============================================ */
+
+        footer {
+            background: linear-gradient(180deg, var(--bg-deep), #000);
+            color: var(--text-secondary);
+            padding: 50px 20px 40px;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: var(--rainbow);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            margin: 6px 0;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+        }
+
+        footer p:first-child {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        footer strong {
+            color: var(--text-secondary);
+        }
+
+        .final-rating {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glass);
+            padding: 35px;
+            border-radius: 16px;
+            margin-top: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-rating::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--rainbow);
+            background-size: 200% 100%;
+            animation: rainbowShift 3s linear infinite;
+        }
+
+        .final-rating .stars-display {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 8px var(--accent-gold-glow));
+            animation: starsFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes starsFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .final-rating h3 {
+            color: var(--text-primary);
+            margin: 0 0 15px 0;
+            border: none;
+            padding: 0;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            background: var(--rainbow);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 4s linear infinite;
+        }
+
+        .final-rating p {
+            color: var(--text-secondary);
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .recommendation-box {
+            margin-top: 30px;
+            padding: 20px 24px;
+            background: var(--bg-card-alt);
+            border-radius: 12px;
+            border: 1px solid var(--border-glass);
+        }
+
+        .recommendation-box p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        .recommendation-box strong {
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           MOBILE RESPONSIVE
+           ============================================ */
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: static;
+                order: -1;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.05rem;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 100px 20px 60px;
+            }
+
+            section {
+                padding: 25px;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .sparkle {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-meta {
+                gap: 10px;
+            }
+
+            .hero-meta-item {
+                font-size: 0.82rem;
+                padding: 8px 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .highlight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.82rem;
+            }
+
+            th, td {
+                padding: 10px 12px;
+            }
+        }
+
+        /* ============================================
+           PRINT STYLES
+           ============================================ */
+
+        @media print {
+            :root {
+                --text-primary: #1e293b;
+                --text-secondary: #475569;
+                --text-muted: #64748b;
+            }
+
+            body {
+                background: white;
+                color: #1e293b;
+            }
+
+            .stars, .stars2, .stars3, .particles, #progress-bar, .sparkle {
+                display: none !important;
+            }
+
+            .toc {
+                display: none;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                background: #1e40af !important;
+                min-height: auto;
+                padding: 40px 20px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .hero h1 {
+                background: none;
+                -webkit-text-fill-color: white;
+                color: white;
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            .hero-meta-item {
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+            }
+
+            section {
+                background: white;
+                backdrop-filter: none;
+                border: 1px solid #e2e8f0;
+                box-shadow: none;
+                page-break-inside: avoid;
+                opacity: 1;
+                transform: none;
+                animation: none;
+            }
+
+            h2 {
+                color: #1e293b;
+                border-bottom-color: #e2e8f0;
+            }
+
+            h2::before {
+                background: #2563eb;
+            }
+
+            h2::after {
+                background: #2563eb;
+            }
+
+            h3 {
+                color: #1e293b;
+                border-left-color: #3b82f6;
+                border-image: none;
+            }
+
+            p, li, td {
+                color: #475569;
+            }
+
+            .stat-card {
+                background: #f1f5f9;
+                backdrop-filter: none;
+                border: 1px solid #e2e8f0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .stat-number {
+                color: #1e40af;
+                text-shadow: none;
+                animation: none;
+            }
+
+            .stat-label {
+                color: #475569;
+            }
+
+            table {
+                border: 1px solid #e2e8f0;
+            }
+
+            thead tr {
+                background: #f1f5f9 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            th {
+                color: #1e293b;
+            }
+
+            td {
+                border-bottom-color: #e2e8f0;
+            }
+
+            .tree, pre {
+                background: #f8fafc;
+                color: #334155;
+                border-color: #e2e8f0;
+            }
+
+            code {
+                background: #f1f5f9;
+                color: #1e40af;
+                border-color: #e2e8f0;
+            }
+
+            .badge {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .badge.easy { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+            .badge.medium { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+            .badge.hard { background: #fce7f3; color: #9d174d; border-color: #fbcfe8; }
+
+            .info-box {
+                background: #eff6ff;
+                border-color: #bfdbfe;
+                border-left-color: #3b82f6;
+                box-shadow: none;
+            }
+
+            .warning-box {
+                background: #fefce8;
+                border-color: #fef08a;
+                border-left-color: #eab308;
+                box-shadow: none;
+            }
+
+            .success-box {
+                background: #f0fdf4;
+                border-color: #bbf7d0;
+                border-left-color: #22c55e;
+                box-shadow: none;
+            }
+
+            .highlight-card {
+                background: #f8fafc;
+                backdrop-filter: none;
+                border: 1px solid #e2e8f0;
+                border-left: 3px solid #3b82f6;
+                border-image: none;
+            }
+
+            .highlight-card h4 {
+                color: #1e40af;
+                text-shadow: none;
+            }
+
+            .timeline::before {
+                background: #3b82f6;
+            }
+
+            .timeline-marker {
+                background: #3b82f6;
+                border-color: white;
+                box-shadow: 0 0 0 2px #3b82f6;
+                animation: none;
+            }
+
+            .timeline-content {
+                background: #f8fafc;
+                backdrop-filter: none;
+                border: 1px solid #e2e8f0;
+                border-left: 2px solid #3b82f6;
+            }
+
+            .final-rating {
+                background: #f1f5f9;
+                backdrop-filter: none;
+                border: 1px solid #e2e8f0;
+            }
+
+            .final-rating::before {
+                background: #3b82f6;
+            }
+
+            .final-rating h3 {
+                background: none;
+                -webkit-text-fill-color: #1e40af;
+                color: #1e40af;
+            }
+
+            footer {
+                background: #f8fafc;
+            }
+
+            footer::before {
+                background: #3b82f6;
+            }
+
+            footer p {
+                color: #475569;
+            }
+
+            * {
+                animation: none !important;
+            }
+        }
+
+        /* ============================================
+           SCROLLBAR
+           ============================================ */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 126, 234, 0.5);
+        }
+
+        /* ============================================
+           SELECTION
+           ============================================ */
+
+        ::selection {
+            background: rgba(102, 126, 234, 0.3);
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Star Field Background -->
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="hero-content">
+            <h1>Antigravity 사업 기획 도구</h1>
+            <p class="subtitle">AI 에이전트 기반 체계적 사업 기획 지원 시스템 분석 보고서</p>
+            <div class="hero-meta">
+                <div class="hero-meta-item">📅 2026년 2월 8일</div>
+                <div class="hero-meta-item">🤖 Google Antigravity IDE</div>
+                <div class="hero-meta-item">👥 비개발자 친화적</div>
+                <div class="hero-meta-item">📦 37개 파일</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Table of Contents -->
+        <aside class="toc">
+            <h2>목차</h2>
+            <ul>
+                <li><a href="#overview">1. 프로젝트 개요</a></li>
+                <li><a href="#structure">2. 프로젝트 구조</a></li>
+                <li><a href="#components">3. 핵심 구성 요소</a></li>
+                <li><a href="#automation">4. 자동화 스크립트</a></li>
+                <li><a href="#mcp">5. MCP 서버 연동</a></li>
+                <li><a href="#process">6. 추천 기획 프로세스</a></li>
+                <li><a href="#utilities">7. Python 유틸리티</a></li>
+                <li><a href="#features">8. 주요 특징 및 장점</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Section 1: Overview -->
+            <section id="overview">
+                <h2>프로젝트 개요</h2>
+                <p>
+                    <strong>Antigravity 사업 기획 도구</strong>는 Google Antigravity IDE의 AI 에이전트 기능을 활용하여
+                    개발 지식이 없는 사업 기획자도 체계적으로 사업 계획을 수립할 수 있도록 지원하는 종합 도구입니다.
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">37</span>
+                        <span class="stat-label">총 파일 수</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">10</span>
+                        <span class="stat-label">워크플로우</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">전문 스킬</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">2,885</span>
+                        <span class="stat-label">setup.sh 라인</span>
+                    </div>
+                </div>
+
+                <h3>핵심 정보</h3>
+                <ul>
+                    <li><strong>프로젝트명:</strong> Antigravity 사업 기획 도구</li>
+                    <li><strong>목적:</strong> Google Antigravity IDE에서 AI 에이전트를 활용한 체계적인 사업 기획 지원</li>
+                    <li><strong>대상 사용자:</strong> 개발 지식이 없는 비개발자 및 사업 기획자</li>
+                    <li><strong>플랫폼:</strong> Google Antigravity (AI 기반 통합 개발 환경)</li>
+                    <li><strong>주요 기능:</strong> 시장 조사, 재무 분석, 경쟁 분석, 사업계획서 작성, 피치덱 생성</li>
+                    <li><strong>특징:</strong> 자연어(한국어) 기반 대화형 인터페이스, 전문 분석 프레임워크 내장</li>
+                </ul>
+            </section>
+
+            <!-- Section 2: Structure -->
+            <section id="structure">
+                <h2>프로젝트 구조 분석</h2>
+                <p>프로젝트는 체계적인 디렉토리 구조로 구성되어 있으며, 각 구성 요소가 명확한 역할을 수행합니다.</p>
+
+                <div class="tree">
+antigravity-business-planner/
+├── .agent/
+│   ├── rules/
+│   │   ├── korean-communication.md       (한국어 소통 규칙)
+│   │   ├── business-planning-style.md    (문서 작성 스타일 가이드)
+│   │   └── safety-guidelines.md          (AI 안전 가이드라인)
+│   ├── workflows/
+│   │   ├── market-research.md            (시장 조사 워크플로우)
+│   │   ├── competitor-analysis.md        (경쟁 분석 워크플로우)
+│   │   ├── financial-modeling.md         (재무 모델링 워크플로우)
+│   │   ├── business-plan-draft.md        (사업계획서 작성)
+│   │   ├── branding-strategy.md          (브랜딩 전략)
+│   │   ├── operations-plan.md            (운영 계획)
+│   │   ├── legal-checklist.md            (법률/인허가 체크리스트)
+│   │   ├── menu-costing.md               (제품 원가 계산)
+│   │   ├── check-progress.md              (진행률 확인)
+│   │   └── export-documents.md            (문서 내보내기)
+│   └── skills/
+│       ├── business-researcher.md        (사업 리서처 스킬)
+│       ├── financial-analyst.md          (재무 분석가 스킬)
+│       ├── report-writer.md              (보고서 작성가 스킬)
+│       ├── pitch-deck-creator.md         (피치덱 생성 스킬)
+│       ├── swot-analyzer.md              (SWOT 분석 스킬)
+│       ├── data-visualizer.md            (데이터 시각화 스킬)
+│       ├── progress-tracker/
+│       │   ├── SKILL.md                    (진행률 추적 스킬)
+│       │   └── scripts/
+│       │       └── check_progress.py       (진행률 체크 스크립트)
+│       ├── document-exporter/
+│       │   ├── SKILL.md                    (문서 내보내기 스킬)
+│       │   └── scripts/
+│       │       └── export_docs.py          (MD→HTML 변환 스크립트)
+│       └── scripts/
+│           ├── calculate_costs.py        (원가 계산 스크립트)
+│           └── create_chart.py           (차트 생성 스크립트)
+├── templates/
+│   ├── business-plan-template.md         (사업계획서 템플릿)
+│   ├── financial-projection-template.md  (재무 예측 템플릿)
+│   ├── market-analysis-template.md       (시장 분석 템플릿)
+│   └── pitch-deck-outline.md             (피치덱 아웃라인)
+├── output/
+│   ├── research/                         (시장 조사 결과 저장소)
+│   ├── financials/                       (재무 분석 결과 저장소)
+│   ├── reports/                          (보고서 저장소)
+│   ├── presentations/                    (피치덱 저장소)
+│   └── samples/
+│       └── cafe/                          (카페 업종 샘플)
+│           ├── 01-시장조사.md
+│           ├── 02-경쟁분석.md
+│           ├── 03-재무모델.md
+│           └── 04-사업계획서-요약.md
+├── .gitignore                             (Git 제외 파일 설정)
+├── setup.sh                              (원클릭 세팅 스크립트, 93KB)
+├── GUIDE.md                              (사용 가이드, 23KB)
+└── mcp-config-template.json              (MCP 서버 설정 템플릿)
+                </div>
+
+                <h3>구조 분석</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>디렉토리/파일</th>
+                            <th>개수</th>
+                            <th>역할</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>.agent/rules/</strong></td>
+                            <td>3개</td>
+                            <td>AI 에이전트의 동작 규칙 정의 (소통 방식, 문서 스타일, 안전 가이드라인)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>.agent/workflows/</strong></td>
+                            <td>10개</td>
+                            <td>슬래시 명령어로 실행 가능한 사업 기획 워크플로우</td>
+                        </tr>
+                        <tr>
+                            <td><strong>.agent/skills/</strong></td>
+                            <td>8개 + 4개 스크립트</td>
+                            <td>전문 영역별 AI 스킬 정의 및 Python 유틸리티</td>
+                        </tr>
+                        <tr>
+                            <td><strong>templates/</strong></td>
+                            <td>4개</td>
+                            <td>문서 작성을 위한 표준 템플릿</td>
+                        </tr>
+                        <tr>
+                            <td><strong>output/</strong></td>
+                            <td>4개 하위 디렉토리</td>
+                            <td>분석 결과 및 산출물 저장 공간, 샘플 데이터 포함</td>
+                        </tr>
+                        <tr>
+                            <td><strong>setup.sh</strong></td>
+                            <td>2,885줄</td>
+                            <td>전체 환경 자동 구성 스크립트</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 3: Components -->
+            <section id="components">
+                <h2>핵심 구성 요소</h2>
+
+                <h3>3.1 에이전트 규칙 (Rules) — 3개</h3>
+                <p>AI 에이전트가 사업 기획 작업을 수행할 때 따라야 하는 기본 원칙과 가이드라인입니다.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>파일명</th>
+                            <th>목적</th>
+                            <th>주요 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>korean-communication.md</strong></td>
+                            <td>한국어 소통 규칙</td>
+                            <td>존댓말 사용, 한국식 단위(억/만원), 기술 용어 영어 병기, 한국 비즈니스 문화 반영</td>
+                        </tr>
+                        <tr>
+                            <td><strong>business-planning-style.md</strong></td>
+                            <td>문서 작성 스타일</td>
+                            <td>데이터 기반 근거 제시, 출처 명시, 프레임워크 활용(SWOT/PESTEL/Porter's), 핵심 요약 포함</td>
+                        </tr>
+                        <tr>
+                            <td><strong>safety-guidelines.md</strong></td>
+                            <td>AI 안전 가이드라인</td>
+                            <td>추정치 명시, 전문가 자문 권고, 민감 정보 보호, 시나리오 분석 필수, 책임 제한 공지</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>3.2 워크플로우 (Workflows) — 10개</h3>
+                <p>슬래시 명령어로 실행 가능한 체계적인 사업 기획 프로세스입니다.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>워크플로우</th>
+                            <th>슬래시 명령어</th>
+                            <th>주요 기능</th>
+                            <th>결과 저장</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>시장 조사</strong></td>
+                            <td>/market-research</td>
+                            <td>TAM/SAM/SOM 추정, 시장 트렌드 분석, 고객 세그먼트 정의</td>
+                            <td>output/research/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>경쟁 분석</strong></td>
+                            <td>/competitor-analysis</td>
+                            <td>Porter's Five Forces, 경쟁사 SWOT 매트릭스, 차별화 포인트 도출</td>
+                            <td>output/research/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>재무 모델링</strong></td>
+                            <td>/financial-modeling</td>
+                            <td>손익계산서, BEP 계산, 3개년 재무제표, 시나리오 분석</td>
+                            <td>output/financials/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>사업계획서 작성</strong></td>
+                            <td>/business-plan-draft</td>
+                            <td>10개 섹션 종합 사업계획서, Executive Summary 포함</td>
+                            <td>output/reports/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>브랜딩 전략</strong></td>
+                            <td>/branding-strategy</td>
+                            <td>브랜드 포지셔닝, 페르소나 설정, 브랜드명 제안, 마케팅 채널 전략</td>
+                            <td>output/reports/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>운영 계획</strong></td>
+                            <td>/operations-plan</td>
+                            <td>공급망 관리, 인력 계획, 일일 운영 프로세스, 품질 관리</td>
+                            <td>output/reports/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>법률/인허가 체크리스트</strong></td>
+                            <td>/legal-checklist</td>
+                            <td>사업자 등록, 업종별 인허가, 세금 구조, 지적재산권, 보험</td>
+                            <td>output/reports/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>제품 원가 계산</strong></td>
+                            <td>/menu-costing</td>
+                            <td>원재료비 산정, 원가율 분석, 가격 민감도, 규모의 경제 분석</td>
+                            <td>output/financials/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>진행률 확인</strong></td>
+                            <td>/check-progress</td>
+                            <td>8단계 기획 프로세스 진행 상황 추적, 완료/미완료 단계 표시, 다음 단계 추천</td>
+                            <td>터미널 출력</td>
+                        </tr>
+                        <tr>
+                            <td><strong>문서 내보내기</strong></td>
+                            <td>/export-documents</td>
+                            <td>Markdown 문서를 스타일링된 HTML로 변환, 브라우저에서 PDF 저장 가능</td>
+                            <td>output/ (HTML)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>3.3 스킬 (Skills) — 8개</h3>
+                <p>각 전문 영역을 담당하는 AI 스킬로, 워크플로우에서 호출되어 사용됩니다.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>스킬명</th>
+                            <th>설명</th>
+                            <th>부가 스크립트</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>business-researcher</strong></td>
+                            <td>시장 데이터 웹 수집 및 구조화된 보고서 작성. 한국 데이터 소스 우선 (통계청, KOSIS, 산업통상자원부 등)</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>financial-analyst</strong></td>
+                            <td>재무 분석, 원가 계산, 손익 예측, 투자 수익률 분석, 시나리오 플래닝</td>
+                            <td>calculate_costs.py</td>
+                        </tr>
+                        <tr>
+                            <td><strong>report-writer</strong></td>
+                            <td>사업계획서, 제안서, 보고서 전문 작성. 템플릿 기반 일관된 형식 유지</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>pitch-deck-creator</strong></td>
+                            <td>투자자용 피치덱 10-15장 구성. 슬라이드별 스피커 노트 및 디자인 가이드 포함</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>swot-analyzer</strong></td>
+                            <td>SWOT, PESTEL, Porter's Five Forces, Business Model Canvas 등 전략 분석 프레임워크 활용</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>data-visualizer</strong></td>
+                            <td>차트 및 그래프 시각화. 데이터 기반 인사이트 도출 및 비주얼라이제이션</td>
+                            <td>create_chart.py</td>
+                        </tr>
+                        <tr>
+                            <td><strong>progress-tracker</strong></td>
+                            <td>8단계 기획 프로세스 진행률 추적. output/ 폴더 기반 자동 완료 판별 및 다음 단계 추천</td>
+                            <td>check_progress.py</td>
+                        </tr>
+                        <tr>
+                            <td><strong>document-exporter</strong></td>
+                            <td>Markdown 문서를 인쇄 친화적 HTML로 변환. A4 페이지 최적화, 한국어 폰트 지원</td>
+                            <td>export_docs.py</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>3.4 문서 템플릿 (Templates) — 4개</h3>
+                <p>일관된 품질의 문서 작성을 지원하는 표준 템플릿입니다.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>템플릿</th>
+                            <th>용도</th>
+                            <th>주요 섹션</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>business-plan-template.md</strong></td>
+                            <td>사업계획서</td>
+                            <td>Executive Summary, 시장 분석, 경쟁 분석, 마케팅 계획, 운영 계획, 재무 계획, 팀 구성, 리스크 분석, 로드맵, 부록 (10개 섹션)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>financial-projection-template.md</strong></td>
+                            <td>재무 예측</td>
+                            <td>핵심 가정, 초기 투자, 고정/변동비, 월별 손익, BEP, 낙관/비관/기본 시나리오, 3개년 요약</td>
+                        </tr>
+                        <tr>
+                            <td><strong>market-analysis-template.md</strong></td>
+                            <td>시장 분석</td>
+                            <td>시장 규모(TAM/SAM/SOM), 시장 트렌드, 고객 세그먼트, Porter's Five Forces, 진입 장벽 분석</td>
+                        </tr>
+                        <tr>
+                            <td><strong>pitch-deck-outline.md</strong></td>
+                            <td>투자자 피치덱</td>
+                            <td>12장 구성: 표지, 문제점, 솔루션, 시장 기회, 제품/서비스, 비즈니스 모델, 경쟁 우위, 트랙션, 재무 예측, 팀, 투자 요청, 연락처 (각 슬라이드별 스피커 노트 포함)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 4: Automation -->
+            <section id="automation">
+                <h2>자동화 스크립트 (setup.sh) 분석</h2>
+                <p>
+                    <strong>setup.sh</strong>는 전체 개발 환경을 자동으로 구성하는 2,885줄의 Bash 스크립트입니다.
+                    원클릭 실행만으로 모든 디렉토리, 규칙, 워크플로우, 스킬, 템플릿을 생성합니다.
+                </p>
+
+                <h3>10단계 자동 세팅 프로세스</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">1단계: 사전 요건 확인</div>
+                            <div class="timeline-meta">시스템 검증</div>
+                            <div class="timeline-desc">macOS, Python 3.8+, Google Antigravity 설치 여부 확인</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">2단계: 디렉토리 생성</div>
+                            <div class="timeline-meta">16개 디렉토리</div>
+                            <div class="timeline-desc">.agent/rules, workflows, skills/scripts, templates, output/{research, financials, reports, presentations, samples/cafe} 생성</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">3단계: Rules 생성</div>
+                            <div class="timeline-meta">3개 규칙 파일</div>
+                            <div class="timeline-desc">korean-communication.md, business-planning-style.md, safety-guidelines.md 생성</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">4단계: Workflows 생성</div>
+                            <div class="timeline-meta">10개 워크플로우</div>
+                            <div class="timeline-desc">시장 조사, 경쟁 분석, 재무 모델링, 진행률 확인, 문서 내보내기 등 10개 슬래시 명령어 워크플로우 생성</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">5단계: Skills 생성</div>
+                            <div class="timeline-meta">8개 스킬 + 4개 Python 스크립트</div>
+                            <div class="timeline-desc">business-researcher, financial-analyst, progress-tracker, document-exporter 등 8개 전문 스킬 및 calculate_costs.py, create_chart.py, check_progress.py, export_docs.py 생성</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">6단계: Templates 생성</div>
+                            <div class="timeline-meta">4개 템플릿 + MCP 설정</div>
+                            <div class="timeline-desc">사업계획서, 재무 예측, 시장 분석, 피치덱 템플릿 및 mcp-config-template.json 생성</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">7단계: 샘플 데이터 생성</div>
+                            <div class="timeline-meta">4개 카페 샘플 파일</div>
+                            <div class="timeline-desc">시장조사, 경쟁분석, 재무모델, 사업계획서 요약 예시 파일 생성</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">8단계: Python 환경 세팅</div>
+                            <div class="timeline-meta">venv 생성 + matplotlib, markdown 설치</div>
+                            <div class="timeline-desc">Python 가상환경 생성 및 차트 생성, 문서 변환을 위한 패키지 자동 설치</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">9단계: Git 초기화</div>
+                            <div class="timeline-meta">git init + 초기 커밋</div>
+                            <div class="timeline-desc">버전 관리를 위한 Git 저장소 초기화 및 .gitignore 설정</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">10단계: 완료 안내</div>
+                            <div class="timeline-meta">사용법 요약 출력</div>
+                            <div class="timeline-desc">설정 완료 메시지 및 시작 가이드 출력</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>실행 방법</h3>
+                <pre>chmod +x setup.sh
+./setup.sh</pre>
+
+                <h3>요구사항</h3>
+                <ul>
+                    <li><strong>운영체제:</strong> macOS (Linux 지원 예정)</li>
+                    <li><strong>Python:</strong> 3.8 이상</li>
+                    <li><strong>플랫폼:</strong> Google Antigravity 설치 필요</li>
+                    <li><strong>권한:</strong> 디렉토리 생성 및 파일 쓰기 권한</li>
+                </ul>
+
+                <div class="success-box">
+                    <h4>특징</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>컬러 출력으로 진행 상황 시각화</li>
+                        <li>각 단계별 성공/실패 메시지</li>
+                        <li>에러 발생 시 자동 중단 및 디버깅 정보 제공</li>
+                        <li>멱등성(Idempotency) 보장 — 반복 실행 가능</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 5: MCP -->
+            <section id="mcp">
+                <h2>MCP 서버 연동</h2>
+                <p>
+                    Model Context Protocol (MCP) 서버와 연동하여 외부 도구 및 데이터 소스를 활용할 수 있습니다.
+                    <code>mcp-config-template.json</code> 파일에서 설정을 관리합니다.
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>MCP 서버</th>
+                            <th>용도</th>
+                            <th>주요 기능</th>
+                            <th>설정 난이도</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Google Sheets</strong></td>
+                            <td>재무 모델 스프레드시트 관리</td>
+                            <td>재무 데이터 입력/조회, 자동 계산, 차트 생성</td>
+                            <td><span class="badge medium">보통</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Notion</strong></td>
+                            <td>문서 관리 및 팀 협업</td>
+                            <td>사업계획서 저장, 버전 관리, 팀 공유</td>
+                            <td><span class="badge medium">보통</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Perplexity</strong></td>
+                            <td>실시간 시장 데이터 검색</td>
+                            <td>최신 시장 동향, 경쟁사 정보, 산업 통계 수집</td>
+                            <td><span class="badge easy">쉬움</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sequential Thinking</strong></td>
+                            <td>복잡한 문제 단계별 분석</td>
+                            <td>전략 분석, 의사결정 트리, 시나리오 플래닝</td>
+                            <td><span class="badge easy">쉬움</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>설정 방법</h3>
+                <ol>
+                    <li><code>mcp-config-template.json</code> 파일을 <code>~/.antigravity/mcp-config.json</code>으로 복사</li>
+                    <li>각 MCP 서버의 API 키 발급 (Google Cloud Console, Notion API 등)</li>
+                    <li>JSON 파일에 API 키 입력</li>
+                    <li>Google Antigravity 재시작</li>
+                </ol>
+            </section>
+
+            <!-- Section 6: Process -->
+            <section id="process">
+                <h2>추천 사업 기획 프로세스</h2>
+                <p>체계적인 사업 기획을 위한 8단계 순차 프로세스입니다. 각 단계는 이전 단계의 결과물을 기반으로 합니다.</p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 1: 시장 조사 + 경쟁 분석</div>
+                            <div class="timeline-meta">예상 소요: 1-2일</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/market-research</code>, <code>/competitor-analysis</code><br>
+                                TAM/SAM/SOM 추정, 시장 트렌드 파악, 경쟁사 분석, Porter's Five Forces
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 2: SWOT 분석</div>
+                            <div class="timeline-meta">예상 소요: 반나절</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> 에이전트에게 "SWOT 분석해줘" 요청<br>
+                                내부 강점/약점, 외부 기회/위협 요인 도출, 전략 방향성 설정
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 3: 제품/서비스 기획</div>
+                            <div class="timeline-meta">예상 소요: 1일</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/menu-costing</code><br>
+                                제품/서비스 정의, 원가 계산, 가격 책정 전략, 수익 모델 설계
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 4: 재무 모델링</div>
+                            <div class="timeline-meta">예상 소요: 1일</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/financial-modeling</code><br>
+                                손익계산서, BEP 계산, 3개년 재무제표, 낙관/비관/기본 시나리오 분석
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 5-7: 운영/브랜딩/법률 (병렬 진행 가능)</div>
+                            <div class="timeline-meta">예상 소요: 각 반나절</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/operations-plan</code>, <code>/branding-strategy</code>, <code>/legal-checklist</code><br>
+                                운영 프로세스 설계, 브랜드 전략, 법률/인허가 체크리스트 작성
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 8: 사업계획서 통합</div>
+                            <div class="timeline-meta">예상 소요: 1일</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/business-plan-draft</code><br>
+                                모든 분석 결과를 종합하여 10개 섹션의 완성된 사업계획서 작성
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>📊 총 예상 소요 기간: 5-7일</strong><br>
+                    <span style="color: var(--text-muted); font-size: 0.95rem;">
+                        실제 소요 시간은 사업 아이디어의 복잡도와 필요한 리서치 깊이에 따라 달라질 수 있습니다.
+                    </span>
+                </div>
+            </section>
+
+            <!-- Section 7: Utilities -->
+            <section id="utilities">
+                <h2>Python 유틸리티 스크립트 분석</h2>
+                <p>재무 계산과 데이터 시각화를 자동화하는 4개의 Python 스크립트가 포함되어 있습니다.</p>
+
+                <h3>1. calculate_costs.py</h3>
+                <p><strong>위치:</strong> <code>.agent/skills/scripts/calculate_costs.py</code></p>
+                <p><strong>목적:</strong> 재무 계산 자동화 (BEP, 마진율, 월별 손익)</p>
+
+                <h4>3가지 계산 기능</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>기능</th>
+                            <th>설명</th>
+                            <th>입력 파라미터</th>
+                            <th>출력</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>BEP 계산</strong></td>
+                            <td>손익분기점 산출</td>
+                            <td>고정비, 변동비, 단가</td>
+                            <td>손익분기 판매량, 손익분기 매출액</td>
+                        </tr>
+                        <tr>
+                            <td><strong>마진율 계산</strong></td>
+                            <td>수익률 분석</td>
+                            <td>원가, 판매가</td>
+                            <td>마진율(%), 마진액</td>
+                        </tr>
+                        <tr>
+                            <td><strong>월별 P&L</strong></td>
+                            <td>손익계산서 생성</td>
+                            <td>월별 매출, 고정비, 변동비</td>
+                            <td>월별 순이익, 누적 손익</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>사용 예시</h4>
+                <pre>python calculate_costs.py --mode bep --fixed-cost 10000000 --variable-cost 3000 --price 8000</pre>
+
+                <h3>2. create_chart.py</h3>
+                <p><strong>위치:</strong> <code>.agent/skills/scripts/create_chart.py</code></p>
+                <p><strong>목적:</strong> 데이터 시각화 (차트 생성)</p>
+
+                <h4>3가지 차트 타입</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>차트 타입</th>
+                            <th>용도</th>
+                            <th>예시</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>막대 차트 (bar)</strong></td>
+                            <td>카테고리별 비교</td>
+                            <td>월별 매출 비교, 제품별 판매량</td>
+                        </tr>
+                        <tr>
+                            <td><strong>파이 차트 (pie)</strong></td>
+                            <td>구성 비율 표시</td>
+                            <td>비용 구조, 시장 점유율</td>
+                        </tr>
+                        <tr>
+                            <td><strong>선 차트 (line)</strong></td>
+                            <td>추세 및 변화 분석</td>
+                            <td>월별 성장률, 손익 추이</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="success-box">
+                    <h4>주요 특징</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li><strong>matplotlib 기반:</strong> 산업 표준 파이썬 시각화 라이브러리 사용</li>
+                        <li><strong>한국어 폰트 지원:</strong> AppleGothic(macOS), NanumGothic(Linux) 자동 감지</li>
+                        <li><strong>고해상도 출력:</strong> PNG 형식, 150 DPI</li>
+                        <li><strong>CLI 인터페이스:</strong> 명령줄에서 간편하게 사용</li>
+                        <li><strong>JSON 출력:</strong> 다른 도구와 연동 가능</li>
+                    </ul>
+                </div>
+
+                <h4>사용 예시</h4>
+                <pre>python create_chart.py --type bar --data "1월:1200,2월:1500,3월:1800" --output "monthly_sales.png" --title "월별 매출"</pre>
+
+                <h3>3. check_progress.py</h3>
+                <p><strong>위치:</strong> <code>.agent/skills/progress-tracker/scripts/check_progress.py</code></p>
+                <p><strong>목적:</strong> 8단계 기획 프로세스 진행률 추적 및 시각화</p>
+
+                <h4>주요 기능</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>기능</th>
+                            <th>설명</th>
+                            <th>출력</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>진행률 추적</strong></td>
+                            <td>output/ 폴더의 파일 존재 여부로 각 단계 완료 판별</td>
+                            <td>프로그레스 바, 단계별 ✅/⬜ 표시</td>
+                        </tr>
+                        <tr>
+                            <td><strong>다음 단계 추천</strong></td>
+                            <td>미완료 단계 중 우선순위 기반 추천</td>
+                            <td>추천 단계 및 실행 명령어 안내</td>
+                        </tr>
+                        <tr>
+                            <td><strong>JSON 출력</strong></td>
+                            <td>프로그래밍 방식으로 활용 가능한 JSON 포맷</td>
+                            <td>진행률 데이터 (JSON)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>사용 예시</h4>
+                <pre>python check_progress.py
+python check_progress.py --json</pre>
+
+                <h3>4. export_docs.py</h3>
+                <p><strong>위치:</strong> <code>.agent/skills/document-exporter/scripts/export_docs.py</code></p>
+                <p><strong>목적:</strong> Markdown 문서를 인쇄 친화적 HTML로 변환</p>
+
+                <h4>주요 기능</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>기능</th>
+                            <th>설명</th>
+                            <th>출력</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>단일 파일 변환</strong></td>
+                            <td>개별 MD 파일을 스타일링된 HTML로 변환</td>
+                            <td>.html 파일 (같은 디렉토리)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>배치 변환</strong></td>
+                            <td>디렉토리 내 모든 MD 파일 일괄 변환</td>
+                            <td>복수 .html 파일</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PDF 내보내기</strong></td>
+                            <td>HTML을 브라우저에서 열어 Cmd+P로 PDF 저장</td>
+                            <td>A4 최적화 PDF</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>사용 예시</h4>
+                <pre>python export_docs.py report.md
+python export_docs.py --batch ./output --recursive</pre>
+            </section>
+
+            <!-- Section 8: Features -->
+            <section id="features">
+                <h2>주요 특징 및 장점</h2>
+                <p>Antigravity 사업 기획 도구는 다음과 같은 차별화된 특징을 가지고 있습니다.</p>
+
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>🎯 비개발자 친화적</h4>
+                        <p>
+                            코딩 지식 없이 자연어(한국어)로 사업 기획이 가능합니다.
+                            슬래시 명령어 방식으로 누구나 쉽게 사용할 수 있습니다.
+                        </p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>📊 체계적 프레임워크</h4>
+                        <p>
+                            SWOT, PESTEL, Porter's Five Forces, Business Model Canvas 등
+                            검증된 전문 분석 프레임워크가 내장되어 있습니다.
+                        </p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>📁 자동 문서화</h4>
+                        <p>
+                            모든 분석 결과가 output/ 폴더에 체계적으로 저장됩니다.
+                            버전 관리 및 협업이 용이합니다.
+                        </p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>⚡ 원클릭 세팅</h4>
+                        <p>
+                            setup.sh 하나로 2,885줄의 복잡한 환경 설정을 자동 구성합니다.
+                            설치 후 즉시 사용 가능합니다.
+                        </p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>🇰🇷 한국 시장 최적화</h4>
+                        <p>
+                            한국어 소통, 원(₩) 단위, 억/만원 표기,
+                            한국 통계 데이터 소스(통계청, KOSIS) 우선 활용합니다.
+                        </p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>🛡️ 안전 가이드라인</h4>
+                        <p>
+                            AI 추정치 명시, 전문가 자문 권고, 민감 정보 보호 등
+                            책임 있는 AI 사용 원칙을 준수합니다.
+                        </p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>🔗 MCP 연동</h4>
+                        <p>
+                            Google Sheets, Notion, Perplexity 등 외부 도구와 연동하여
+                            실시간 데이터 수집 및 협업이 가능합니다.
+                        </p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>📈 데이터 시각화</h4>
+                        <p>
+                            Python 스크립트로 재무 차트 및 그래프를 자동 생성합니다.
+                            한국어 폰트를 지원하여 보고서 품질을 높입니다.
+                        </p>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>📦 샘플 데이터 포함</h4>
+                        <p>
+                            카페 업종 기준 4개의 예시 문서(시장조사, 경쟁분석, 재무모델, 사업계획서)가 포함되어
+                            처음 사용자도 완성된 결과물을 미리 확인할 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Antigravity 사업 기획 도구 - 프로젝트 분석 보고서</strong></p>
+        <p>분석일: 2026년 2월 8일</p>
+        <p>분석 도구: Claude Code (Anthropic)</p>
+    </footer>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        });
+
+        // Active TOC Link
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.toc a');
+
+        window.addEventListener('scroll', function() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -24,6 +24,7 @@ output/presentations/*
 !output/research/.gitkeep
 !output/financials/.gitkeep
 !output/reports/.gitkeep
+!output/reports/project-analysis-report.html
 !output/presentations/.gitkeep
 
 # Keep samples
