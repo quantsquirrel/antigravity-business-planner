@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Output (user-generated data)
+output/research/*
+output/financials/*
+output/reports/*
+output/presentations/*
+!output/research/.gitkeep
+!output/financials/.gitkeep
+!output/reports/.gitkeep
+!output/presentations/.gitkeep
+
+# Keep samples
+!output/samples/
+
+# OMC state
+.omc/

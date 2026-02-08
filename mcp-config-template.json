@@ -1,0 +1,37 @@
+{
+  "_comment": "Google Antigravity MCP Server Configuration Template for Business Planning",
+  "_instructions": "Copy relevant sections to ~/.gemini/antigravity/mcp_config.json",
+
+  "mcpServers": {
+    "_google-sheets": {
+      "_comment": "Google Sheets - for financial modeling and data management",
+      "_setup": "1. Enable Google Sheets API in GCP Console, 2. Create OAuth 2.0 credentials, 3. Download credentials JSON",
+      "command": "uv",
+      "args": [
+        "--directory", "/path/to/sheets-mcp-server",
+        "run", "sheets",
+        "--creds-file-path", "/path/to/credentials.json",
+        "--token-path", "/path/to/tokens.json"
+      ]
+    },
+    "_notion": {
+      "_comment": "Notion - for document management and collaboration",
+      "_setup": "1. Create Notion integration at notion.so/my-integrations, 2. Get API key, 3. Share pages with integration",
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer YOUR_NOTION_API_KEY\", \"Notion-Version\": \"2022-06-28\"}"
+      }
+    },
+    "_perplexity": {
+      "_comment": "Perplexity Ask - for real-time market research",
+      "_setup": "Available directly in Antigravity MCP Store. Search 'Perplexity' and click Install.",
+      "note": "Install from MCP Store - no manual config needed"
+    },
+    "_sequential-thinking": {
+      "_comment": "Sequential Thinking - for structured analysis",
+      "_setup": "Available directly in Antigravity MCP Store. Search 'Sequential Thinking' and click Install.",
+      "note": "Install from MCP Store - no manual config needed"
+    }
+  }
+}
