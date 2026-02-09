@@ -15,7 +15,13 @@
 #   - Google Antigravity (antigravity.google)
 # ============================================================
 
-set -e
+# set -e 대신 경고 추적 방식 사용 (비개발자에게 친화적인 오류 처리)
+WARNINGS=0
+warn() {
+    WARNINGS=$((WARNINGS + 1))
+    echo -e "  ${YELLOW}⚠${NC} $1"
+    echo -e "    💡 $2"
+}
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -1648,6 +1654,24 @@ echo -e "  ${GREEN}✓${NC} document-exporter/SKILL.md"
 echo -e "  ${GREEN}✓${NC} document-exporter/scripts/export_docs.py"
 echo ""
 
+# 외부 스킬 설치 (npx skills)
+echo -e "${CYAN}  → 외부 스킬 설치 중 (launch-strategy, pricing-strategy, startup-metrics-framework)...${NC}"
+if command -v npx &> /dev/null; then
+    npx -y skills add sickn33/antigravity-awesome-skills --skill launch-strategy --skill pricing-strategy --skill startup-metrics-framework -a antigravity -y 2>/dev/null
+    if [ $? -eq 0 ]; then
+        echo -e "  ${GREEN}✓${NC} 외부 스킬 3개 설치 완료"
+        echo -e "  ${GREEN}✓${NC} launch-strategy"
+        echo -e "  ${GREEN}✓${NC} pricing-strategy"
+        echo -e "  ${GREEN}✓${NC} startup-metrics-framework"
+    else
+        warn "외부 스킬 설치 실패" "핵심 기능은 모두 사용 가능합니다. 이 스킬은 나중에 별도 설치할 수 있습니다"
+    fi
+else
+    echo -e "  ${YELLOW}!${NC} npx를 찾을 수 없습니다. 외부 스킬 설치를 건너뜁니다."
+    echo -e "  ${YELLOW}    Node.js 설치 후 수동 실행: npx skills add sickn33/antigravity-awesome-skills --skill launch-strategy --skill pricing-strategy --skill startup-metrics-framework -a antigravity -y${NC}"
+fi
+echo ""
+
 # --- Step 6: Create Templates ---
 echo -e "${BLUE}[6/10]${NC} 문서 템플릿 생성 중..."
 
@@ -2790,8 +2814,8 @@ if [ ! -d "$PROJECT_ROOT/.venv" ]; then
     if [ $? -eq 0 ]; then
         echo -e "  ${GREEN}✓${NC} 가상 환경 생성 완료 (.venv)"
     else
-        echo -e "  ${YELLOW}!${NC} 가상 환경 생성 실패 (Python venv 모듈이 필요합니다)"
-        echo "    설치: brew install python3"
+        warn "가상 환경 생성 실패 (Python venv 모듈이 필요합니다)" "해결 방법: brew install python3 실행 후 setup.sh를 다시 실행하세요"
+        echo "    또는 Antigravity에서 에이전트에게 '환경 설정 도와줘'라고 요청하세요"
     fi
 else
     echo -e "  ${GREEN}✓${NC} 가상 환경이 이미 존재합니다 (.venv)"
@@ -2803,22 +2827,22 @@ if [ -d "$PROJECT_ROOT/.venv" ]; then
 
     pip install --quiet matplotlib 2>/dev/null && \
         echo -e "  ${GREEN}✓${NC} matplotlib 설치 완료" || \
-        echo -e "  ${YELLOW}!${NC} matplotlib 설치 실패 (차트 기능이 제한될 수 있습니다)"
+        warn "matplotlib 설치 실패 (차트 기능이 제한될 수 있습니다)" "차트 없이도 사업 기획은 정상 진행됩니다. 나중에 pip install matplotlib로 설치 가능합니다"
 
     pip install --quiet markdown 2>/dev/null && \
         echo -e "  ${GREEN}✓${NC} markdown 설치 완료" || \
-        echo -e "  ${YELLOW}!${NC} markdown 설치 실패 (문서 내보내기 기능이 제한될 수 있습니다)"
+        warn "markdown 설치 실패 (문서 내보내기 기능이 제한될 수 있습니다)" "문서 내보내기 없이도 사업 기획은 정상 진행됩니다. 나중에 pip install markdown으로 설치 가능합니다"
 
     deactivate
 else
     # Fallback: install globally
     pip3 install --quiet matplotlib 2>/dev/null && \
         echo -e "  ${GREEN}✓${NC} matplotlib 설치 완료 (전역)" || \
-        echo -e "  ${YELLOW}!${NC} matplotlib 설치 실패"
+        warn "matplotlib 설치 실패" "차트 없이도 사업 기획은 정상 진행됩니다"
 
     pip3 install --quiet markdown 2>/dev/null && \
         echo -e "  ${GREEN}✓${NC} markdown 설치 완료 (전역)" || \
-        echo -e "  ${YELLOW}!${NC} markdown 설치 실패"
+        warn "markdown 설치 실패" "문서 내보내기 없이도 사업 기획은 정상 진행됩니다"
 fi
 
 echo ""
@@ -2848,11 +2872,11 @@ echo -e "${GREEN}${BOLD}  ✓ 세팅 완료!${NC}"
 echo -e "${BOLD}============================================================${NC}"
 echo ""
 echo "  생성된 항목:"
-echo -e "    ${GREEN}•${NC} Rules (규칙): 3개"
-echo -e "    ${GREEN}•${NC} Workflows (워크플로우): 10개"
-echo -e "    ${GREEN}•${NC} Skills (스킬): 8개 (+ Python 스크립트 4개)"
-echo -e "    ${GREEN}•${NC} Templates (템플릿): 4개"
-echo -e "    ${GREEN}•${NC} MCP 설정 템플릿: 1개"
+echo -e "    ${GREEN}•${NC} 작동 원칙: 3개 (한국어 소통, 문서 스타일, 안전 가이드라인)"
+echo -e "    ${GREEN}•${NC} 기획 단계: 10개 (시장 조사부터 사업계획서까지)"
+echo -e "    ${GREEN}•${NC} 전문 분석 도구: 11개 (재무, 경쟁, SWOT 등)"
+echo -e "    ${GREEN}•${NC} 문서 양식: 4개 (사업계획서, 재무예측 등)"
+echo -e "    ${GREEN}•${NC} 외부 도구 연동 설정: 1개"
 echo -e "    ${GREEN}•${NC} 샘플 데이터: 카페 사업 4건"
 echo ""
 echo "  다음 단계:"
@@ -2861,7 +2885,7 @@ echo -e "    2. ${BOLD}File → Open Folder${NC}에서 이 폴더를 엽니다:"
 echo -e "       ${BLUE}$PROJECT_ROOT${NC}"
 echo -e "    3. 에이전트에게 말합니다: ${BOLD}\"사업 기획을 시작하겠습니다\"${NC}"
 echo ""
-echo "  사용 가능한 워크플로우:"
+echo "  사용 가능한 기획 단계 (명령어 또는 자연어로 실행):"
 echo -e "    ${YELLOW}/market-research${NC}      — 시장 조사"
 echo -e "    ${YELLOW}/competitor-analysis${NC}   — 경쟁 분석"
 echo -e "    ${YELLOW}/financial-modeling${NC}    — 재무 모델링"
@@ -2873,12 +2897,21 @@ echo -e "    ${YELLOW}/menu-costing${NC}          — 제품 원가 분석"
 echo -e "    ${YELLOW}/check-progress${NC}        — 기획 진행률 확인"
 echo -e "    ${YELLOW}/export-documents${NC}      — 문서 PDF 내보내기"
 echo ""
-echo "  Python 스크립트 사용:"
-echo -e "    먼저 가상 환경을 활성화하세요:"
-echo -e "    ${BLUE}source .venv/bin/activate${NC}"
+echo -e "  💡 명령어를 외울 필요 없습니다!"
+echo -e "     '시장 조사해줘', '재무 분석 부탁해' 처럼 자연어로 요청하면 됩니다."
 echo ""
 echo "  샘플 데이터:"
 echo -e "    ${BLUE}output/samples/cafe/${NC} 에서 카페 사업 기획 예시를 확인하세요"
 echo ""
+if [ $WARNINGS -gt 0 ]; then
+    echo -e "  ${YELLOW}━━━ 문제 해결 안내 ━━━${NC}"
+    echo -e "  설치 중 ${YELLOW}${WARNINGS}개의 경고${NC}가 있었습니다."
+    echo -e "  핵심 기능은 모두 정상 작동하며, 일부 부가 기능만 제한될 수 있습니다."
+    echo ""
+    echo -e "  문제가 있다면:"
+    echo -e "    1. Antigravity에서 에이전트에게 ${BOLD}\"설치 문제 도와줘\"${NC} 라고 요청하세요"
+    echo -e "    2. 또는 setup.sh를 다시 실행해보세요: ${BLUE}./setup.sh${NC}"
+    echo ""
+fi
 echo -e "  ${BOLD}GUIDE.md${NC} 파일에서 상세 사용법을 확인하세요."
 echo -e "${BOLD}============================================================${NC}"

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Plan - Business Theme Preview</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #003366;
+            /* Navy Blue */
+            --secondary-color: #8c1d40;
+            /* Deep Red accent */
+            --text-color: #222222;
+            --bg-color: #ffffff;
+            --border-color: #dddddd;
+        }
+
+        body {
+            font-family: 'Noto Serif KR', "Times New Roman", Times, serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .paper {
+            background-color: white;
+            max-width: 210mm;
+            /* A4 width */
+            margin: 0 auto;
+            padding: 25mm;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            min-height: 297mm;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--primary-color);
+            font-family: 'Noto Serif KR', serif;
+            margin-top: 1.5em;
+        }
+
+        h1 {
+            font-size: 28pt;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 18pt;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 15px;
+            background-color: #f9f9f9;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 14pt;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        /* Document Info */
+        .doc-info {
+            text-align: right;
+            color: #555;
+            font-size: 10pt;
+            margin-bottom: 50px;
+            border: 1px solid #eee;
+            padding: 15px;
+            background: #fdfdfd;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10pt;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid var(--primary-color);
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        /* Lists */
+        ul,
+        ol {
+            margin: 10px 0 10px 20px;
+        }
+
+        /* Footer for print */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .paper {
+                box-shadow: none;
+                margin: 0;
+                padding: 20mm;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            @page {
+                margin: 0;
+                size: A4;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="paper">
+        <div class="doc-info">
+            <strong>작성일:</strong> 2024년 02월 09일<br>
+            <strong>작성자:</strong> 홍길동<br>
+            <strong>버전:</strong> 1.0 (Draft)
+        </div>
+
+        <h1>[사업명] 사업계획서</h1>
+
+        <h2>1. Executive Summary</h2>
+        <p>본 문서는 <strong>Antigravity Business Planner</strong> 사업의 핵심 계획을 기술합니다. 이 사업은 AI 기술을 활용하여 스타트업의 기획 단계를 혁신하는 것을
+            목표로 합니다.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th width="30%">항목</th>
+                    <th>내용</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>사업명</strong></td>
+                    <td>Antigravity Business Planner</td>
+                </tr>
+                <tr>
+                    <td><strong>사업 분야</strong></td>
+                    <td>B2B SaaS / Productivity</td>
+                </tr>
+                <tr>
+                    <td><strong>예상 매출</strong></td>
+                    <td>1차년도 50억원 달성 목표</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>2. 사업 개요</h2>
+
+        <h3>2.1 비전 및 미션</h3>
+        <p>우리는 데이터와 AI의 결합을 통해 비즈니스 인텔리전스의 민주화를 이룹니다. 복잡한 분석 과정을 자동화하여, 기업가는 본질적인 가치 창출에 집중할 수 있습니다.</p>
+
+        <h3>2.2 핵심 경쟁력</h3>
+        <ul>
+            <li><strong>기술적 우위:</strong> 독자적인 AI 에이전트 오케스트레이션 기술 보유</li>
+            <li><strong>시장 선점:</strong> 국내 최초의 대화형 사업 기획 솔루션</li>
+            <li><strong>확장성:</strong> 다양한 산업군에 적용 가능한 모듈형 아키텍처</li>
+        </ul>
+
+        <div
+            style="margin-top: 50px; text-align: center; font-size: 0.9em; color: #777; border-top: 1px solid #ccc; padding-top: 10px;">
+            Confidential - Internal Use Only
+        </div>
+    </div>
+</body>
+
+</html>

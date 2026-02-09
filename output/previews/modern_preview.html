@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Plan - Modern Theme Preview</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #37352f;
+            --heading-color: #111111;
+            --accent-color: #e3e3e3;
+            --link-color: #0b6e99;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+            --font-code: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--heading-color);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-top: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 1px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* Meta block (Quote style in markdown) */
+        blockquote {
+            border-left: 3px solid var(--heading-color);
+            margin: 1.5em 0;
+            padding-left: 1em;
+            font-style: normal;
+            color: #666;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #f7f6f3;
+            font-weight: 600;
+            text-align: left;
+            padding: 0.75em;
+            border: 1px solid #e9e9e9;
+        }
+
+        td {
+            padding: 0.75em;
+            border: 1px solid #e9e9e9;
+        }
+
+        /* Callouts / Info boxes */
+        .callout {
+            padding: 16px 16px 16px 12px;
+            display: flex;
+            background-color: #f1f1ef;
+            border-radius: 4px;
+            margin: 1em 0;
+        }
+
+        .divider {
+            margin: 2em 0;
+            border-top: 1px solid var(--accent-color);
+        }
+
+        /* Lists */
+        ul,
+        ol {
+            margin: 1em 0;
+            padding-left: 1.5em;
+        }
+
+        li {
+            margin-bottom: 0.25em;
+        }
+
+        @media print {
+            .container {
+                padding: 0;
+                max-width: 100%;
+            }
+
+            body {
+                font-size: 11pt;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <h1>[사업명] 사업계획서</h1>
+
+        <blockquote style="background: transparent; border: none; padding: 0; color: #666;">
+            <div><strong>작성일:</strong> 2024년 02월 09일</div>
+            <div><strong>작성자:</strong> 홍길동</div>
+            <div><strong>버전:</strong> 1.0</div>
+        </blockquote>
+
+        <div class="divider"></div>
+
+        <h2>1. Executive Summary (핵심 요약)</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>항목</th>
+                    <th>내용</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>사업명</td>
+                    <td>Antigravity Business Planner</td>
+                </tr>
+                <tr>
+                    <td>사업 분야</td>
+                    <td>SaaS / Productivity Tools</td>
+                </tr>
+                <tr>
+                    <td>목표 시장</td>
+                    <td>초기 창업자 및 스타트업 기획자</td>
+                </tr>
+                <tr>
+                    <td>핵심 가치 제안</td>
+                    <td>AI 기반 자동화로 사업 기획 시간 90% 단축</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>사업 개요</h3>
+        <p>본 사업은 복잡한 사업 기획 프로세스를 AI 에이전트를 통해 자동화하여, 누구나 전문가 수준의 사업계획서를 작성할 수 있도록 돕는 솔루션입니다. 직관적인 UI와 강력한 데이터 분석 기능을
+            제공합니다.</p>
+
+        <div class="divider"></div>
+
+        <h2>2. 사업 개요</h2>
+
+        <h3>2.1 비전 & 미션</h3>
+        <ul>
+            <li><strong>비전:</strong> 누구나 아이디어만 있으면 사업을 시작할 수 있는 세상</li>
+            <li><strong>미션:</strong> 데이터 기반의 의사결정 지원 시스템 보편화</li>
+        </ul>
+
+        <h3>2.2 핵심 가치</h3>
+        <ol>
+            <li><strong>Speed:</strong> 기획 속도의 혁신</li>
+            <li><strong>Accuracy:</strong> 데이터에 기반한 정확성</li>
+            <li><strong>Usability:</strong> 누구나 쉽게 쓰는 도구</li>
+        </ol>
+
+        <div class="callout">
+            <div>💡 <strong>Note:</strong> 이 문서는 "Modern" 테마의 미리보기입니다. Notion 스타일의 깔끔한 가독성을 지향합니다.</div>
+        </div>
+    </div>
+</body>
+
+</html>

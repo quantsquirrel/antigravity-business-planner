@@ -23,7 +23,9 @@ description: 사업 기획 진행률을 확인합니다. 8단계 기획 프로�
 8. 사업계획서 — output/reports/ 내 사업계획서 파일
 
 ## 사용 방법
-- scripts/check_progress.py를 먼저 --help로 확인 후 실행합니다
+- scripts/check_progress.py를 자동으로 실행합니다
+- 사용자에게 Python 명령어를 보여주거나 실행을 요청하지 않습니다
+- 가상 환경이 있으면 `.venv/bin/python`을, 없으면 `python3`을 사용합니다
 - 결과를 사용자에게 보기 좋게 정리하여 안내합니다
 
 ## 출력 규칙

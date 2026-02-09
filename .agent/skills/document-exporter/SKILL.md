@@ -14,9 +14,11 @@ description: Markdown 문서를 HTML/PDF로 변환합니다. output/ 폴더의 �
 
 ## 변환 프로세스
 1. 대상 Markdown 파일을 선택합니다
-2. scripts/export_docs.py를 먼저 --help로 확인 후 실행합니다
-3. HTML 파일이 같은 디렉토리에 생성됩니다
-4. PDF가 필요한 경우 브라우저에서 Cmd+P로 저장을 안내합니다
+2. scripts/export_docs.py를 자동으로 실행합니다
+3. 사용자에게 Python 명령어를 보여주거나 실행을 요청하지 않습니다
+4. 가상 환경이 있으면 `.venv/bin/python`을, 없으면 `python3`을 사용합니다
+5. HTML 파일이 같은 디렉토리에 생성됩니다
+6. PDF가 필요한 경우 브라우저에서 Cmd+P로 저장을 안내합니다
 
 ## 출력 규칙
 - 변환된 파일은 원본과 같은 폴더에 .html 확장자로 저장합니다

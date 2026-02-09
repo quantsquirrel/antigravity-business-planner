@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        /* ============================================
+           ANTIGRAVITY COSMIC DESIGN SYSTEM
+           Deep Space Theme with Rainbow Aurora Accents
+           ============================================ */
+
+        :root {
+            --bg-deep: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --bg-card-alt: rgba(51, 65, 85, 0.4);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --accent-blue: #60a5fa;
+            --accent-cyan: #22d3ee;
+            --accent-purple: #c084fc;
+            --accent-gold: #fbbf24;
+            --accent-green: #34d399;
+            --rainbow: linear-gradient(90deg, #60a5fa, #c084fc, #f472b6, #fbbf24, #34d399, #22d3ee, #60a5fa);
+            --glass-blur: blur(16px);
+            --glow-text: 0 0 20px rgba(255, 255, 255, 0.3);
+            --glow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --accent-gold-glow: rgba(251, 191, 36, 0.5);
+            --glow-green: rgba(52, 211, 153, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Star Animations & Particles omitted for brevity but can be re-added if desired. Keeping core structural CSS */
+
+        /* Hero Section */
+        .hero {
+            grid-column: 1 / -1;
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-meta {
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        /* Content Styling */
+        section {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--glow-card);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            margin-top: 10px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--bg-card-alt);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            color: var(--accent-blue);
+            text-align: left;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-glass);
+            color: var(--text-secondary);
+        }
+
+        /* TOC */
+        .toc {
+            position: sticky;
+            top: 20px;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+        }
+
+        .toc h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: block;
+        }
+
+        .toc a:hover {
+            color: var(--accent-cyan);
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            section {
+                background: none;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .container {
+                display: block;
+            }
+
+            .toc,
+            .hero {
+                display: none;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4 {
+                color: black;
+                -webkit-text-fill-color: initial;
+            }
+
+            th {
+                color: black;
+                background: #eee;
+            }
+
+            td {
+                color: black;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar TOC -->
+        <aside class="toc">
+            <h2>목차</h2>
+            {% if toc %}
+            {{ toc | safe }}
+            {% else %}
+            <p>목차가 없습니다.</p>
+            {% endif %}
+        </aside>
+
+        <main>
+            <!-- Hero -->
+            <div class="hero">
+                <h1>{{ title }}</h1>
+                <div class="hero-meta">
+                    {% if date %}<span>{{ date }}</span>{% endif %}
+                    {% if author %}<span style="margin: 0 10px;">|</span><span>{{ author }}</span>{% endif %}
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                {{ content | safe }}
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
