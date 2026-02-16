@@ -1579,7 +1579,7 @@ cd antigravity-business-planner</pre>
                 <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;"><strong>Windows (Git Bash)</strong></p>
                 <pre>bash setup.sh</pre>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                    ⏱️ 약 1-2분 소요 | 워크플로우 12개, 스킬 12개, 템플릿 5개, 샘플 데이터가 자동 생성됩니다.
+                    ⏱️ 약 1-2분 소요 | 워크플로우 13개, 스킬 12개, 템플릿 6개, 샘플 데이터가 자동 생성됩니다.
                 </p>
 
                 <h3>Step 3: 사업 기획 시작!</h3>
@@ -1690,7 +1690,7 @@ cd antigravity-business-planner</pre>
                         <span class="stat-label">총 파일 수</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-number">12</span>
+                        <span class="stat-number">13</span>
                         <span class="stat-label">워크플로우</span>
                     </div>
                     <div class="stat-card">
@@ -1739,7 +1739,8 @@ antigravity-business-planner/
 │   │   ├── check-progress.md              (진행률 확인)
 │   │   ├── export-documents.md            (문서 내보내기)
 │   │   ├── idea-discovery.md              (아이디어 발굴)
-│   │   └── idea-validation.md             (아이디어 검증)
+│   │   ├── idea-validation.md             (아이디어 검증)
+│   │   └── idea-portfolio.md              (아이디어 포트폴리오)
 │   └── skills/
 │       ├── business-researcher.md        (사업 리서처 스킬)
 │       ├── financial-analyst.md          (재무 분석가 스킬)
@@ -1767,7 +1768,8 @@ antigravity-business-planner/
 │   ├── financial-projection-template.md  (재무 예측 템플릿)
 │   ├── market-analysis-template.md       (시장 분석 템플릿)
 │   ├── pitch-deck-outline.md             (피치덱 아웃라인)
-│   └── idea-evaluation-template.md      (아이디어 평가서 템플릿)
+│   ├── idea-evaluation-template.md      (아이디어 평가서 템플릿)
+│   └── portfolio-template.md            (포트폴리오 대시보드 템플릿)
 ├── output/
 │   ├── ideas/                           (아이디어 발굴 결과 저장소)
 │   ├── research/                         (시장 조사 결과 저장소)
@@ -1798,7 +1800,7 @@ antigravity-business-planner/
                         </tr>
                         <tr>
                             <td><strong>.agent/workflows/</strong></td>
-                            <td>12개</td>
+                            <td>13개</td>
                             <td>슬래시 명령어로 실행 가능한 사업 기획 워크플로우</td>
                         </tr>
                         <tr>
@@ -1864,7 +1866,7 @@ antigravity-business-planner/
                     </tbody>
                 </table>
 
-                <h3>3.2 워크플로우 (Workflows) — 12개</h3>
+                <h3>3.2 워크플로우 (Workflows) — 13개</h3>
                 <p>슬래시 명령어로 실행 가능한 체계적인 사업 기획 프로세스입니다.</p>
 
                 <table>
@@ -1935,6 +1937,12 @@ antigravity-business-planner/
                             <td><strong>아이디어 검증</strong></td>
                             <td>/idea-validation</td>
                             <td>간이 시장 검증, 핵심 가정 식별, MVP 검증 방안 제안, selected-idea.md 생성</td>
+                            <td>output/ideas/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>아이디어 포트폴리오</strong></td>
+                            <td>/idea-portfolio</td>
+                            <td>멀티 아이디어 대시보드, 진행률 비교, 아이디어 전환, portfolio.md 자동 갱신</td>
                             <td>output/ideas/</td>
                         </tr>
                         <tr>
@@ -2012,7 +2020,7 @@ antigravity-business-planner/
                     </tbody>
                 </table>
 
-                <h3>3.4 문서 템플릿 (Templates) — 5개</h3>
+                <h3>3.4 문서 템플릿 (Templates) — 6개</h3>
                 <p>일관된 품질의 문서 작성을 지원하는 표준 템플릿입니다.</p>
 
                 <table>
@@ -2048,6 +2056,11 @@ antigravity-business-planner/
                             <td><strong>idea-evaluation-template.md</strong></td>
                             <td>아이디어 평가서</td>
                             <td>사용자 프로필, 아이디어 후보 3개, 5점 척도 정량 평가(시장크기/경쟁강도/적합성/자원/타이밍), Go/Pivot/Drop 판정, 검증 결과, MVP 방안</td>
+                        </tr>
+                        <tr>
+                            <td><strong>portfolio-template.md</strong></td>
+                            <td>포트폴리오 대시보드</td>
+                            <td>아이디어 현황 테이블, 단계별 요약, 자동 갱신(AUTO:START~END) 영역, 사용자 메모 영역</td>
                         </tr>
                     </tbody>
                 </table>
@@ -2094,8 +2107,8 @@ antigravity-business-planner/
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">4단계: Workflows 생성</div>
-                            <div class="timeline-meta">12개 워크플로우</div>
-                            <div class="timeline-desc">아이디어 발굴, 아이디어 검증, 시장 조사, 경쟁 분석, 재무 모델링, 진행률 확인, 문서 내보내기 등 12개 슬래시 명령어 워크플로우 생성</div>
+                            <div class="timeline-meta">13개 워크플로우</div>
+                            <div class="timeline-desc">아이디어 발굴, 아이디어 검증, 아이디어 포트폴리오, 시장 조사, 경쟁 분석, 재무 모델링, 진행률 확인, 문서 내보내기 등 13개 슬래시 명령어 워크플로우 생성</div>
                         </div>
                     </div>
 
@@ -2112,8 +2125,8 @@ antigravity-business-planner/
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">6단계: Templates 생성</div>
-                            <div class="timeline-meta">5개 템플릿 + MCP 설정</div>
-                            <div class="timeline-desc">사업계획서, 재무 예측, 시장 분석, 피치덱, 아이디어 평가서 템플릿 및 mcp-config-template.json 생성</div>
+                            <div class="timeline-meta">6개 템플릿 + MCP 설정</div>
+                            <div class="timeline-desc">사업계획서, 재무 예측, 시장 분석, 피치덱, 아이디어 평가서, 포트폴리오 대시보드 템플릿 및 mcp-config-template.json 생성</div>
                         </div>
                     </div>
 
@@ -2243,8 +2256,8 @@ antigravity-business-planner/
                             <div class="timeline-title">Step 0: 아이디어 발굴 + 검증 (선택)</div>
                             <div class="timeline-meta">예상 소요: 반나절~1일 | 아이디어가 있으면 건너뛰기</div>
                             <div class="timeline-desc">
-                                <strong>명령어:</strong> <code>/idea-discovery</code>, <code>/idea-validation</code><br>
-                                구조화 질문 5개로 도메인 경험에서 아이디어 도출, 5점 척도 Go/Pivot/Drop 평가, 선택 아이디어를 output/ideas/selected-idea.md에 저장
+                                <strong>명령어:</strong> <code>/idea-discovery</code>, <code>/idea-validation</code>, <code>/idea-portfolio</code><br>
+                                구조화 질문 5개로 도메인 경험에서 아이디어 도출, 5점 척도 Go/Pivot/Drop 평가, 멀티 아이디어 포트폴리오 관리, 아이디어별 독립 폴더(output/ideas/{id}-{name}/) 저장
                             </div>
                         </div>
                     </div>
