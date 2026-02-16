@@ -41,6 +41,15 @@
             --rainbow-subtle: linear-gradient(135deg, rgba(102,126,234,0.5), rgba(0,210,255,0.5), rgba(67,233,123,0.5), rgba(247,151,30,0.5), rgba(255,107,157,0.5), rgba(196,113,237,0.5));
             --glass-blur: blur(20px);
             --font-mono: 'SF Mono', 'Monaco', 'Fira Code', 'Courier New', monospace;
+            /* Spacing tokens */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --space-2xl: 64px;
+            --radius-sm: 8px;
+            --radius-md: 16px;
         }
 
         html {
@@ -262,7 +271,7 @@
             position: relative;
             overflow: hidden;
             background: radial-gradient(ellipse at 50% 50%, rgba(15, 20, 50, 1) 0%, var(--bg-deep) 70%, #000 100%);
-            padding: 40px 20px;
+            padding: var(--space-xl) var(--space-sm);
         }
 
         /* Starburst effect */
@@ -422,10 +431,10 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: var(--space-lg) var(--space-sm);
             display: grid;
             grid-template-columns: 280px 1fr;
-            gap: 40px;
+            gap: var(--space-lg);
             position: relative;
             z-index: 1;
         }
@@ -436,13 +445,13 @@
 
         .toc {
             position: sticky;
-            top: 20px;
+            top: var(--space-sm);
             height: fit-content;
             background: var(--bg-card);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
-            border-radius: 16px;
-            padding: 28px;
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
             border: 1px solid var(--border-glass);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
@@ -518,9 +527,9 @@
             background: var(--bg-card);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
-            border-radius: 16px;
-            padding: 40px;
-            margin-bottom: 30px;
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
             border: 1px solid var(--border-glass);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             opacity: 0;
@@ -556,8 +565,8 @@
             font-size: 1.8rem;
             font-weight: 300;
             color: var(--text-primary);
-            margin-bottom: 25px;
-            padding-bottom: 16px;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
             border-bottom: 1px solid var(--border-glass);
             display: flex;
             align-items: center;
@@ -589,8 +598,8 @@
             font-size: 1.35rem;
             font-weight: 400;
             color: var(--text-primary);
-            margin: 30px 0 20px;
-            padding-left: 16px;
+            margin: var(--space-lg) 0 var(--space-sm);
+            padding-left: var(--space-sm);
             border-left: 3px solid transparent;
             border-image: linear-gradient(180deg, var(--accent-blue), var(--accent-cyan)) 1;
             letter-spacing: 0.02em;
@@ -599,7 +608,7 @@
         h4 {
             font-size: 1.15rem;
             color: var(--text-secondary);
-            margin: 25px 0 15px;
+            margin: var(--space-md) 0 var(--space-sm);
             font-weight: 400;
             letter-spacing: 0.02em;
         }
@@ -647,6 +656,69 @@
 
         .tree {
             color: #8892b0;
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.95), rgba(15, 20, 50, 0.9));
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            font-size: 0.82rem;
+            line-height: 1.9;
+            padding: 28px 32px;
+        }
+
+        .tree-header {
+            color: var(--accent-gold);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .tree .folder {
+            color: var(--accent-cyan);
+        }
+
+        .tree .file {
+            color: #7ee787;
+        }
+
+        .tree .desc {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .cmd-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .cmd-block pre {
+            margin: 0;
+            flex: 1;
+        }
+
+        .copy-btn {
+            flex-shrink: 0;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid var(--border-glass);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background: rgba(102, 126, 234, 0.4);
+            color: var(--text-primary);
+            border-color: var(--accent-blue);
+        }
+
+        .copy-btn.copied {
+            background: rgba(67, 233, 123, 0.2);
+            color: var(--accent-green);
+            border-color: var(--accent-green);
         }
 
         code {
@@ -1047,9 +1119,9 @@
         footer {
             background: linear-gradient(180deg, var(--bg-deep), #000);
             color: var(--text-secondary);
-            padding: 50px 20px 40px;
+            padding: var(--space-md) var(--space-sm) var(--space-lg);
             text-align: center;
-            margin-top: 60px;
+            margin-top: var(--space-xl);
             position: relative;
             z-index: 1;
         }
@@ -1528,7 +1600,7 @@
                 <span class="hero-divider"></span>
                 <span class="hero-tag">비개발자를 위한 사업 기획 도구</span>
                 <span class="hero-divider"></span>
-                <span class="hero-tag">12 Workflows · 12 Skills · 5 Templates</span>
+                <span class="hero-tag">13 Workflows · 12 Skills · 6 Templates</span>
             </div>
         </div>
     </div>
@@ -1539,12 +1611,12 @@
             <h2>목차</h2>
             <ul>
                 <li><a href="#quickstart" class="active">0. 빠른 실행</a></li>
-                <li><a href="#overview">1. 프로젝트 개요</a></li>
-                <li><a href="#structure">2. 프로젝트 구조</a></li>
-                <li><a href="#components">3. 핵심 구성 요소</a></li>
-                <li><a href="#automation">4. 자동화 스크립트</a></li>
-                <li><a href="#mcp">5. MCP 서버 연동</a></li>
-                <li><a href="#process">6. 추천 기획 프로세스</a></li>
+                <li><a href="#process">1. 추천 기획 프로세스</a></li>
+                <li><a href="#overview">2. 프로젝트 개요</a></li>
+                <li><a href="#structure">3. 프로젝트 구조</a></li>
+                <li><a href="#components">4. 핵심 구성 요소</a></li>
+                <li><a href="#automation">5. 자동화 스크립트</a></li>
+                <li><a href="#mcp">6. MCP 서버 연동</a></li>
                 <li><a href="#utilities">7. Python 유틸리티</a></li>
                 <li><a href="#features">8. 주요 특징 및 장점</a></li>
             </ul>
@@ -1568,22 +1640,49 @@
                 </div>
 
                 <h3>Step 1: 프로젝트 다운로드</h3>
-                <p>터미널을 열고 아래 명령어를 <strong>복사 → 붙여넣기</strong> 하세요:</p>
-                <pre>git clone https://github.com/quantsquirrel/antigravity-business-planner.git
-cd antigravity-business-planner</pre>
+                <p>터미널을 열고 아래 명령어를 하나씩 <strong>복사 → 붙여넣기</strong> 하세요:</p>
+
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;">1. 프로젝트를 내 컴퓨터에 다운로드합니다:</p>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>git clone https://github.com/quantsquirrel/antigravity-business-planner.git</pre>
+                </div>
+
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;">2. 다운로드한 폴더로 이동합니다:</p>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>cd antigravity-business-planner</pre>
+                </div>
 
                 <h3>Step 2: 자동 설치</h3>
                 <p>한 줄이면 모든 환경이 자동으로 설정됩니다:</p>
                 <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;"><strong>Mac / Linux</strong></p>
-                <pre>chmod +x setup.sh && ./setup.sh</pre>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>chmod +x setup.sh</pre>
+                </div>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>./setup.sh</pre>
+                </div>
                 <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;"><strong>Windows (Git Bash)</strong></p>
-                <pre>bash setup.sh</pre>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>bash setup.sh</pre>
+                </div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">
                     ⏱️ 약 1-2분 소요 | 워크플로우 13개, 스킬 12개, 템플릿 6개, 샘플 데이터가 자동 생성됩니다.
                 </p>
 
                 <h3>Step 3: 사업 기획 시작!</h3>
-                <p>Google Antigravity에서 프로젝트 폴더를 열고, 채팅창에 명령어를 입력하세요:</p>
+                <p>Google Antigravity에서 프로젝트 폴더를 열어야 합니다:</p>
+                <ol style="margin: 1rem 0; padding-left: 2.5rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 2.4;">
+                    <li style="padding-left: 0.5rem;">Google Antigravity를 실행합니다</li>
+                    <li style="padding-left: 0.5rem;">상단 메뉴에서 <strong>File → Open Folder</strong>를 클릭합니다</li>
+                    <li style="padding-left: 0.5rem;">다운로드한 <code>antigravity-business-planner</code> 폴더를 선택합니다</li>
+                    <li style="padding-left: 0.5rem;">왼쪽 아래 채팅창이 나타나면 준비 완료입니다</li>
+                </ol>
+                <p>채팅창에 아래 명령어를 입력해보세요:</p>
 
                 <table>
                     <thead>
@@ -1624,11 +1723,37 @@ cd antigravity-business-planner</pre>
 
                 <div class="success-box">
                     <h4>처음이라면 이렇게 시작하세요</h4>
-                    <ol style="margin-bottom: 0;">
-                        <li>채팅창에 <strong>"카페 창업을 준비하고 있어. 시장 조사부터 도와줘"</strong> 라고 입력</li>
-                        <li>AI가 질문을 하면 자연스럽게 대화하듯 답변</li>
-                        <li>결과물은 <code>output/</code> 폴더에 자동 저장됩니다</li>
+                    <ol style="margin-bottom: 0; padding-left: 1.5rem; line-height: 2.2;">
+                        <li style="margin-bottom: 0.8rem;">
+                            채팅창에 본인의 도메인 지식을 알려주세요<br>
+                            <span style="color: var(--accent-green); font-size: 0.95rem;">
+                                예: <strong>"나는 영화/영상 분야에서 10년 경력이 있어. 이 경험을 살려서 창업하고 싶은데, 시장 조사부터 도와줘"</strong>
+                            </span>
+                        </li>
+                        <li style="margin-bottom: 0.8rem;">
+                            AI가 질문을 하면 자연스럽게 대화하듯 답변하세요<br>
+                            <span style="color: var(--text-secondary); font-size: 0.85rem;">타겟 고객, 해결하려는 문제, 차별화 포인트 등을 물어봅니다</span>
+                        </li>
+                        <li>
+                            결과물은 <code>output/</code> 폴더에 자동 저장됩니다<br>
+                            <span style="color: var(--text-secondary); font-size: 0.85rem;">시장 조사 보고서, 재무 분석, 사업계획서 등이 파일로 정리됩니다</span>
+                        </li>
                     </ol>
+                </div>
+
+                <div class="highlight-grid" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="highlight-card">
+                        <h4>💬 자연어로 대화</h4>
+                        <p>명령어를 외울 필요 없이 하고 싶은 일을 그냥 말하면 됩니다. AI가 알아서 적합한 분석을 실행합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🔄 단계별 자동 진행</h4>
+                        <p>시장 조사 → 경쟁 분석 → 재무 모델링 → 사업계획서까지 순서대로 안내합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📂 결과물 자동 저장</h4>
+                        <p>모든 분석 결과가 output/ 폴더에 체계적으로 정리되어 언제든 다시 확인할 수 있습니다.</p>
+                    </div>
                 </div>
 
                 <div class="info-box" style="margin-top: 1.5rem;">
@@ -1676,6 +1801,108 @@ cd antigravity-business-planner</pre>
                 </p>
             </section>
 
+            <!-- Section: Process (moved up for non-developer flow) -->
+            <section id="process">
+                <h2>추천 사업 기획 프로세스</h2>
+                <p>체계적인 사업 기획을 위한 프로세스입니다. 아이디어가 없으면 Step 0부터, 있으면 Step 1부터 시작합니다.</p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 0: 아이디어 발굴 + 검증 (선택)</div>
+                            <div class="timeline-meta">예상 소요: 반나절~1일 | 아이디어가 있으면 건너뛰기</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/idea-discovery</code>, <code>/idea-validation</code>, <code>/idea-portfolio</code><br>
+                                구조화 질문 5개로 도메인 경험에서 아이디어 도출, 5점 척도 Go/Pivot/Drop 평가, 멀티 아이디어 포트폴리오 관리
+                            </div>
+                            <div style="margin-top: 12px; padding: 12px 16px; background: rgba(102, 126, 234, 0.08); border-left: 3px solid var(--accent-cyan); border-radius: 0 8px 8px 0; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                                <strong style="color: var(--accent-cyan);">Portfolio Mode</strong> — 여러 아이디어를 병렬로 발전시킬 수 있습니다. 각 아이디어가 독립 폴더(<code>output/ideas/{이름}/</code>)에서 Step 0~8을 개별 진행하며, <code>portfolio.md</code> 대시보드에서 전체 현황(Go/Pivot/Drop, 점수, 진행률)을 한눈에 비교합니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 1: 시장 조사 + 경쟁 분석</div>
+                            <div class="timeline-meta">예상 소요: 1-2일</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/market-research</code>, <code>/competitor-analysis</code><br>
+                                TAM/SAM/SOM 추정, 시장 트렌드 파악, 경쟁사 분석, Porter's Five Forces
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 2: SWOT 분석</div>
+                            <div class="timeline-meta">예상 소요: 반나절</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> 에이전트에게 "SWOT 분석해줘" 요청<br>
+                                내부 강점/약점, 외부 기회/위협 요인 도출, 전략 방향성 설정
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 3: 제품/서비스 기획</div>
+                            <div class="timeline-meta">예상 소요: 1일</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/menu-costing</code><br>
+                                제품/서비스 정의, 원가 계산, 가격 책정 전략, 수익 모델 설계
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 4: 재무 모델링</div>
+                            <div class="timeline-meta">예상 소요: 1일</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/financial-modeling</code><br>
+                                손익계산서, BEP 계산, 3개년 재무제표, 낙관/비관/기본 시나리오 분석
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 5-7: 운영/브랜딩/법률 (병렬 진행 가능)</div>
+                            <div class="timeline-meta">예상 소요: 각 반나절</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/operations-plan</code>, <code>/branding-strategy</code>, <code>/legal-checklist</code><br>
+                                운영 프로세스 설계, 브랜드 전략, 법률/인허가 체크리스트 작성
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 8: 사업계획서 통합</div>
+                            <div class="timeline-meta">예상 소요: 1일</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/business-plan-draft</code><br>
+                                모든 분석 결과를 종합하여 10개 섹션의 완성된 사업계획서 작성
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>📊 총 예상 소요 기간: 5-7일</strong><br>
+                    <span style="color: var(--text-muted); font-size: 0.95rem;">
+                        실제 소요 시간은 사업 아이디어의 복잡도와 필요한 리서치 깊이에 따라 달라질 수 있습니다.
+                    </span>
+                </div>
+            </section>
+
             <!-- Section 1: Overview -->
             <section id="overview">
                 <h2>프로젝트 개요</h2>
@@ -1684,103 +1911,89 @@ cd antigravity-business-planner</pre>
                     개발 지식이 없는 사업 기획자도 체계적으로 사업 계획을 수립할 수 있도록 지원하는 종합 도구입니다.
                 </p>
 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-number">38</span>
-                        <span class="stat-label">총 파일 수</span>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>📁 38개 파일</h4>
+                        <p>워크플로우, 스킬, 템플릿, 스크립트 등 사업 기획에 필요한 모든 구성 요소가 포함되어 있습니다.</p>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">13</span>
-                        <span class="stat-label">워크플로우</span>
+                    <div class="highlight-card">
+                        <h4>🔄 13개 워크플로우</h4>
+                        <p>시장 조사부터 사업계획서 작성까지, 슬래시 명령어로 실행하는 단계별 기획 프로세스입니다.</p>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">12</span>
-                        <span class="stat-label">전문 스킬</span>
+                    <div class="highlight-card">
+                        <h4>🧠 12개 전문 스킬</h4>
+                        <p>재무 분석, SWOT 분석, 데이터 시각화 등 전문 영역별 AI 분석 능력을 제공합니다.</p>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">2,885</span>
-                        <span class="stat-label">setup.sh 라인</span>
+                    <div class="highlight-card">
+                        <h4>⚡ 원클릭 세팅</h4>
+                        <p>setup.sh 하나로 2,885줄의 환경 설정을 자동 구성합니다. 설치 후 즉시 사용 가능합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 비개발자 대상</h4>
+                        <p>코딩 지식 없이 자연어(한국어)로 대화하듯 사업 기획을 진행할 수 있습니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🇰🇷 한국 시장 최적화</h4>
+                        <p>원(₩) 단위, 억/만원 표기, 한국 통계 데이터 소스(통계청, KOSIS)를 우선 활용합니다.</p>
                     </div>
                 </div>
-
-                <h3>핵심 정보</h3>
-                <ul>
-                    <li><strong>프로젝트명:</strong> Antigravity Business Planner</li>
-                    <li><strong>목적:</strong> Google Antigravity IDE에서 AI 에이전트를 활용한 체계적인 사업 기획 지원</li>
-                    <li><strong>대상 사용자:</strong> 개발 지식이 없는 비개발자 및 사업 기획자</li>
-                    <li><strong>플랫폼:</strong> Google Antigravity (AI 기반 통합 개발 환경)</li>
-                    <li><strong>주요 기능:</strong> 시장 조사, 재무 분석, 경쟁 분석, 사업계획서 작성, 피치덱 생성</li>
-                    <li><strong>특징:</strong> 자연어(한국어) 기반 대화형 인터페이스, 전문 분석 프레임워크 내장</li>
-                </ul>
             </section>
 
             <!-- Section 2: Structure -->
             <section id="structure">
-                <h2>프로젝트 구조 분석</h2>
+                <h2>프로젝트 구조</h2>
                 <p>프로젝트는 체계적인 디렉토리 구조로 구성되어 있으며, 각 구성 요소가 명확한 역할을 수행합니다.</p>
 
-                <div class="tree">
-antigravity-business-planner/
-├── .agent/
-│   ├── rules/
-│   │   ├── korean-communication.md       (한국어 소통 규칙)
-│   │   ├── business-planning-style.md    (문서 작성 스타일 가이드)
-│   │   ├── safety-guidelines.md          (AI 안전 가이드라인)
-│   │   └── update-check.md              (자동 업데이트 확인)
-│   ├── workflows/
-│   │   ├── market-research.md            (시장 조사 워크플로우)
-│   │   ├── competitor-analysis.md        (경쟁 분석 워크플로우)
-│   │   ├── financial-modeling.md         (재무 모델링 워크플로우)
-│   │   ├── business-plan-draft.md        (사업계획서 작성)
-│   │   ├── branding-strategy.md          (브랜딩 전략)
-│   │   ├── operations-plan.md            (운영 계획)
-│   │   ├── legal-checklist.md            (법률/인허가 체크리스트)
-│   │   ├── menu-costing.md               (제품 원가 계산)
-│   │   ├── check-progress.md              (진행률 확인)
-│   │   ├── export-documents.md            (문서 내보내기)
-│   │   ├── idea-discovery.md              (아이디어 발굴)
-│   │   ├── idea-validation.md             (아이디어 검증)
-│   │   └── idea-portfolio.md              (아이디어 포트폴리오)
-│   └── skills/
-│       ├── business-researcher.md        (사업 리서처 스킬)
-│       ├── financial-analyst.md          (재무 분석가 스킬)
-│       ├── report-writer.md              (보고서 작성가 스킬)
-│       ├── pitch-deck-creator.md         (피치덱 생성 스킬)
-│       ├── swot-analyzer.md              (SWOT 분석 스킬)
-│       ├── launch-strategy/              (런칭 전략 스킬)
-│       ├── pricing-strategy/             (가격 전략 스킬)
-│       ├── startup-metrics-framework/    (KPI 프레임워크 스킬)
-│       ├── opportunity-finder/           (아이디어 발굴 스킬)
-│       ├── data-visualizer.md            (데이터 시각화 스킬)
-│       ├── progress-tracker/
-│       │   ├── SKILL.md                    (진행률 추적 스킬)
-│       │   └── scripts/
-│       │       └── check_progress.py       (진행률 체크 스크립트)
-│       ├── document-exporter/
-│       │   ├── SKILL.md                    (문서 내보내기 스킬)
-│       │   └── scripts/
-│       │       └── export_docs.py          (MD→HTML 변환 스크립트)
-│       └── scripts/
-│           ├── calculate_costs.py        (원가 계산 스크립트)
-│           └── create_chart.py           (차트 생성 스크립트)
-├── templates/
-│   ├── business-plan-template.md         (사업계획서 템플릿)
-│   ├── financial-projection-template.md  (재무 예측 템플릿)
-│   ├── market-analysis-template.md       (시장 분석 템플릿)
-│   ├── pitch-deck-outline.md             (피치덱 아웃라인)
-│   ├── idea-evaluation-template.md      (아이디어 평가서 템플릿)
-│   └── portfolio-template.md            (포트폴리오 대시보드 템플릿)
-├── output/
-│   ├── ideas/                           (아이디어 발굴 결과 저장소)
-│   ├── research/                         (시장 조사 결과 저장소)
-│   ├── financials/                       (재무 분석 결과 저장소)
-│   ├── reports/                          (보고서 저장소)
-│   ├── presentations/                    (피치덱 저장소)
-│   └── samples/                            (setup.sh 실행 시 자동 생성)
-├── .gitignore                             (Git 제외 파일 설정)
-├── setup.sh                              (원클릭 세팅 스크립트, 93KB)
-├── GUIDE.md                              (사용 가이드, 23KB)
-└── mcp-config-template.json              (MCP 서버 설정 템플릿)
+                <div class="tree"><span class="tree-header">📂 antigravity-business-planner/</span>
+│
+├── <span class="folder">📋 .agent/rules/</span> <span class="desc">── AI 에이전트 동작 규칙 (4개)</span>
+│   ├── <span class="file">korean-communication.md</span>      <span class="desc">한국어 소통</span>
+│   ├── <span class="file">business-planning-style.md</span>   <span class="desc">문서 스타일</span>
+│   ├── <span class="file">safety-guidelines.md</span>         <span class="desc">안전 가이드</span>
+│   └── <span class="file">update-check.md</span>              <span class="desc">자동 업데이트</span>
+│
+├── <span class="folder">🔄 .agent/workflows/</span> <span class="desc">── 슬래시 명령어 워크플로우 (13개)</span>
+│   ├── <span class="file">market-research.md</span>           <span class="desc">시장 조사</span>
+│   ├── <span class="file">competitor-analysis.md</span>       <span class="desc">경쟁 분석</span>
+│   ├── <span class="file">financial-modeling.md</span>        <span class="desc">재무 모델링</span>
+│   ├── <span class="file">business-plan-draft.md</span>       <span class="desc">사업계획서</span>
+│   ├── <span class="file">branding-strategy.md</span>         <span class="desc">브랜딩 전략</span>
+│   ├── <span class="file">operations-plan.md</span>           <span class="desc">운영 계획</span>
+│   ├── <span class="file">legal-checklist.md</span>           <span class="desc">법률/인허가</span>
+│   ├── <span class="file">menu-costing.md</span>              <span class="desc">제품 원가</span>
+│   ├── <span class="file">check-progress.md</span>            <span class="desc">진행률 확인</span>
+│   ├── <span class="file">export-documents.md</span>          <span class="desc">문서 내보내기</span>
+│   ├── <span class="file">idea-discovery.md</span>            <span class="desc">아이디어 발굴</span>
+│   ├── <span class="file">idea-validation.md</span>           <span class="desc">아이디어 검증</span>
+│   └── <span class="file">idea-portfolio.md</span>            <span class="desc">포트폴리오</span>
+│
+├── <span class="folder">🧠 .agent/skills/</span> <span class="desc">── 전문 AI 스킬 (12개 + 4 스크립트)</span>
+│   ├── <span class="file">business-researcher.md</span>       <span class="desc">사업 리서처</span>
+│   ├── <span class="file">financial-analyst.md</span>         <span class="desc">재무 분석가</span>
+│   ├── <span class="file">report-writer.md</span>             <span class="desc">보고서 작성</span>
+│   ├── <span class="file">pitch-deck-creator.md</span>        <span class="desc">피치덱 생성</span>
+│   ├── <span class="file">swot-analyzer.md</span>             <span class="desc">SWOT 분석</span>
+│   ├── <span class="folder">launch-strategy/</span>             <span class="desc">런칭 전략</span>
+│   ├── <span class="folder">pricing-strategy/</span>            <span class="desc">가격 전략</span>
+│   ├── <span class="folder">startup-metrics-framework/</span>   <span class="desc">KPI</span>
+│   ├── <span class="folder">opportunity-finder/</span>          <span class="desc">아이디어 발굴</span>
+│   ├── <span class="file">data-visualizer.md</span>           <span class="desc">데이터 시각화</span>
+│   ├── <span class="folder">progress-tracker/</span>            <span class="desc">진행률 추적 + 스크립트</span>
+│   └── <span class="folder">document-exporter/</span>           <span class="desc">문서 내보내기 + 스크립트</span>
+│
+├── <span class="folder">📄 templates/</span> <span class="desc">── 문서 템플릿 (6개)</span>
+│
+├── <span class="folder">📂 output/</span> <span class="desc">── 산출물 저장소</span>
+│   ├── <span class="folder">ideas/</span>          <span class="desc">아이디어 결과</span>
+│   ├── <span class="folder">research/</span>       <span class="desc">시장 조사</span>
+│   ├── <span class="folder">financials/</span>     <span class="desc">재무 분석</span>
+│   ├── <span class="folder">reports/</span>        <span class="desc">보고서</span>
+│   ├── <span class="folder">presentations/</span>  <span class="desc">피치덱</span>
+│   └── <span class="folder">samples/</span>        <span class="desc">샘플 데이터</span>
+│
+├── <span class="file">⚡ setup.sh</span>                      <span class="desc">원클릭 세팅 (2,885줄)</span>
+├── <span class="file">📖 GUIDE.md</span>                      <span class="desc">사용 가이드</span>
+└── <span class="file">🔗 mcp-config-template.json</span>      <span class="desc">MCP 설정 템플릿</span>
                 </div>
 
                 <h3>구조 분석</h3>
@@ -2168,8 +2381,14 @@ antigravity-business-planner/
                 </div>
 
                 <h3>실행 방법</h3>
-                <pre>chmod +x setup.sh
-./setup.sh</pre>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>chmod +x setup.sh</pre>
+                </div>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>./setup.sh</pre>
+                </div>
 
                 <h3>요구사항</h3>
                 <ul>
@@ -2242,105 +2461,6 @@ antigravity-business-planner/
                     <li>JSON 파일에 API 키 입력</li>
                     <li>Google Antigravity 재시작</li>
                 </ol>
-            </section>
-
-            <!-- Section 6: Process -->
-            <section id="process">
-                <h2>추천 사업 기획 프로세스</h2>
-                <p>체계적인 사업 기획을 위한 프로세스입니다. 아이디어가 없으면 Step 0부터, 있으면 Step 1부터 시작합니다.</p>
-
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Step 0: 아이디어 발굴 + 검증 (선택)</div>
-                            <div class="timeline-meta">예상 소요: 반나절~1일 | 아이디어가 있으면 건너뛰기</div>
-                            <div class="timeline-desc">
-                                <strong>명령어:</strong> <code>/idea-discovery</code>, <code>/idea-validation</code>, <code>/idea-portfolio</code><br>
-                                구조화 질문 5개로 도메인 경험에서 아이디어 도출, 5점 척도 Go/Pivot/Drop 평가, 멀티 아이디어 포트폴리오 관리, 아이디어별 독립 폴더(output/ideas/{id}-{name}/) 저장
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Step 1: 시장 조사 + 경쟁 분석</div>
-                            <div class="timeline-meta">예상 소요: 1-2일</div>
-                            <div class="timeline-desc">
-                                <strong>명령어:</strong> <code>/market-research</code>, <code>/competitor-analysis</code><br>
-                                TAM/SAM/SOM 추정, 시장 트렌드 파악, 경쟁사 분석, Porter's Five Forces
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Step 2: SWOT 분석</div>
-                            <div class="timeline-meta">예상 소요: 반나절</div>
-                            <div class="timeline-desc">
-                                <strong>명령어:</strong> 에이전트에게 "SWOT 분석해줘" 요청<br>
-                                내부 강점/약점, 외부 기회/위협 요인 도출, 전략 방향성 설정
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Step 3: 제품/서비스 기획</div>
-                            <div class="timeline-meta">예상 소요: 1일</div>
-                            <div class="timeline-desc">
-                                <strong>명령어:</strong> <code>/menu-costing</code><br>
-                                제품/서비스 정의, 원가 계산, 가격 책정 전략, 수익 모델 설계
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Step 4: 재무 모델링</div>
-                            <div class="timeline-meta">예상 소요: 1일</div>
-                            <div class="timeline-desc">
-                                <strong>명령어:</strong> <code>/financial-modeling</code><br>
-                                손익계산서, BEP 계산, 3개년 재무제표, 낙관/비관/기본 시나리오 분석
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Step 5-7: 운영/브랜딩/법률 (병렬 진행 가능)</div>
-                            <div class="timeline-meta">예상 소요: 각 반나절</div>
-                            <div class="timeline-desc">
-                                <strong>명령어:</strong> <code>/operations-plan</code>, <code>/branding-strategy</code>, <code>/legal-checklist</code><br>
-                                운영 프로세스 설계, 브랜드 전략, 법률/인허가 체크리스트 작성
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-title">Step 8: 사업계획서 통합</div>
-                            <div class="timeline-meta">예상 소요: 1일</div>
-                            <div class="timeline-desc">
-                                <strong>명령어:</strong> <code>/business-plan-draft</code><br>
-                                모든 분석 결과를 종합하여 10개 섹션의 완성된 사업계획서 작성
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <strong>📊 총 예상 소요 기간: 5-7일</strong><br>
-                    <span style="color: var(--text-muted); font-size: 0.95rem;">
-                        실제 소요 시간은 사업 아이디어의 복잡도와 필요한 리서치 깊이에 따라 달라질 수 있습니다.
-                    </span>
-                </div>
             </section>
 
             <!-- Section 7: Utilities -->
@@ -2466,8 +2586,14 @@ antigravity-business-planner/
                 </table>
 
                 <h4>사용 예시</h4>
-                <pre>python check_progress.py
-python check_progress.py --json</pre>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>python check_progress.py</pre>
+                </div>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>python check_progress.py --json</pre>
+                </div>
 
                 <h3>4. export_docs.py</h3>
                 <p><strong>위치:</strong> <code>.agent/skills/document-exporter/scripts/export_docs.py</code></p>
@@ -2502,8 +2628,16 @@ python check_progress.py --json</pre>
                 </table>
 
                 <h4>사용 예시</h4>
-                <pre>python export_docs.py report.md
-python export_docs.py --batch ./output --recursive</pre>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;">단일 파일 변환:</p>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>python export_docs.py report.md</pre>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;">폴더 전체 일괄 변환:</p>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>python export_docs.py --batch ./output --recursive</pre>
+                </div>
             </section>
 
             <!-- Section 8: Features -->
@@ -2591,12 +2725,26 @@ python export_docs.py --batch ./output --recursive</pre>
 
     <!-- Footer -->
     <footer>
-        <p><strong>Antigravity Business Planner - 프로젝트 분석 보고서</strong></p>
-        <p>분석일: 2026년 2월 8일</p>
-        <p>분석 도구: Claude Code (Anthropic)</p>
+        <p style="font-size: 1.1rem; letter-spacing: 0.06em;">Antigravity Business Planner</p>
+        <p style="font-size: 0.72rem; margin-top: 10px; color: var(--text-muted); opacity: 0.6;">
+            © 2026 thesqrldev. All rights reserved.
+        </p>
     </footer>
 
     <script>
+        // Copy Button
+        function copyCmd(btn) {
+            const pre = btn.parentElement.querySelector('pre');
+            navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+                btn.textContent = '✅ 복사됨';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 복사';
+                    btn.classList.remove('copied');
+                }, 1500);
+            });
+        }
+
         // Progress Bar
         window.addEventListener('scroll', function() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
