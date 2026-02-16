@@ -7,7 +7,8 @@
 * 간이 시장 검증 (경쟁자 유무, 유사 서비스 존재 여부)을 수행합니다
 * 핵심 가정(Critical Assumptions)을 식별합니다
 * 최소 검증 방법(MVP 접근법)을 제안합니다
-* 최종 선택 아이디어를 `output/ideas/selected-idea.md`에 저장합니다
+* 확정된 아이디어를 `output/ideas/{id}-{name}/` 폴더에 저장합니다
+* 레거시 호환을 위해 `output/ideas/selected-idea.md`에도 참조를 유지합니다
 
 ## 검증 항목
 1. **시장 존재 여부**: 유사 제품/서비스가 있는가? 있다면 차별점은?
@@ -22,12 +23,14 @@
 ```
 
 ## 최종 판정
-* **확정 (Go)**: `output/ideas/selected-idea.md`에 저장 → Step 1 시장 조사로 핸드오프
+* **확정 (Go)**: `output/ideas/{id}-{name}/` 폴더에 검증 결과 저장 → Step 1 시장 조사로 핸드오프
 * **수정 (Pivot)**: 아이디어를 수정하여 `/idea-discovery`로 재순환 (최대 2회)
 * **포기 (Drop)**: `/idea-discovery`에서 새 아이디어 탐색
+* **여러 아이디어 관리**: `/idea-portfolio`로 포트폴리오 확인
 
 ## 핸드오프 — Step 0 → Step 1
-검증이 완료되면 `output/ideas/selected-idea.md` 파일을 생성합니다.
+검증이 완료되면 아이디어 폴더(`output/ideas/{id}-{name}/`)에 결과를 저장하고,
+레거시 호환을 위해 `output/ideas/selected-idea.md`에도 참조를 유지합니다.
 이 파일은 Step 1(시장 조사)에서 business-researcher가 참조하는 입력 파일이 됩니다.
 
 ### selected-idea.md 구조
@@ -64,4 +67,5 @@
 ## 출력 형식
 * 검증 결과를 표로 정리합니다
 * 확인된 사실과 추정을 구분하여 표기합니다
-* 결과물은 `output/ideas/` 폴더에 저장합니다
+* 확정된 아이디어는 `output/ideas/{id}-{name}/` 폴더에 저장합니다
+* `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조를 유지합니다

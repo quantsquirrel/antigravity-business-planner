@@ -35,7 +35,8 @@ description: 도메인 지식은 있지만 사업 아이디어가 없는 사용�
 3. 3-5개의 사업 아이디어를 가설 형태로 생성합니다
 4. 각 아이디어를 5점 척도로 평가합니다 (Go/Pivot/Drop)
 5. 사용자와 함께 1-2개 아이디어를 선택합니다
-6. 선택된 아이디어를 `output/ideas/selected-idea.md`에 저장합니다
+6. 확정된 아이디어의 폴더를 생성합니다 (아이디어 폴더 생성 규칙 참조)
+7. `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조를 유지합니다
 
 ## Go/Pivot/Drop 평가 기준 (5점 척도)
 
@@ -56,8 +57,56 @@ description: 도메인 지식은 있지만 사업 아이디어가 없는 사용�
 - discovery → validation 순환은 **최대 2회**까지 허용합니다
 - 2회 순환 후에도 Go 판정이 없으면, 가장 높은 점수의 아이디어로 진행하거나 처음부터 재시작을 권합니다
 
+## 아이디어 폴더 생성 규칙
+
+아이디어가 확정되면(Go 판정 또는 사용자 선택) 다음 구조를 생성합니다:
+
+```
+output/ideas/{id}-{name}/
+├── idea.json          # 메타 정보
+├── hypothesis.md      # 아이디어 가설 (1문단)
+├── evaluation.md      # Go/Pivot/Drop 평가 결과
+├── research/          # (빈 디렉토리, 추후 시장조사용)
+├── financials/        # (빈 디렉토리, 추후 재무분석용)
+└── reports/           # (빈 디렉토리, 추후 보고서용)
+```
+
+### idea.json 형식
+
+```json
+{
+  "id": "idea-001",
+  "name": "카페",
+  "full_name": "스페셜티 카페 창업",
+  "created": "2026-02-17",
+  "status": "go",
+  "score": 22,
+  "score_details": {
+    "market_size": 4,
+    "competition": 5,
+    "fit": 5,
+    "resources": 4,
+    "timing": 4
+  }
+}
+```
+
+### ID 생성 규칙
+
+- 형식: `idea-{NNN}` (3자리 제로패딩)
+- 자동 채번: `output/ideas/` 하위에서 가장 큰 번호 + 1
+- 폴더명: `{id}-{name}` (예: `idea-001-카페`)
+- 한글 폴더명 허용 (Google Antigravity는 macOS/Linux 기반)
+
+### 레거시 호환
+
+- 기존 `output/ideas/selected-idea.md` 동작 유지
+- 멀티 아이디어 모드에서도 가장 최근 Go 판정 아이디어를 `selected-idea.md`에 링크
+- 단일 아이디어만 있는 경우 기존 흐름 그대로
+
 ## 출력 규칙
 - 아이디어는 가설 형태(1문단)로 간결하게 작성합니다
 - 평가 결과는 표 형식으로 시각화합니다
-- 최종 선택 아이디어는 `output/ideas/selected-idea.md`에 저장합니다
+- 멀티 모드: 확정된 아이디어는 `output/ideas/{id}-{name}/` 폴더에 저장합니다
+- 레거시 호환: `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조를 유지합니다
 - 아이디어 후보 목록은 `output/ideas/`에 저장합니다

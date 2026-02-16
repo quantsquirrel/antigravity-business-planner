@@ -21,12 +21,31 @@
 질문 5개 수집 → 키워드 추출 → 아이디어 3-5개 생성 → 5점 척도 평가 → Go/Pivot/Drop
 ```
 
+## 아이디어 저장 규칙
+
+Go 판정을 받은 아이디어는 개별 폴더를 생성합니다:
+
+```
+output/ideas/{id}-{name}/
+├── idea.json          # 메타 정보 (id, name, status, score 등)
+├── hypothesis.md      # 아이디어 가설 (1문단)
+├── evaluation.md      # Go/Pivot/Drop 평가 결과
+├── research/          # (빈 디렉토리, 추후 시장조사용)
+├── financials/        # (빈 디렉토리, 추후 재무분석용)
+└── reports/           # (빈 디렉토리, 추후 보고서용)
+```
+
+* ID 형식: `idea-{NNN}` (3자리 제로패딩, 자동 채번)
+* 레거시 호환: `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조 유지
+
 ## 다음 단계
 * **Go 판정 아이디어가 있으면**: `/idea-validation` 으로 검증 진행
 * **Pivot 판정만 있으면**: 아이디어를 수정하여 재평가 (최대 2회)
 * **모두 Drop이면**: 질문을 보완하여 처음부터 재시도
+* **여러 아이디어를 관리하려면**: `/idea-portfolio` 로 포트폴리오 확인
 
 ## 출력 형식
 * 각 아이디어를 가설 형태(1문단)로 작성합니다
 * 평가 결과를 표로 정리합니다
-* 결과물은 `output/ideas/` 폴더에 저장합니다
+* Go 판정 아이디어는 `output/ideas/{id}-{name}/` 폴더에 저장합니다
+* `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조를 유지합니다

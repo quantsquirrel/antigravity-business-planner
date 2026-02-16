@@ -22,14 +22,16 @@ Slash-command workflow definitions for structured business planning steps. Users
 | `export-documents.md` | `/export-documents` — Markdown to styled HTML conversion for sharing/printing |
 | `idea-discovery.md` | `/idea-discovery` — Structured questions to discover business ideas from domain expertise |
 | `idea-validation.md` | `/idea-validation` — Validate discovered ideas with market checks, assumptions, MVP proposals |
+| `idea-portfolio.md` | `/idea-portfolio` — Multi-idea portfolio dashboard: view, compare, and switch between ideas |
 
 ## For AI Agents
 
 ### Working In This Directory
-- Step 0 (idea-discovery, idea-validation) is optional for users who already have a business idea
+- Step 0 (idea-discovery, idea-validation, idea-portfolio) is optional for users who already have a business idea
 - Workflows follow the recommended planning sequence: optional Step 0 → 8-step flow (see GUIDE.md Section 4)
 - Steps 5-7 (operations, branding, legal) can run in parallel
 - `/business-plan-draft` should be used last as it integrates all prior outputs
+- `/idea-portfolio` manages multiple ideas with independent progress tracking per idea
 - Each workflow specifies its output destination in `output/`
 
 ### Common Patterns
