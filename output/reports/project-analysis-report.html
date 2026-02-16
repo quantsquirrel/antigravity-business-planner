@@ -1528,7 +1528,7 @@
                 <span class="hero-divider"></span>
                 <span class="hero-tag">비개발자를 위한 사업 기획 도구</span>
                 <span class="hero-divider"></span>
-                <span class="hero-tag">10 Workflows · 11 Skills · 4 Templates</span>
+                <span class="hero-tag">12 Workflows · 12 Skills · 5 Templates</span>
             </div>
         </div>
     </div>
@@ -1579,7 +1579,7 @@ cd antigravity-business-planner</pre>
                 <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;"><strong>Windows (Git Bash)</strong></p>
                 <pre>bash setup.sh</pre>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                    ⏱️ 약 1-2분 소요 | 워크플로우 10개, 스킬 11개, 템플릿 4개, 샘플 데이터가 자동 생성됩니다.
+                    ⏱️ 약 1-2분 소요 | 워크플로우 12개, 스킬 12개, 템플릿 5개, 샘플 데이터가 자동 생성됩니다.
                 </p>
 
                 <h3>Step 3: 사업 기획 시작!</h3>
@@ -1690,11 +1690,11 @@ cd antigravity-business-planner</pre>
                         <span class="stat-label">총 파일 수</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-number">10</span>
+                        <span class="stat-number">12</span>
                         <span class="stat-label">워크플로우</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-number">11</span>
+                        <span class="stat-number">12</span>
                         <span class="stat-label">전문 스킬</span>
                     </div>
                     <div class="stat-card">
@@ -1725,7 +1725,8 @@ antigravity-business-planner/
 │   ├── rules/
 │   │   ├── korean-communication.md       (한국어 소통 규칙)
 │   │   ├── business-planning-style.md    (문서 작성 스타일 가이드)
-│   │   └── safety-guidelines.md          (AI 안전 가이드라인)
+│   │   ├── safety-guidelines.md          (AI 안전 가이드라인)
+│   │   └── update-check.md              (자동 업데이트 확인)
 │   ├── workflows/
 │   │   ├── market-research.md            (시장 조사 워크플로우)
 │   │   ├── competitor-analysis.md        (경쟁 분석 워크플로우)
@@ -1736,7 +1737,9 @@ antigravity-business-planner/
 │   │   ├── legal-checklist.md            (법률/인허가 체크리스트)
 │   │   ├── menu-costing.md               (제품 원가 계산)
 │   │   ├── check-progress.md              (진행률 확인)
-│   │   └── export-documents.md            (문서 내보내기)
+│   │   ├── export-documents.md            (문서 내보내기)
+│   │   ├── idea-discovery.md              (아이디어 발굴)
+│   │   └── idea-validation.md             (아이디어 검증)
 │   └── skills/
 │       ├── business-researcher.md        (사업 리서처 스킬)
 │       ├── financial-analyst.md          (재무 분석가 스킬)
@@ -1745,7 +1748,8 @@ antigravity-business-planner/
 │       ├── swot-analyzer.md              (SWOT 분석 스킬)
 │       ├── launch-strategy/              (런칭 전략 스킬)
 │       ├── pricing-strategy/             (가격 전략 스킬)
-│       └── startup-metrics-framework/    (KPI 프레임워크 스킬)
+│       ├── startup-metrics-framework/    (KPI 프레임워크 스킬)
+│       ├── opportunity-finder/           (아이디어 발굴 스킬)
 │       ├── data-visualizer.md            (데이터 시각화 스킬)
 │       ├── progress-tracker/
 │       │   ├── SKILL.md                    (진행률 추적 스킬)
@@ -1762,8 +1766,10 @@ antigravity-business-planner/
 │   ├── business-plan-template.md         (사업계획서 템플릿)
 │   ├── financial-projection-template.md  (재무 예측 템플릿)
 │   ├── market-analysis-template.md       (시장 분석 템플릿)
-│   └── pitch-deck-outline.md             (피치덱 아웃라인)
+│   ├── pitch-deck-outline.md             (피치덱 아웃라인)
+│   └── idea-evaluation-template.md      (아이디어 평가서 템플릿)
 ├── output/
+│   ├── ideas/                           (아이디어 발굴 결과 저장소)
 │   ├── research/                         (시장 조사 결과 저장소)
 │   ├── financials/                       (재무 분석 결과 저장소)
 │   ├── reports/                          (보고서 저장소)
@@ -1787,12 +1793,12 @@ antigravity-business-planner/
                     <tbody>
                         <tr>
                             <td><strong>.agent/rules/</strong></td>
-                            <td>3개</td>
-                            <td>AI 에이전트의 동작 규칙 정의 (소통 방식, 문서 스타일, 안전 가이드라인)</td>
+                            <td>4개</td>
+                            <td>AI 에이전트의 동작 규칙 정의 (소통 방식, 문서 스타일, 안전 가이드라인, 업데이트 확인)</td>
                         </tr>
                         <tr>
                             <td><strong>.agent/workflows/</strong></td>
-                            <td>10개</td>
+                            <td>12개</td>
                             <td>슬래시 명령어로 실행 가능한 사업 기획 워크플로우</td>
                         </tr>
                         <tr>
@@ -1850,10 +1856,15 @@ antigravity-business-planner/
                             <td>AI 안전 가이드라인</td>
                             <td>추정치 명시, 전문가 자문 권고, 민감 정보 보호, 시나리오 분석 필수, 책임 제한 공지</td>
                         </tr>
+                        <tr>
+                            <td><strong>update-check.md</strong></td>
+                            <td>자동 업데이트 확인</td>
+                            <td>세션 시작 시 git fetch로 새 버전 확인, 업데이트 안내, 세션당 1회 실행</td>
+                        </tr>
                     </tbody>
                 </table>
 
-                <h3>3.2 워크플로우 (Workflows) — 10개</h3>
+                <h3>3.2 워크플로우 (Workflows) — 12개</h3>
                 <p>슬래시 명령어로 실행 가능한 체계적인 사업 기획 프로세스입니다.</p>
 
                 <table>
@@ -1915,9 +1926,21 @@ antigravity-business-planner/
                             <td>output/financials/</td>
                         </tr>
                         <tr>
+                            <td><strong>아이디어 발굴</strong></td>
+                            <td>/idea-discovery</td>
+                            <td>구조화 질문 5개로 도메인 경험에서 사업 아이디어 3-5개 도출, Go/Pivot/Drop 평가</td>
+                            <td>output/ideas/</td>
+                        </tr>
+                        <tr>
+                            <td><strong>아이디어 검증</strong></td>
+                            <td>/idea-validation</td>
+                            <td>간이 시장 검증, 핵심 가정 식별, MVP 검증 방안 제안, selected-idea.md 생성</td>
+                            <td>output/ideas/</td>
+                        </tr>
+                        <tr>
                             <td><strong>진행률 확인</strong></td>
                             <td>/check-progress</td>
-                            <td>8단계 기획 프로세스 진행 상황 추적, 완료/미완료 단계 표시, 다음 단계 추천</td>
+                            <td>기획 프로세스 진행 상황 추적 (조건부 Stage 0 + 8단계), 완료/미완료 단계 표시</td>
                             <td>터미널 출력</td>
                         </tr>
                         <tr>
@@ -1929,7 +1952,7 @@ antigravity-business-planner/
                     </tbody>
                 </table>
 
-                <h3>3.3 스킬 (Skills) — 11개</h3>
+                <h3>3.3 스킬 (Skills) — 12개</h3>
                 <p>각 전문 영역을 담당하는 AI 스킬로, 워크플로우에서 호출되어 사용됩니다.</p>
 
                 <table>
@@ -1967,13 +1990,18 @@ antigravity-business-planner/
                             <td>-</td>
                         </tr>
                         <tr>
+                            <td><strong>opportunity-finder</strong></td>
+                            <td>도메인 경험에서 사업 아이디어 발굴. 구조화 질문 5개, Go/Pivot/Drop 5점 척도 평가, 가설 수준 아이디어 도출</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
                             <td><strong>data-visualizer</strong></td>
                             <td>차트 및 그래프 시각화. 데이터 기반 인사이트 도출 및 비주얼라이제이션</td>
                             <td>create_chart.py</td>
                         </tr>
                         <tr>
                             <td><strong>progress-tracker</strong></td>
-                            <td>8단계 기획 프로세스 진행률 추적. output/ 폴더 기반 자동 완료 판별 및 다음 단계 추천</td>
+                            <td>기획 프로세스 진행률 추적 (조건부 Stage 0 + 8단계). output/ 폴더 기반 자동 완료 판별 및 다음 단계 추천</td>
                             <td>check_progress.py</td>
                         </tr>
                         <tr>
@@ -1984,7 +2012,7 @@ antigravity-business-planner/
                     </tbody>
                 </table>
 
-                <h3>3.4 문서 템플릿 (Templates) — 4개</h3>
+                <h3>3.4 문서 템플릿 (Templates) — 5개</h3>
                 <p>일관된 품질의 문서 작성을 지원하는 표준 템플릿입니다.</p>
 
                 <table>
@@ -2016,6 +2044,11 @@ antigravity-business-planner/
                             <td>투자자 피치덱</td>
                             <td>12장 구성: 표지, 문제점, 솔루션, 시장 기회, 제품/서비스, 비즈니스 모델, 경쟁 우위, 트랙션, 재무 예측, 팀, 투자 요청, 연락처 (각 슬라이드별 스피커 노트 포함)</td>
                         </tr>
+                        <tr>
+                            <td><strong>idea-evaluation-template.md</strong></td>
+                            <td>아이디어 평가서</td>
+                            <td>사용자 프로필, 아이디어 후보 3개, 5점 척도 정량 평가(시장크기/경쟁강도/적합성/자원/타이밍), Go/Pivot/Drop 판정, 검증 결과, MVP 방안</td>
+                        </tr>
                     </tbody>
                 </table>
             </section>
@@ -2043,8 +2076,8 @@ antigravity-business-planner/
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">2단계: 디렉토리 생성</div>
-                            <div class="timeline-meta">16개 디렉토리</div>
-                            <div class="timeline-desc">.agent/rules, workflows, skills/scripts, templates, output/{research, financials, reports, presentations, samples} 생성</div>
+                            <div class="timeline-meta">18개 디렉토리</div>
+                            <div class="timeline-desc">.agent/rules, workflows, skills/scripts, templates, output/{ideas, research, financials, reports, presentations, samples} 생성</div>
                         </div>
                     </div>
 
@@ -2052,8 +2085,8 @@ antigravity-business-planner/
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">3단계: Rules 생성</div>
-                            <div class="timeline-meta">3개 규칙 파일</div>
-                            <div class="timeline-desc">korean-communication.md, business-planning-style.md, safety-guidelines.md 생성</div>
+                            <div class="timeline-meta">4개 규칙 파일</div>
+                            <div class="timeline-desc">korean-communication.md, business-planning-style.md, safety-guidelines.md, update-check.md 생성</div>
                         </div>
                     </div>
 
@@ -2061,8 +2094,8 @@ antigravity-business-planner/
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">4단계: Workflows 생성</div>
-                            <div class="timeline-meta">10개 워크플로우</div>
-                            <div class="timeline-desc">시장 조사, 경쟁 분석, 재무 모델링, 진행률 확인, 문서 내보내기 등 10개 슬래시 명령어 워크플로우 생성</div>
+                            <div class="timeline-meta">12개 워크플로우</div>
+                            <div class="timeline-desc">아이디어 발굴, 아이디어 검증, 시장 조사, 경쟁 분석, 재무 모델링, 진행률 확인, 문서 내보내기 등 12개 슬래시 명령어 워크플로우 생성</div>
                         </div>
                     </div>
 
@@ -2070,8 +2103,8 @@ antigravity-business-planner/
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">5단계: Skills 생성</div>
-                            <div class="timeline-meta">11개 스킬 + 4개 Python 스크립트</div>
-                            <div class="timeline-desc">business-researcher, financial-analyst, progress-tracker, document-exporter 등 11개 전문 스킬 및 calculate_costs.py, create_chart.py, check_progress.py, export_docs.py 생성</div>
+                            <div class="timeline-meta">12개 스킬 + 4개 Python 스크립트</div>
+                            <div class="timeline-desc">opportunity-finder, business-researcher, financial-analyst, progress-tracker, document-exporter 등 12개 전문 스킬 및 calculate_costs.py, create_chart.py, check_progress.py, export_docs.py 생성</div>
                         </div>
                     </div>
 
@@ -2079,8 +2112,8 @@ antigravity-business-planner/
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">6단계: Templates 생성</div>
-                            <div class="timeline-meta">4개 템플릿 + MCP 설정</div>
-                            <div class="timeline-desc">사업계획서, 재무 예측, 시장 분석, 피치덱 템플릿 및 mcp-config-template.json 생성</div>
+                            <div class="timeline-meta">5개 템플릿 + MCP 설정</div>
+                            <div class="timeline-desc">사업계획서, 재무 예측, 시장 분석, 피치덱, 아이디어 평가서 템플릿 및 mcp-config-template.json 생성</div>
                         </div>
                     </div>
 
@@ -2201,9 +2234,21 @@ antigravity-business-planner/
             <!-- Section 6: Process -->
             <section id="process">
                 <h2>추천 사업 기획 프로세스</h2>
-                <p>체계적인 사업 기획을 위한 8단계 순차 프로세스입니다. 각 단계는 이전 단계의 결과물을 기반으로 합니다.</p>
+                <p>체계적인 사업 기획을 위한 프로세스입니다. 아이디어가 없으면 Step 0부터, 있으면 Step 1부터 시작합니다.</p>
 
                 <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Step 0: 아이디어 발굴 + 검증 (선택)</div>
+                            <div class="timeline-meta">예상 소요: 반나절~1일 | 아이디어가 있으면 건너뛰기</div>
+                            <div class="timeline-desc">
+                                <strong>명령어:</strong> <code>/idea-discovery</code>, <code>/idea-validation</code><br>
+                                구조화 질문 5개로 도메인 경험에서 아이디어 도출, 5점 척도 Go/Pivot/Drop 평가, 선택 아이디어를 output/ideas/selected-idea.md에 저장
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
@@ -2377,7 +2422,7 @@ antigravity-business-planner/
 
                 <h3>3. check_progress.py</h3>
                 <p><strong>위치:</strong> <code>.agent/skills/progress-tracker/scripts/check_progress.py</code></p>
-                <p><strong>목적:</strong> 8단계 기획 프로세스 진행률 추적 및 시각화</p>
+                <p><strong>목적:</strong> 기획 프로세스 진행률 추적 및 시각화 (조건부 Stage 0 + 8단계)</p>
 
                 <h4>주요 기능</h4>
                 <table>
