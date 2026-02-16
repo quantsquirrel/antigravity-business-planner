@@ -63,43 +63,41 @@ def render_template(template_str, context):
     """Render a template string using simple placeholder replacement.
     
     Supports:
-      - $variable or ${variable} for simple substitution
-      - Jinja2-style {{ variable }} is converted to $variable
-      - Jinja2-style {{ variable | safe }} is converted to $variable  
-      - {% if var %}...{% endif %} blocks are handled
+      - {{ variable }} and {{ variable | safe }}
+      - {% if var %} content {% else %} alternative {% endif %}
     """
     import re
     
-    # Convert Jinja2 {{ var }} and {{ var | safe }} to $var
+    # 1. Handle {% if var %} ... {% else %} ... {% endif %} blocks
+    def process_if_blocks(text, ctx):
+        # Pattern to find {% if var %} ... {% endif %} including optional {% else %}
+        # This uses a simple non-nested approach (sufficient for current templates)
+        pattern = r'\{%\s*if\s+(\w+)\s*%\}(.*?)\{%\s*endif\s*%\}'
+        
+        def replacement(match):
+            var_name = match.group(1).strip()
+            full_content = match.group(2)
+            
+            # Split by {% else %} if it exists
+            parts = re.split(r'\{%\s*else\s*%\}', full_content, maxsplit=1)
+            if_content = parts[0]
+            else_content = parts[1] if len(parts) > 1 else ""
+            
+            if ctx.get(var_name):
+                return if_content
+            return else_content
+
+        # Apply recursively or once? Our templates are simple, once is enough for top-level.
+        return re.sub(pattern, replacement, text, flags=re.DOTALL)
+
+    # Apply if-block processing
+    template_str = process_if_blocks(template_str, context)
+    
+    # 2. Convert Jinja2 {{ var }} and {{ var | safe }} to ${var} for string.Template
     template_str = re.sub(r'\{\{\s*(\w+)\s*\|\s*safe\s*\}\}', r'${\1}', template_str)
     template_str = re.sub(r'\{\{\s*(\w+)\s*\}\}', r'${\1}', template_str)
     
-    # Handle {% if var %}...{% endif %} blocks
-    def replace_if_block(match):
-        var_name = match.group(1).strip()
-        content = match.group(2)
-        value = context.get(var_name, '')
-        if value:
-            # Recursively process nested variables in the block content
-            return content
-        return ''
-    
-    template_str = re.sub(
-        r'\{%\s*if\s+(\w+)\s*%\}(.*?)\{%\s*endif\s*%\}',
-        replace_if_block,
-        template_str,
-        flags=re.DOTALL
-    )
-    
-    # Handle {% else %} (simplified - treat as empty if condition was true)
-    template_str = re.sub(r'\{%\s*else\s*%\}.*?\{%\s*endif\s*%\}', '', template_str, flags=re.DOTALL)
-    
-    # Now do variable substitution
-    # Convert remaining {{ var }} patterns
-    template_str = re.sub(r'\{\{\s*(\w+)\s*\|\s*safe\s*\}\}', r'${\1}', template_str)
-    template_str = re.sub(r'\{\{\s*(\w+)\s*\}\}', r'${\1}', template_str)
-    
-    # Use Template for safe substitution (missing keys become empty)
+    # 3. Use Template for safe substitution (missing keys become empty)
     t = Template(template_str)
     return t.safe_substitute(context)
 

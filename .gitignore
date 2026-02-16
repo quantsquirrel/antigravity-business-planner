@@ -16,7 +16,12 @@ Thumbs.db
 *.swp
 *.swo
 
+# Tool-generated directories
+.blueprint/
+.claude/
+
 # Output (user-generated data)
+output/*.md
 output/ideas/*
 output/research/*
 output/financials/*
