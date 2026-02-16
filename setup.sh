@@ -155,9 +155,29 @@ cat << 'RULE3_EOF' > "$PROJECT_ROOT/.agent/rules/safety-guidelines.md"
 * 생성된 문서는 output/ 폴더에 저장합니다.
 RULE3_EOF
 
+# Rule 4: update-check.md
+cat << 'RULE4_EOF' > "$PROJECT_ROOT/.agent/rules/update-check.md"
+# Update Check
+
+* 사용자가 처음 대화를 시작하면(인사, 질문 등) 업데이트 확인을 **1회** 수행합니다.
+* 터미널에서 `git fetch origin main --quiet` 실행 후 `git log HEAD..origin/main --oneline`으로 새 커밋을 확인합니다.
+* 새 커밋이 있으면 아래 형식으로 안내합니다:
+
+```
+📦 사업 기획 도구 업데이트가 있습니다! (N개 변경사항)
+   업데이트하려면: "업데이트해줘" 라고 말씀해주세요.
+```
+
+* 사용자가 "업데이트해줘"라고 요청하면 `git pull origin main`을 실행합니다.
+* 새 커밋이 없으면 아무 안내도 하지 않습니다 (조용히 넘어갑니다).
+* git이 설치되어 있지 않거나 원격 저장소에 접근할 수 없으면 오류를 무시하고 넘어갑니다.
+* 업데이트 확인은 세션당 **최초 1회만** 수행합니다. 이후 대화에서 반복하지 않습니다.
+RULE4_EOF
+
 echo -e "  ${GREEN}✓${NC} korean-communication.md"
 echo -e "  ${GREEN}✓${NC} business-planning-style.md"
 echo -e "  ${GREEN}✓${NC} safety-guidelines.md"
+echo -e "  ${GREEN}✓${NC} update-check.md"
 echo ""
 
 # --- Step 4: Create Workflows ---
