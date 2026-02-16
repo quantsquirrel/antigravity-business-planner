@@ -22,3 +22,7 @@
 | Script | 자동 계산 기능 | 재무 계산, 차트 생성 등 자동화 기능 |
 | setup.sh | 자동 설치 | 원클릭 환경 구성 |
 | output/ | 산출물 폴더 | 분석 결과가 저장되는 곳 |
+| Opportunity Finder | 아이디어 발굴 도구 | 사업 기회를 찾아주는 기능 |
+| Go/Pivot/Drop | 진행/수정/중단 | 아이디어 평가 판정 결과 |
+| Selected Idea | 선택된 아이디어 | Step 0에서 확정된 사업 아이디어 |
+| MVP (Minimum Viable Product) | 최소 검증 제품 | 최소 비용으로 가설을 검증하는 방법 |

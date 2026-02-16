@@ -16,7 +16,14 @@ from typing import Dict, List, Tuple
 class ProgressTracker:
     """사업 기획 진행률 추적기"""
 
-    # 8단계 기획 프로세스 정의
+    # Stage 0 (조건부) + 8단계 기획 프로세스 정의
+    STAGE_0 = {
+        "id": 0,
+        "name": "아이디어 발굴",
+        "directory": "output/ideas",
+        "keywords": ["idea", "아이디어", "selected"],
+    }
+
     STAGES = [
         {
             "id": 1,
@@ -103,15 +110,44 @@ class ProgressTracker:
 
         return len(found_files) > 0, found_files
 
+    def has_ideas(self) -> bool:
+        """
+        output/ideas/ 디렉토리에 .gitkeep 외 파일이 있는지 확인합니다.
+
+        Returns:
+            아이디어 파일 존재 여부
+        """
+        ideas_dir = self.project_dir / "output" / "ideas"
+        if not ideas_dir.exists():
+            return False
+        for file_path in ideas_dir.rglob("*"):
+            if file_path.is_file() and file_path.name != ".gitkeep":
+                return True
+        return False
+
     def check_all_stages(self) -> Dict:
         """
         모든 단계의 진행 상황을 확인합니다.
+        output/ideas/에 파일이 있으면 Stage 0을 포함합니다.
 
         Returns:
             진행률 정보를 담은 딕셔너리
         """
         results = []
         completed_count = 0
+        include_stage_0 = self.has_ideas()
+
+        # Stage 0: 조건부 표시 (output/ideas/에 파일이 있을 때만)
+        if include_stage_0:
+            is_completed, files = self.check_stage(self.STAGE_0)
+            if is_completed:
+                completed_count += 1
+            results.append({
+                "id": self.STAGE_0["id"],
+                "name": self.STAGE_0["name"],
+                "completed": is_completed,
+                "files": files,
+            })
 
         for stage in self.STAGES:
             is_completed, files = self.check_stage(stage)
@@ -126,7 +162,7 @@ class ProgressTracker:
                 "files": files,
             })
 
-        total_stages = len(self.STAGES)
+        total_stages = len(self.STAGES) + (1 if include_stage_0 else 0)
         percentage = (completed_count / total_stages * 100) if total_stages > 0 else 0
 
         return {
@@ -134,6 +170,7 @@ class ProgressTracker:
             "completed_stages": completed_count,
             "percentage": round(percentage, 1),
             "stages": results,
+            "includes_stage_0": include_stage_0,
         }
 
     def get_next_stage(self, progress: Dict) -> Dict | None:
@@ -203,8 +240,16 @@ class ProgressTracker:
         next_stage = self.get_next_stage(progress)
 
         if next_stage:
-            print(f"💡 다음 단계: {next_stage['id']}. {next_stage['name']}")
-            print(f"   해당 단계의 산출물을 {self.STAGES[next_stage['id']-1]['directory']}에 생성하세요.")
+            stage_id = next_stage['id']
+            if stage_id == 0:
+                print(f"💡 다음 단계: {stage_id}. {next_stage['name']}")
+                print(f"   /idea-discovery 또는 /idea-validation 을 실행하세요.")
+            else:
+                all_stages = [self.STAGE_0] + self.STAGES if progress.get("includes_stage_0") else self.STAGES
+                stage_def = next((s for s in all_stages if s["id"] == stage_id), None)
+                directory = stage_def["directory"] if stage_def else "output/"
+                print(f"💡 다음 단계: {stage_id}. {next_stage['name']}")
+                print(f"   해당 단계의 산출물을 {directory}에 생성하세요.")
         else:
             print("🎉 축하합니다! 모든 단계가 완료되었습니다!")
 

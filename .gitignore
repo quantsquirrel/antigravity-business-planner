@@ -17,10 +17,12 @@ Thumbs.db
 *.swo
 
 # Output (user-generated data)
+output/ideas/*
 output/research/*
 output/financials/*
 output/reports/*
 output/presentations/*
+!output/ideas/.gitkeep
 !output/research/.gitkeep
 !output/financials/.gitkeep
 !output/reports/.gitkeep

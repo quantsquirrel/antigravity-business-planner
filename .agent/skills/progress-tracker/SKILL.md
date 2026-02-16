@@ -13,6 +13,7 @@ description: 사업 기획 진행률을 확인합니다. 8단계 기획 프로�
 - 다음 단계를 안내합니다
 
 ## 추적 기준
+0. 아이디어 발굴 — output/ideas/ 내 아이디어 관련 파일 *(조건부: 파일이 있을 때만 표시)*
 1. 시장 조사 — output/research/ 내 시장 관련 파일
 2. 경쟁 분석 — output/research/ 내 경쟁 관련 파일
 3. 제품/서비스 기획 — output/financials/ 내 원가 관련 파일

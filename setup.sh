@@ -87,7 +87,9 @@ directories=(
     ".agent/skills/data-visualizer/scripts"
     ".agent/skills/progress-tracker/scripts"
     ".agent/skills/document-exporter/scripts"
+    ".agent/skills/opportunity-finder"
     "templates"
+    "output/ideas"
     "output/research"
     "output/reports"
     "output/financials"
@@ -100,11 +102,11 @@ for dir in "${directories[@]}"; do
 done
 
 # Create .gitkeep files to preserve empty directories in git
-for gitkeep_dir in "output/research" "output/reports" "output/financials" "output/presentations"; do
+for gitkeep_dir in "output/ideas" "output/research" "output/reports" "output/financials" "output/presentations"; do
     touch "$PROJECT_ROOT/$gitkeep_dir/.gitkeep"
 done
 
-echo -e "  ${GREEN}✓${NC} 16개 디렉토리 생성 완료"
+echo -e "  ${GREEN}✓${NC} 18개 디렉토리 생성 완료"
 echo ""
 
 # --- Step 3: Create Rules ---
@@ -381,6 +383,74 @@ cat << 'WF10_EOF' > "$PROJECT_ROOT/.agent/workflows/export-documents.md"
 * 변환 완료 후 파일 경로와 브라우저에서 열기/PDF 저장 방법을 안내합니다
 WF10_EOF
 
+# Workflow 11: idea-discovery.md
+cat << 'WF11_EOF' > "$PROJECT_ROOT/.agent/workflows/idea-discovery.md"
+# idea-discovery
+
+사업 아이디어를 발굴합니다. 도메인 지식은 있지만 구체적인 사업 아이디어가 없는 사용자를 위한 워크플로우입니다.
+
+## 수행 작업
+* 사용자의 도메인 경험과 역량을 구조화된 질문으로 파악합니다
+* 답변에서 시장 기회 영역을 추출합니다
+* 3-5개의 사업 아이디어를 가설 형태(1문단)로 생성합니다
+* 각 아이디어를 5점 척도(시장크기, 경쟁강도, 적합성, 자원, 타이밍)로 평가합니다
+* Go/Pivot/Drop 판정을 내립니다
+
+## 필수 질문 (5개)
+1. **업종/산업**: 어떤 분야에서 일하고 계시나요?
+2. **경력/경험**: 해당 분야에서 얼마나 오래, 어떤 역할로 일하셨나요?
+3. **문제점/불편함**: 일하면서 가장 비효율적이라고 느낀 점은?
+4. **가용 자원**: 초기 투자 가능 금액, 활용 가능한 네트워크/자산은?
+5. **목표 고객층**: 어떤 고객에게 서비스하고 싶으신가요?
+
+## 프로세스 흐름
+* 질문 5개 수집 → 키워드 추출 → 아이디어 3-5개 생성 → 5점 척도 평가 → Go/Pivot/Drop
+
+## 다음 단계
+* Go 판정 아이디어가 있으면: /idea-validation 으로 검증 진행
+* Pivot 판정만 있으면: 아이디어를 수정하여 재평가 (최대 2회)
+* 모두 Drop이면: 질문을 보완하여 처음부터 재시도
+
+## 출력 형식
+* 각 아이디어를 가설 형태(1문단)로 작성합니다
+* 평가 결과를 표로 정리합니다
+* 결과물은 output/ideas/ 폴더에 저장합니다
+WF11_EOF
+
+# Workflow 12: idea-validation.md
+cat << 'WF12_EOF' > "$PROJECT_ROOT/.agent/workflows/idea-validation.md"
+# idea-validation
+
+아이디어 발굴(/idea-discovery)에서 도출된 사업 아이디어를 검증합니다.
+
+## 수행 작업
+* Go/Pivot 판정을 받은 아이디어의 실현 가능성을 검증합니다
+* 간이 시장 검증 (경쟁자 유무, 유사 서비스 존재 여부)을 수행합니다
+* 핵심 가정(Critical Assumptions)을 식별합니다
+* 최소 검증 방법(MVP 접근법)을 제안합니다
+* 최종 선택 아이디어를 output/ideas/selected-idea.md에 저장합니다
+
+## 검증 항목
+1. 시장 존재 여부: 유사 제품/서비스가 있는가? 차별점은?
+2. 고객 수요 신호: 관련 커뮤니티, 검색량, 불만 사항이 있는가?
+3. 수익 모델 타당성: 고객이 돈을 지불할 의향이 있는 영역인가?
+4. 핵심 가정: 성공하려면 반드시 참이어야 하는 것은?
+5. MVP 방안: 최소 비용으로 가정을 검증할 수 있는 방법은?
+
+## 최종 판정
+* 확정 (Go): output/ideas/selected-idea.md에 저장 → Step 1 시장 조사로 핸드오프
+* 수정 (Pivot): 아이디어를 수정하여 /idea-discovery로 재순환 (최대 2회)
+* 포기 (Drop): /idea-discovery에서 새 아이디어 탐색
+
+## 반복 제한
+* discovery → validation 순환은 최대 2회까지 허용합니다
+
+## 출력 형식
+* 검증 결과를 표로 정리합니다
+* 확인된 사실과 추정을 구분하여 표기합니다
+* 결과물은 output/ideas/ 폴더에 저장합니다
+WF12_EOF
+
 echo -e "  ${GREEN}✓${NC} market-research.md"
 echo -e "  ${GREEN}✓${NC} competitor-analysis.md"
 echo -e "  ${GREEN}✓${NC} financial-modeling.md"
@@ -391,6 +461,8 @@ echo -e "  ${GREEN}✓${NC} legal-checklist.md"
 echo -e "  ${GREEN}✓${NC} menu-costing.md"
 echo -e "  ${GREEN}✓${NC} check-progress.md"
 echo -e "  ${GREEN}✓${NC} export-documents.md"
+echo -e "  ${GREEN}✓${NC} idea-discovery.md"
+echo -e "  ${GREEN}✓${NC} idea-validation.md"
 echo ""
 
 # --- Step 5: Create Skills ---
@@ -1640,6 +1712,56 @@ if __name__ == '__main__':
 SK8PY_EOF
 chmod +x "$PROJECT_ROOT/.agent/skills/document-exporter/scripts/export_docs.py"
 
+# Skill 9: opportunity-finder/SKILL.md
+cat << 'SK9_EOF' > "$PROJECT_ROOT/.agent/skills/opportunity-finder/SKILL.md"
+---
+name: opportunity-finder
+description: 도메인 지식은 있지만 사업 아이디어가 없는 사용자를 위해, 구조화된 질문을 통해 사업 기회를 발굴하고 가설 수준의 아이디어를 생성합니다.
+---
+
+# Opportunity Finder Skill
+
+당신은 사업 기회 발굴 전문가입니다. 사용자의 도메인 경험에서 사업 아이디어를 도출합니다.
+
+## 역할
+- 사용자의 업종 경험과 도메인 지식을 구조화합니다
+- 시장 기회를 가설 수준(1문단)으로 빠르게 도출합니다
+- 여러 아이디어를 비교 가능한 형태로 정리합니다
+- Go/Pivot/Drop 판단을 위한 정량 평가를 수행합니다
+
+## 깊이 경계
+- **이 스킬**: 가설 수준의 아이디어 도출 (1문단 요약)
+- **business-researcher**: 선택된 아이디어의 심층 시장 분석
+
+## 구조화 입력 — 필수 질문 5개
+
+1. **업종/산업**: 어떤 분야에서 일하고 계시나요?
+2. **경력/경험**: 해당 분야에서 얼마나 오래 일하셨나요?
+3. **문제점/불편함**: 일하면서 가장 비효율적이라고 느낀 점은?
+4. **가용 자원**: 초기 투자 가능 금액, 활용 가능한 네트워크/자산은?
+5. **목표 고객층**: 어떤 고객에게 서비스하고 싶으신가요?
+
+## Go/Pivot/Drop 평가 기준 (5점 척도)
+
+| 평가 항목 | 1점 (매우 불리) | 3점 (보통) | 5점 (매우 유리) |
+|-----------|----------------|-----------|----------------|
+| 시장 크기 | 연 100억 미만 | 연 1,000억 내외 | 연 1조 이상 |
+| 경쟁 강도 | 대기업 독점 | 중소 경쟁자 다수 | 경쟁자 부재/소수 |
+| 적합성 | 경험 무관 | 일부 관련 | 핵심 역량 일치 |
+| 자원 요건 | 10억 이상 필요 | 1-5억 필요 | 5천만 이하 가능 |
+| 타이밍 | 이미 포화 | 성장기 | 초기 시장 |
+
+**판정:** Go (20+) / Pivot (12-19) / Drop (11-)
+
+## 반복 제한
+- discovery → validation 순환은 최대 2회까지
+
+## 출력 규칙
+- 아이디어는 가설 형태(1문단)로 간결하게 작성합니다
+- 평가 결과는 표 형식으로 시각화합니다
+- 결과물은 output/ideas/ 폴더에 저장합니다
+SK9_EOF
+
 echo -e "  ${GREEN}✓${NC} business-researcher/SKILL.md"
 echo -e "  ${GREEN}✓${NC} financial-analyst/SKILL.md"
 echo -e "  ${GREEN}✓${NC} financial-analyst/scripts/calculate_costs.py"
@@ -1652,6 +1774,7 @@ echo -e "  ${GREEN}✓${NC} progress-tracker/SKILL.md"
 echo -e "  ${GREEN}✓${NC} progress-tracker/scripts/check_progress.py"
 echo -e "  ${GREEN}✓${NC} document-exporter/SKILL.md"
 echo -e "  ${GREEN}✓${NC} document-exporter/scripts/export_docs.py"
+echo -e "  ${GREEN}✓${NC} opportunity-finder/SKILL.md"
 echo ""
 
 # 외부 스킬 설치 (npx skills)
@@ -2236,6 +2359,119 @@ cat << 'TPL4_EOF' > "$PROJECT_ROOT/templates/pitch-deck-outline.md"
 4.
 5.
 TPL4_EOF
+
+# Template 5: idea-evaluation-template.md
+cat << 'TPL5_EOF' > "$PROJECT_ROOT/templates/idea-evaluation-template.md"
+# 아이디어 평가서
+
+> 작성일: YYYY년 MM월 DD일
+> 평가 대상: [아이디어명]
+
+---
+
+## 핵심 요약
+
+[아이디어를 1문단으로 요약]
+
+---
+
+## 1. 사용자 프로필
+
+| 항목 | 내용 |
+|------|------|
+| 업종/산업 | |
+| 경력/경험 | |
+| 핵심 역량 | |
+| 가용 자원 | |
+| 목표 고객층 | |
+
+---
+
+## 2. 아이디어 후보
+
+### 아이디어 A: [이름]
+[1문단 요약]
+
+### 아이디어 B: [이름]
+[1문단 요약]
+
+### 아이디어 C: [이름]
+[1문단 요약]
+
+---
+
+## 3. 정량 평가 (5점 척도)
+
+| 평가 항목 | 아이디어 A | 아이디어 B | 아이디어 C |
+|-----------|-----------|-----------|-----------|
+| 시장 크기 | /5 | /5 | /5 |
+| 경쟁 강도 | /5 | /5 | /5 |
+| 적합성 | /5 | /5 | /5 |
+| 자원 요건 | /5 | /5 | /5 |
+| 타이밍 | /5 | /5 | /5 |
+| **총점** | **/25** | **/25** | **/25** |
+| **판정** | Go/Pivot/Drop | Go/Pivot/Drop | Go/Pivot/Drop |
+
+**판정 기준:** Go (20+) / Pivot (12-19) / Drop (11-)
+
+---
+
+## 4. 검증 결과 (Go/Pivot 아이디어만)
+
+### 4.1 시장 존재 여부
+| 항목 | 내용 |
+|------|------|
+| 유사 서비스 | |
+| 차별점 | |
+| 고객 수요 신호 | |
+
+### 4.2 핵심 가정
+1.
+2.
+3.
+
+### 4.3 수익 모델
+| 항목 | 내용 |
+|------|------|
+| 수익 구조 | |
+| 예상 객단가 | |
+| 지불 의향 근거 | |
+
+### 4.4 MVP 검증 방안
+| 항목 | 내용 |
+|------|------|
+| 검증 방법 | |
+| 예상 비용 | |
+| 소요 기간 | |
+| 성공 기준 | |
+
+---
+
+## 5. 최종 판정
+
+| 항목 | 내용 |
+|------|------|
+| 선택 아이디어 | |
+| 판정 | Go / Pivot / Drop |
+| 총점 | /25 |
+| 핵심 사유 | |
+
+---
+
+## 6. 다음 단계
+
+- [ ] Step 1: 시장 조사 (/market-research)
+- [ ] Step 1-1: 경쟁 분석 (/competitor-analysis)
+- [ ] Step 2: SWOT 분석
+
+---
+
+## 참고 사항
+- 평가 점수는 추정치이며, 실제 시장 조사 후 재평가가 필요합니다
+- 전문 법률/재무 자문은 별도로 받으시길 권합니다
+TPL5_EOF
+
+echo -e "  ${GREEN}✓${NC} idea-evaluation-template.md"
 
 # MCP Config Template
 cat << 'MCP_EOF' > "$PROJECT_ROOT/mcp-config-template.json"
