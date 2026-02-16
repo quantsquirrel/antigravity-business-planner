@@ -4,7 +4,7 @@
 
 스킬, 워크플로우, 템플릿, 규칙 등 프로젝트 구조에 변경이 생기면 반드시 아래 파일을 함께 업데이트합니다:
 
-- **`output/reports/project-analysis-report.html`**
+- **`output/reports/Antigravity-Business-Planner.html`**
 
 ### 업데이트 대상 섹션
 - Hero 태그 (Workflows · Skills · Templates 숫자)
