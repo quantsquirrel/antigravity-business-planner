@@ -130,6 +130,7 @@ output/ideas/{id}-{name}/
   "full_name": "스페셜티 카페 창업",
   "created": "2026-02-17",
   "status": "go",
+  "judgment": "go",
   "score": 89,
   "score_details": {
     "market_size": 4,
@@ -156,7 +157,7 @@ output/ideas/{id}-{name}/
 
 `score` 계산: `(4×5) + (5×4) + (5×5) + (4×3) + (4×3) = 20+20+25+12+12 = 89`
 
-> **v1.0 → v2.0 변경사항:** `fit` → `founder_fit`으로 필드명 변경, `kill_switch` 및 `workflow_version` 필드 추가. v1.0 파일의 기존 필드는 그대로 유지됩니다.
+> **v1.0 → v2.0 변경사항:** `fit` → `founder_fit`으로 필드명 변경, `judgment`(go|pivot-optimize|pivot-review|drop), `kill_switch` 및 `workflow_version` 필드 추가. v1.0 파일의 기존 필드는 그대로 유지됩니다.
 
 ### ID 생성 규칙
 

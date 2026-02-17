@@ -18,7 +18,7 @@ Specialized capability packages that activate based on context. Contains 9 core 
 | `progress-tracker/` | 8-step planning progress monitoring (see `progress-tracker/AGENTS.md`) |
 | `report-writer/` | Business document writing using templates (see `report-writer/AGENTS.md`) |
 | `swot-analyzer/` | Strategic framework analysis: SWOT, PESTEL, Porter's, BMC (see `swot-analyzer/AGENTS.md`) |
-| `opportunity-finder/` | Business idea discovery from domain expertise — Go/Pivot/Drop evaluation (Step 0) |
+| `opportunity-finder/` | Business idea discovery from domain expertise (v2.0: 2-step interview, 100-point weighted scoring, 4-tier judgment Go/Pivot-optimize/Pivot-review/Drop) (Step 0) |
 | `launch-strategy/` | *Symlink* -> `../../.agents/skills/launch-strategy` — Product launch planning |
 | `pricing-strategy/` | *Symlink* -> `../../.agents/skills/pricing-strategy` — Pricing and monetization design |
 | `startup-metrics-framework/` | *Symlink* -> `../../.agents/skills/startup-metrics-framework` — KPI and metrics tracking |

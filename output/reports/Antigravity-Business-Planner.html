@@ -1640,7 +1640,7 @@
                 <span class="hero-divider"></span>
                 <span class="hero-tag">비개발자를 위한 사업 기획 도구</span>
                 <span class="hero-divider"></span>
-                <span class="hero-tag">자동 분석 15개 · 전문 도구 12개 · 문서 양식 7개</span>
+                <span class="hero-tag">자동 분석 15개 · 전문 스킬 12개 · 문서 양식 7개</span>
             </div>
         </div>
     </div>
@@ -1842,7 +1842,7 @@
                         </tbody>
                     </table>
                     <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.75rem; margin-bottom: 0;">
-                        11개 전문 스킬이 대화 내용을 분석하여 가장 적합한 기능을 자동으로 선택합니다.
+                        12개 전문 스킬이 대화 내용을 분석하여 가장 적합한 기능을 자동으로 선택합니다.
                     </p>
                 </div>
 
@@ -1864,10 +1864,10 @@
                             <div class="timeline-meta">예상 소요: 반나절~1일 | 아이디어가 있으면 건너뛰기</div>
                             <div class="timeline-desc">
                                 <strong>명령어:</strong> <code>/idea-discovery</code>, <code>/idea-validation</code>, <code>/idea-portfolio</code>, <code>/lean-canvas</code><br>
-                                구조화 질문 5개로 도메인 경험에서 아이디어 도출, 5점 척도(가중 100점) Go/Pivot/Drop 평가, Lean Canvas 가설 정리, 멀티 아이디어 포트폴리오 관리
+                                2단계 인터뷰(3+2문) Progressive Profiling으로 도메인 경험에서 아이디어 도출, PSST 프레임워크 암묵적 구조화, 5항목 × 5점 × 가중치 = 100점 스코어링, 4단계 판정(Go / Pivot-optimize / Pivot-review / Drop), Kill Switch(개별 항목 &lt;3점 Critical Warning), 유사도 &gt;0.85시 조건부 SCAMPER, 점수 확정 전 Human-in-the-Loop 검토, ASCII 차트 + R&amp;D 키워드 매핑 시각화
                             </div>
                             <div style="margin-top: 12px; padding: 12px 16px; background: rgba(102, 126, 234, 0.08); border-left: 3px solid var(--accent-cyan); border-radius: 0 8px 8px 0; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
-                                <strong style="color: var(--accent-cyan);">Portfolio Mode</strong> — 여러 아이디어를 병렬로 발전시킬 수 있습니다. 각 아이디어가 독립 폴더(<code>output/ideas/{이름}/</code>)에서 Step 0~8을 개별 진행하며, <code>portfolio.md</code> 대시보드에서 전체 현황(Go/Pivot/Drop, 점수, 진행률)을 한눈에 비교합니다.
+                                <strong style="color: var(--accent-cyan);">Portfolio Mode</strong> — 여러 아이디어를 병렬로 발전시킬 수 있습니다. 각 아이디어가 독립 폴더(<code>output/ideas/{id}-{이름}/</code>)에서 Step 0~8을 개별 진행하며, <code>portfolio.md</code> 대시보드에서 전체 현황(Go/Pivot-optimize/Pivot-review/Drop, 점수, 진행률)을 한눈에 비교합니다.
                             </div>
                         </div>
                     </div>
@@ -2147,7 +2147,7 @@
 │   ├── <span class="folder">launch-strategy/</span>             <span class="desc">런칭 전략</span>
 │   ├── <span class="folder">pricing-strategy/</span>            <span class="desc">가격 전략</span>
 │   ├── <span class="folder">startup-metrics-framework/</span>   <span class="desc">KPI</span>
-│   ├── <span class="folder">opportunity-finder/</span>          <span class="desc">아이디어 발굴</span>
+│   ├── <span class="folder">opportunity-finder/</span>          <span class="desc">아이디어 발굴 v2.0</span>
 │   ├── <span class="file">data-visualizer.md</span>           <span class="desc">데이터 시각화</span>
 │   ├── <span class="folder">progress-tracker/</span>            <span class="desc">진행률 추적 + 스크립트</span>
 │   └── <span class="folder">document-exporter/</span>           <span class="desc">문서 내보내기 + 스크립트</span>
@@ -2189,12 +2189,12 @@
                         </tr>
                         <tr>
                             <td><strong>.agent/skills/</strong></td>
-                            <td>11개 + 4개 스크립트</td>
+                            <td>12개 (9 core + 3 symlink) + 4개 스크립트</td>
                             <td>전문 영역별 자동 분석 도구</td>
                         </tr>
                         <tr>
                             <td><strong>templates/</strong></td>
-                            <td>5개</td>
+                            <td>7개</td>
                             <td>문서 작성을 위한 표준 템플릿</td>
                         </tr>
                         <tr>
@@ -2288,9 +2288,9 @@
                         </div>
                     </div>
                     <div class="highlight-card">
-                        <h4>💡 아이디어 발굴</h4>
+                        <h4>💡 아이디어 발굴 v2.0</h4>
                         <p>
-                            <strong>무엇을 하나요?</strong> 5가지 질문을 통해 경험에서 사업 아이디어 3~5개를 도출합니다.<br>
+                            <strong>무엇을 하나요?</strong> 2단계 인터뷰(3+2문)로 경험에서 사업 아이디어를 도출하고, PSST 프레임워크 기반 100점 스코어링 + 4단계 판정(Go/Pivot-optimize/Pivot-review/Drop)으로 평가합니다.<br>
                             <strong>언제 쓰나요?</strong> 아이디어 탐색 단계(Step 0)에서 사용합니다.<br>
                             <strong>시작하려면:</strong>
                         </p>
@@ -2369,7 +2369,7 @@
                 <p style="margin-top: 1.2rem;"><strong>그 외 전문 도구:</strong></p>
                 <ul style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8;">
                     <li><strong>피치덱 생성</strong> — 투자자용 발표 자료 10~15장 자동 구성</li>
-                    <li><strong>아이디어 발굴</strong> — 경험에서 사업 아이디어를 체계적으로 도출</li>
+                    <li><strong>아이디어 발굴 v2.0</strong> — 2단계 인터뷰 + PSST 스코어링(100점) + 4단계 판정 + Kill Switch + SCAMPER + HITL</li>
                     <li><strong>런칭 전략</strong> — 시장 진입 전략 및 단계별 실행 계획</li>
                     <li><strong>가격 전략</strong> — 최적 가격 설정 및 수익 모델 분석</li>
                     <li><strong>KPI 프레임워크</strong> — 핵심 성과 지표 설정 및 추적</li>
@@ -2475,8 +2475,8 @@
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">6단계: 문서 양식 설치</div>
-                            <div class="timeline-meta">6가지 문서 양식</div>
-                            <div class="timeline-desc">사업계획서, 재무 예측서, 시장 분석서, 피치덱, 아이디어 평가서, 포트폴리오 대시보드 양식을 설치합니다</div>
+                            <div class="timeline-meta">7가지 문서 양식</div>
+                            <div class="timeline-desc">사업계획서, 재무 예측서, 시장 분석서, 피치덱, 아이디어 평가서, 포트폴리오 대시보드, Lean Canvas 양식을 설치합니다</div>
                         </div>
                     </div>
 

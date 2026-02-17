@@ -322,7 +322,7 @@ Antigravity를 열면 크게 3개 영역이 있습니다:
 
 **에이전트가 수행하는 작업:**
 1. `output/ideas/` 하위의 모든 아이디어 폴더를 탐색합니다
-2. 각 아이디어의 Go/Pivot/Drop 판정과 점수를 요약합니다
+2. 각 아이디어의 Go/Pivot-optimize/Pivot-review/Drop 판정과 점수를 요약합니다
 3. 아이디어별 기획 진행률(8단계)을 표시합니다
 4. 아이디어 비교, 상세 조회, 컨텍스트 전환을 지원합니다
 5. `output/ideas/portfolio.md`를 자동 갱신합니다
@@ -431,7 +431,7 @@ Step 5                    Step 6                    Step 7
 "사업을 하고 싶은데 아이디어가 없어요" 또는 "아이디어를 찾아주세요"
 → 5개 질문에 답변
 → 3-5개 아이디어 후보 생성 및 평가
-→ Go/Pivot/Drop 판정
+→ Go/Pivot-optimize/Pivot-review/Drop 판정
 → "이 아이디어를 검증해주세요" (/idea-validation)
 → 확정된 아이디어로 Step 1 진행
 ```

@@ -13,6 +13,7 @@ Behavioral rules automatically applied to all agent responses. These are always 
 | `business-planning-style.md` | Document formatting: structured headers, data-backed claims, frameworks (SWOT, PESTEL, Porter's), executive summaries, balanced analysis |
 | `korean-communication.md` | Korean language rules: honorifics, Korean units (억/만원), date format, technical-to-business term mapping table |
 | `safety-guidelines.md` | Safety disclaimers: financial estimates marked as estimates, legal advice requires professional consultation, scenario analysis required for projections |
+| `update-check.md` | Update check rule: periodic update verification and notification |
 
 ## For AI Agents
 

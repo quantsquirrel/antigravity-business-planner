@@ -79,7 +79,7 @@ class ProgressTracker:
     ]
 
     # Idea-local stage definitions (directory relative to idea folder)
-    IDEA_STAGE_0_FILES = ["hypothesis.md", "evaluation.md"]
+    IDEA_STAGE_0_FILES = ["hypothesis.md", "evaluation.md", "existing-alternatives.md"]
 
     IDEA_STAGES = [
         {
@@ -342,10 +342,21 @@ class ProgressTracker:
                 idea_dirs.append(child)
         return idea_dirs
 
+    # v2.0 judgment badge mapping
+    JUDGMENT_BADGES = {
+        "go": "✅ Go",
+        "pivot-optimize": "🔧 Pivot(최적화)",
+        "pivot-review": "🔍 Pivot(재검토)",
+        "drop": "❌ Drop",
+        # v1.0 legacy
+        "pivot": "🔄 Pivot",
+    }
+
     def _load_idea_meta(self, idea_dir: Path) -> Dict:
         """
         idea.json을 읽어 메타 정보를 반환합니다.
         파싱 실패 시 기본값을 반환합니다.
+        v2.0 필드가 있으면 검증하고 없는 필드는 경고만 출력합니다.
         """
         meta_path = idea_dir / "idea.json"
         defaults = {
@@ -361,6 +372,12 @@ class ProgressTracker:
             for key in defaults:
                 if key not in data:
                     data[key] = defaults[key]
+            # v2.0 field validation
+            if data.get("workflow_version") == "2.0":
+                v2_fields = ["kill_switch", "psst_mapping", "founder_fit_reason", "current_alternatives"]
+                for field in v2_fields:
+                    if field not in data:
+                        print(f"⚠️  v2.0 필드 누락 ({idea_dir.name}): {field}", file=sys.stderr)
             return data
         except (json.JSONDecodeError, OSError):
             return defaults
@@ -454,8 +471,10 @@ class ProgressTracker:
         for idea_dir in idea_dirs:
             idea_progress = self.check_idea_stages(idea_dir)
             ideas.append(idea_progress)
-            status = idea_progress["meta"].get("status") or "미평가"
-            status_counts[status] = status_counts.get(status, 0) + 1
+            # v2.0: prefer judgment field; fall back to status for v1.0 compat
+            judgment = idea_progress["meta"].get("judgment") or idea_progress["meta"].get("status") or ""
+            status_key = judgment.lower() if judgment else "미평가"
+            status_counts[status_key] = status_counts.get(status_key, 0) + 1
 
         return {
             "total_ideas": len(ideas),
@@ -500,13 +519,20 @@ class ProgressTracker:
                 return stage["name"]
         return "완료"
 
+    def _judgment_badge(self, status: str) -> str:
+        """
+        judgment/status 값에 대응하는 배지 문자열을 반환합니다.
+        """
+        return self.JUDGMENT_BADGES.get(status.lower(), status) if status else "미평가"
+
     def print_idea_report(self, idea_progress: Dict):
         """
         특정 아이디어의 진행률 리포트를 텍스트로 출력합니다.
         """
         meta = idea_progress["meta"]
         name = meta.get("name", idea_progress["idea_dir"])
-        status = meta.get("status") or "미평가"
+        judgment = meta.get("judgment") or meta.get("status") or ""
+        status = self._judgment_badge(judgment) if judgment else "미평가"
         score = meta.get("score")
         if score is not None:
             display_score = score * 4 if score <= 25 else score
@@ -542,21 +568,35 @@ class ProgressTracker:
         total = portfolio["total_ideas"]
         counts = portfolio["status_counts"]
 
-        go = counts.get("Go", 0)
-        pivot = counts.get("Pivot", 0)
-        drop = counts.get("Drop", 0)
-        unrated = total - go - pivot - drop
+        go = counts.get("go", 0)
+        pivot_opt = counts.get("pivot-optimize", 0)
+        pivot_rev = counts.get("pivot-review", 0)
+        pivot_legacy = counts.get("pivot", 0)
+        drop = counts.get("drop", 0)
+        rated = go + pivot_opt + pivot_rev + pivot_legacy + drop
+        unrated = total - rated
 
         print("\n" + "=" * 60)
         print("📊 사업 아이디어 포트폴리오")
         print("=" * 60 + "\n")
-        print(f"총 아이디어: {total}개 | Go: {go} | Pivot: {pivot} | Drop: {drop} | 미평가: {unrated}")
+        summary_parts = [f"총 아이디어: {total}개", f"Go: {go}"]
+        if pivot_opt > 0:
+            summary_parts.append(f"Pivot(최적화): {pivot_opt}")
+        if pivot_rev > 0:
+            summary_parts.append(f"Pivot(재검토): {pivot_rev}")
+        if pivot_legacy > 0:
+            summary_parts.append(f"Pivot: {pivot_legacy}")
+        summary_parts.append(f"Drop: {drop}")
+        if unrated > 0:
+            summary_parts.append(f"미평가: {unrated}")
+        print(" | ".join(summary_parts))
         print()
 
         for idx, idea in enumerate(ideas, 1):
             meta = idea["meta"]
             name = meta.get("name", "")
-            status = meta.get("status") or "미평가"
+            judgment = meta.get("judgment") or meta.get("status") or ""
+            badge = self._judgment_badge(judgment) if judgment else "미평가"
             score = meta.get("score")
             completed = idea["completed_stages"]
             # Stage 0 is not counted in 1-8 progress display
@@ -568,7 +608,7 @@ class ProgressTracker:
 
             if score is not None:
                 display_score = score * 4 if score <= 25 else score
-                label = f"{status} {display_score}/100"
+                label = f"{badge} {display_score}/100"
             else:
                 label = "미평가"
 
@@ -598,7 +638,8 @@ class ProgressTracker:
         for idx, idea in enumerate(ideas, 1):
             meta = idea["meta"]
             name = meta.get("name", "")
-            status = meta.get("status") or "미평가"
+            judgment = meta.get("judgment") or meta.get("status") or ""
+            badge = self._judgment_badge(judgment) if judgment else "미평가"
             score = meta.get("score")
             if score is not None:
                 display_score = score * 4 if score <= 25 else score
@@ -611,7 +652,7 @@ class ProgressTracker:
             current_stage = self._current_stage_name(idea)
             created = meta.get("created", "")
             lines.append(
-                f"| {idx} | {name} | {status} | {score_str} | {stages_1_8_done}/8 ({current_stage}) | {created} |"
+                f"| {idx} | {name} | {badge} | {score_str} | {stages_1_8_done}/8 ({current_stage}) | {created} |"
             )
 
         auto_content = "\n".join(lines)

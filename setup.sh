@@ -414,7 +414,7 @@ cat << 'WF11_EOF' > "$PROJECT_ROOT/.agent/workflows/idea-discovery.md"
 * 답변에서 시장 기회 영역을 추출합니다
 * 3-5개의 사업 아이디어를 가설 형태(1문단)로 생성합니다
 * 각 아이디어를 5점 척도(시장크기, 경쟁강도, 적합성, 자원, 타이밍)로 평가합니다
-* Go/Pivot/Drop 판정을 내립니다
+* Go/Pivot-optimize/Pivot-review/Drop 판정을 내립니다
 
 ## 필수 질문 (5개)
 1. **업종/산업**: 어떤 분야에서 일하고 계시나요?
@@ -424,7 +424,7 @@ cat << 'WF11_EOF' > "$PROJECT_ROOT/.agent/workflows/idea-discovery.md"
 5. **목표 고객층**: 어떤 고객에게 서비스하고 싶으신가요?
 
 ## 프로세스 흐름
-* 질문 5개 수집 → 키워드 추출 → 아이디어 3-5개 생성 → 5점 척도 평가 → Go/Pivot/Drop
+* 질문 5개 수집 → 키워드 추출 → 아이디어 3-5개 생성 → 5점 척도 평가 → Go/Pivot-optimize/Pivot-review/Drop
 
 ## 아이디어 저장 규칙
 
@@ -434,7 +434,7 @@ Go 판정을 받은 아이디어는 개별 폴더를 생성합니다:
 output/ideas/{id}-{name}/
 ├── idea.json          # 메타 정보 (id, name, status, score 등)
 ├── hypothesis.md      # 아이디어 가설 (1문단)
-├── evaluation.md      # Go/Pivot/Drop 평가 결과
+├── evaluation.md      # Go/Pivot-optimize/Pivot-review/Drop 평가 결과
 ├── research/          # (빈 디렉토리, 추후 시장조사용)
 ├── financials/        # (빈 디렉토리, 추후 재무분석용)
 └── reports/           # (빈 디렉토리, 추후 보고서용)
@@ -517,7 +517,7 @@ output/ideas/ 탐색 → 아이디어 유무 확인 → 포트폴리오 요약 �
 
 ### 2단계: 포트폴리오 요약 표시
 * `scripts/check_progress.py --portfolio` 를 활용하여 전체 아이디어 현황을 수집합니다
-* 각 아이디어별 이름, 점수, 진행률, Go/Pivot/Drop 판정을 표로 정리합니다
+* 각 아이디어별 이름, 점수, 진행률, Go/Pivot-optimize/Pivot-review/Drop 판정을 표로 정리합니다
 
 ### 3단계: 사용자 행동 선택지 제시
 사용자에게 다음 중 하나를 선택하도록 안내합니다:
@@ -535,7 +535,7 @@ output/ideas/ 탐색 → 아이디어 유무 확인 → 포트폴리오 요약 �
 
 ### 포트폴리오 조회
 * 전체 아이디어 목록을 테이블 형식으로 표시합니다
-* 컬럼: 아이디어 ID, 이름, 종합 점수, 진행률(%), 판정(Go/Pivot/Drop)
+* 컬럼: 아이디어 ID, 이름, 종합 점수, 진행률(%), 판정(Go/Pivot-optimize/Pivot-review/Drop)
 
 ### 아이디어 상세
 * 특정 아이디어의 5점 척도 평가(시장크기, 경쟁강도, 적합성, 자원, 타이밍) 표시
@@ -2308,7 +2308,7 @@ description: 도메인 지식은 있지만 사업 아이디어가 없는 사용�
 - 사용자의 업종 경험과 도메인 지식을 구조화합니다
 - 시장 기회를 가설 수준(1문단)으로 빠르게 도출합니다
 - 여러 아이디어를 비교 가능한 형태로 정리합니다
-- Go/Pivot/Drop 판단을 위한 정량 평가를 수행합니다
+- Go/Pivot-optimize/Pivot-review/Drop 판단을 위한 정량 평가를 수행합니다
 
 ## 깊이 경계
 - **이 스킬**: 가설 수준의 아이디어 도출 (1문단 요약)
@@ -2322,13 +2322,13 @@ description: 도메인 지식은 있지만 사업 아이디어가 없는 사용�
 4. **가용 자원**: 초기 투자 가능 금액, 활용 가능한 네트워크/자산은?
 5. **목표 고객층**: 어떤 고객에게 서비스하고 싶으신가요?
 
-## Go/Pivot/Drop 평가 기준 (5점 척도)
+## Go/Pivot-optimize/Pivot-review/Drop 평가 기준 (5점 척도)
 
 | 평가 항목 | 1점 (매우 불리) | 3점 (보통) | 5점 (매우 유리) |
 |-----------|----------------|-----------|----------------|
 | 시장 크기 | 연 100억 미만 | 연 1,000억 내외 | 연 1조 이상 |
 | 경쟁 강도 | 대기업 독점 | 중소 경쟁자 다수 | 경쟁자 부재/소수 |
-| 적합성 | 경험 무관 | 일부 관련 | 핵심 역량 일치 |
+| 창업자-문제 적합성 | 경험 무관 | 일부 관련 | 핵심 역량 일치 |
 | 자원 요건 | 10억 이상 필요 | 1-5억 필요 | 5천만 이하 가능 |
 | 타이밍 | 이미 포화 | 성장기 | 초기 시장 |
 
@@ -2991,9 +2991,9 @@ cat << 'TPL5_EOF' > "$PROJECT_ROOT/templates/idea-evaluation-template.md"
 | 자원 요건 | /5 | /5 | /5 |
 | 타이밍 | /5 | /5 | /5 |
 | **총점** | **/25** | **/25** | **/25** |
-| **판정** | Go/Pivot/Drop | Go/Pivot/Drop | Go/Pivot/Drop |
+| **판정** | Go/Pivot-optimize/Pivot-review/Drop | Go/Pivot-optimize/Pivot-review/Drop | Go/Pivot-optimize/Pivot-review/Drop |
 
-**판정 기준:** Go (20+) / Pivot (12-19) / Drop (11-)
+**판정 기준:** Go (80+) / Pivot-optimize (66-79) / Pivot-review (48-65) / Drop (47-)
 
 ---
 
