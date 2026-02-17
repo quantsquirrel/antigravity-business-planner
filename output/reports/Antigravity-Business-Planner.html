@@ -2583,57 +2583,118 @@
             <section id="mcp">
                 <details>
                 <summary><h2>외부 도구 연동</h2></summary>
+
+                <div class="info-box">
+                    <strong>이 기능은 선택 사항입니다</strong><br>
+                    <span style="color: var(--text-secondary); font-size: 0.92rem;">
+                        외부 도구 없이도 사업 기획의 모든 과정을 진행할 수 있습니다.<br>
+                        Google Sheets, Notion 등을 연결하면 더 편리해질 뿐입니다. 나중에 필요할 때 설정해도 됩니다.
+                    </span>
+                </div>
+
                 <p>
-                    Model Context Protocol (MCP) 서버와 연동하여 외부 도구 및 데이터 소스를 활용할 수 있습니다.
-                    <code>mcp-config-template.json</code> 파일에서 설정을 관리합니다.
+                    Antigravity는 외부 서비스와 연결하여 실시간 데이터를 가져오거나,
+                    작성한 문서를 다른 곳에 자동 저장할 수 있습니다.
+                    이 연결 기능을 <strong>"MCP 연동"</strong>이라고 부릅니다.
                 </p>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>MCP 서버</th>
-                            <th>용도</th>
-                            <th>주요 기능</th>
-                            <th>설정 난이도</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Google Sheets</strong></td>
-                            <td>재무 모델 스프레드시트 관리</td>
-                            <td>재무 데이터 입력/조회, 자동 계산, 차트 생성</td>
-                            <td><span class="badge medium">보통</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Notion</strong></td>
-                            <td>문서 관리 및 팀 협업</td>
-                            <td>사업계획서 저장, 버전 관리, 팀 공유</td>
-                            <td><span class="badge medium">보통</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Perplexity</strong></td>
-                            <td>실시간 시장 데이터 검색</td>
-                            <td>최신 시장 동향, 경쟁사 정보, 산업 통계 수집</td>
-                            <td><span class="badge easy">쉬움</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sequential Thinking</strong></td>
-                            <td>복잡한 문제 단계별 분석</td>
-                            <td>전략 분석, 의사결정 트리, 시나리오 플래닝</td>
-                            <td><span class="badge easy">쉬움</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3>연결할 수 있는 외부 도구</h3>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>📊 Google Sheets</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 재무 계획 데이터를 Google 스프레드시트에 자동 저장하고, 차트를 만들어줍니다.<br>
+                            <strong>언제 필요한가요?</strong> 재무 모델링(Step 4) 결과를 스프레드시트로 관리하고 싶을 때.<br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">설정 난이도: <span class="badge medium">보통</span> — Google 계정 필요</span>
+                        </p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📝 Notion</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 사업계획서를 Notion 페이지에 자동 저장하고, 팀원과 공유할 수 있습니다.<br>
+                            <strong>언제 필요한가요?</strong> 팀과 함께 기획서를 편집하거나, 버전을 관리하고 싶을 때.<br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">설정 난이도: <span class="badge medium">보통</span> — Notion 계정 필요</span>
+                        </p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🔍 Perplexity</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 최신 시장 동향, 경쟁사 정보, 산업 통계를 실시간으로 검색해줍니다.<br>
+                            <strong>언제 필요한가요?</strong> 시장 조사(Step 1)에서 더 정확한 최신 데이터가 필요할 때.<br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">설정 난이도: <span class="badge easy">쉬움</span></span>
+                        </p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🧠 Sequential Thinking</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 복잡한 전략 문제를 단계별로 쪼개서 체계적으로 분석해줍니다.<br>
+                            <strong>언제 필요한가요?</strong> SWOT 분석이나 시나리오 플래닝처럼 깊은 사고가 필요할 때.<br>
+                            <span style="color: var(--text-muted); font-size: 0.85rem;">설정 난이도: <span class="badge easy">쉬움</span></span>
+                        </p>
+                    </div>
+                </div>
 
-                <h3>설정 방법</h3>
-                <ol>
-                    <li><code>mcp-config-template.json</code> 파일을 <code>~/.antigravity/mcp-config.json</code>으로 복사</li>
-                    <li>각 MCP 서버의 API 키 발급 (Google Cloud Console, Notion API 등)</li>
-                    <li>JSON 파일에 API 키 입력</li>
-                    <li>Google Antigravity 재시작</li>
-                </ol>
-            </section>
+                <h3>설정 방법 (처음 하시는 분을 위한 안내)</h3>
+
+                <div class="warning-box" style="margin-bottom: var(--space-md);">
+                    <strong>시작하기 전에</strong><br>
+                    <span style="font-size: 0.92rem;">
+                        아래 과정은 "설정 파일"이라는 텍스트 파일을 열어서 몇 글자를 수정하는 작업입니다.
+                        프로그래밍이 아니라, 메모장에서 글을 고치는 것과 비슷합니다.
+                    </span>
+                </div>
+
+                <p><strong>1단계: 설정 파일 찾기</strong></p>
+                <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: var(--space-xs);">
+                    프로젝트 폴더 안에 <code>mcp-config-template.json</code>이라는 파일이 있습니다.
+                    이 파일이 설정의 "틀"입니다.
+                </p>
+                <ul style="margin-bottom: var(--space-md);">
+                    <li><strong>Mac</strong>: Finder에서 프로젝트 폴더를 열고, 파일 목록에서 찾으세요</li>
+                    <li><strong>Windows</strong>: 탐색기에서 프로젝트 폴더를 열고, 파일 목록에서 찾으세요</li>
+                </ul>
+
+                <p><strong>2단계: 설정 파일 복사하기</strong></p>
+                <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: var(--space-xs);">
+                    이 파일을 Antigravity 설정 폴더로 복사합니다.
+                    Antigravity 채팅창에 아래 명령어를 입력하면 자동으로 해줍니다:
+                </p>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>mcp-config-template.json 파일을 ~/.antigravity/mcp-config.json 으로 복사해줘</pre>
+                </div>
+
+                <p><strong>3단계: 사용할 서비스의 "열쇠(API 키)" 받기</strong></p>
+                <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: var(--space-xs);">
+                    외부 서비스에 접속하려면 각 서비스에서 발급하는 "열쇠"(API 키)가 필요합니다.
+                    비밀번호와 비슷한 개념으로, 각 서비스 웹사이트에서 무료로 받을 수 있습니다.
+                </p>
+                <ul style="margin-bottom: var(--space-md);">
+                    <li><strong>Google Sheets</strong>: <a href="https://console.cloud.google.com" style="color: var(--accent-cyan);">Google Cloud Console</a>에서 발급 (Google 계정 로그인 → "API 및 서비스" → "사용자 인증 정보")</li>
+                    <li><strong>Notion</strong>: <a href="https://www.notion.so/my-integrations" style="color: var(--accent-cyan);">Notion 통합 페이지</a>에서 발급 (로그인 → "새 통합 만들기")</li>
+                    <li><strong>Perplexity</strong>: <a href="https://www.perplexity.ai/settings/api" style="color: var(--accent-cyan);">Perplexity 설정</a>에서 발급</li>
+                </ul>
+
+                <p><strong>4단계: 열쇠를 설정 파일에 넣기</strong></p>
+                <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: var(--space-xs);">
+                    가장 쉬운 방법 — Antigravity 채팅창에 이렇게 말하면 됩니다:
+                </p>
+                <div class="cmd-block">
+                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                    <pre>MCP 설정 파일에 Perplexity API 키를 넣어줘: pplx-xxxxxxxx</pre>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: var(--space-md);">
+                    (pplx-xxxxxxxx 부분을 실제 받은 키로 바꿔주세요)
+                </p>
+
+                <p><strong>5단계: Antigravity 다시 시작하기</strong></p>
+                <p style="color: var(--text-secondary); font-size: 0.92rem;">
+                    설정을 적용하려면 Antigravity를 껐다가 다시 켜면 됩니다.
+                    이후 연결된 도구를 자동으로 사용할 수 있습니다.
+                </p>
+
                 </details>
+            </section>
 
             <!-- Section 7: Utilities -->
             <section id="utilities">
