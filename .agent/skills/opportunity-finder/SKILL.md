@@ -110,3 +110,4 @@ output/ideas/{id}-{name}/
 - 멀티 모드: 확정된 아이디어는 `output/ideas/{id}-{name}/` 폴더에 저장합니다
 - 레거시 호환: `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조를 유지합니다
 - 아이디어 후보 목록은 `output/ideas/`에 저장합니다
+- 여러 아이디어가 생성되었다면, `/idea-portfolio`로 HTML 대시보드를 확인할 수 있습니다.
