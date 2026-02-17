@@ -55,6 +55,15 @@
 3. "다음 단계: [Step N: 단계명]을 진행합니다. 계속할까요?" 를 표시합니다
 4. 사용자가 확인하면 자동으로 다음 워크플로우를 실행합니다
 
+### 동적 우선순위 추천 (v2.0 Phase 6)
+
+단계 완료 후 산출물을 분석하여 조건에 따라 다음 우선순위를 동적으로 추천합니다:
+
+* idea.json에서 경쟁 강도(competition_intensity) 점수 ≤ 2 → "💡 경쟁 환경 파악이 부족합니다. 경쟁분석(/competitor-analysis)을 먼저 진행하는 것을 추천합니다."
+* idea.json에서 자원/자금(resources) 점수 ≤ 2 → "💡 자금 계획이 불분명합니다. 재무 모델링(/financial-modeling)을 우선 검토하세요."
+* idea.json에 ai_business.detected: true → "💡 AI 사업으로 감지되었습니다. AI 특화 재무 모델(/financial-modeling + AI 템플릿)을 활용하세요."
+* 데이터 신뢰도 D등급 비율 > 30% → "💡 가정 데이터가 많습니다. 시장조사(/market-research)로 데이터를 보강하세요."
+
 ## Context Chaining 연동
 
 * 각 단계 시작 시 context-chaining 규칙에 따라 선행 산출물을 자동 참조합니다
