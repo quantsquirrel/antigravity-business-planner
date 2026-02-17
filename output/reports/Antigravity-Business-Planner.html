@@ -2077,28 +2077,28 @@
 
                 <div class="highlight-grid">
                     <div class="highlight-card">
-                        <h4>📁 38개 파일</h4>
-                        <p>워크플로우, 스킬, 템플릿, 스크립트 등 사업 기획에 필요한 모든 구성 요소가 포함되어 있습니다.</p>
+                        <h4>📁 올인원 패키지</h4>
+                        <p>사업 기획에 필요한 모든 것이 하나의 패키지에 담겨 있습니다. 별도로 찾거나 설치할 것이 없습니다.</p>
                     </div>
                     <div class="highlight-card">
-                        <h4>🔄 13개 워크플로우</h4>
-                        <p>시장 조사부터 사업계획서 작성까지, 슬래시 명령어로 실행하는 단계별 기획 프로세스입니다.</p>
+                        <h4>🔄 13가지 자동 분석</h4>
+                        <p>시장 조사부터 사업계획서까지, 대화창에 입력하면 자동으로 분석해줍니다.</p>
                     </div>
                     <div class="highlight-card">
-                        <h4>🧠 12개 전문 스킬</h4>
-                        <p>재무 분석, SWOT 분석, 데이터 시각화 등 전문 영역별 AI 분석 능력을 제공합니다.</p>
+                        <h4>🧠 12가지 전문 분석</h4>
+                        <p>재무 분석, SWOT 분석 등 전문가 수준의 분석을 AI가 수행합니다.</p>
                     </div>
                     <div class="highlight-card">
-                        <h4>⚡ 원클릭 세팅</h4>
-                        <p>setup.sh 하나로 2,885줄의 환경 설정을 자동 구성합니다. 설치 후 즉시 사용 가능합니다.</p>
+                        <h4>⚡ 설치 한 번이면 끝</h4>
+                        <p>자동으로 모든 환경을 준비해줍니다. 기술 지식이 필요 없습니다.</p>
                     </div>
                     <div class="highlight-card">
                         <h4>🎯 비개발자 대상</h4>
-                        <p>코딩 지식 없이 자연어(한국어)로 대화하듯 사업 기획을 진행할 수 있습니다.</p>
+                        <p>코딩 지식 없이 한국어로 대화하듯 사업 기획을 진행할 수 있습니다.</p>
                     </div>
                     <div class="highlight-card">
                         <h4>🇰🇷 한국 시장 최적화</h4>
-                        <p>원(₩) 단위, 억/만원 표기, 한국 통계 데이터 소스(통계청, KOSIS)를 우선 활용합니다.</p>
+                        <p>원(₩) 단위, 억/만원 표기, 한국 통계 데이터(통계청, KOSIS)를 우선 활용합니다.</p>
                     </div>
                 </div>
             </section>
@@ -2107,17 +2107,24 @@
             <section id="structure">
                 <details>
                 <summary><h2>폴더 구조</h2></summary>
+                <div class="info-box">
+                    <strong>이 파일들을 직접 건드릴 필요 없습니다</strong><br>
+                    <span style="color: var(--text-secondary); font-size: 0.92rem;">
+                        아래는 프로젝트 내부 구조를 보여주는 참고 자료입니다.<br>
+                        모든 기능은 Antigravity 대화창에서 자동으로 실행되므로, 파일을 직접 열거나 수정할 일이 없습니다.
+                    </span>
+                </div>
                 <p>프로젝트는 체계적인 디렉토리 구조로 구성되어 있으며, 각 구성 요소가 명확한 역할을 수행합니다.</p>
 
                 <div class="tree"><span class="tree-header">📂 antigravity-business-planner/</span>
 │
-├── <span class="folder">📋 .agent/rules/</span> <span class="desc">── AI 에이전트 동작 규칙 (4개)</span>
+├── <span class="folder">📋 .agent/rules/</span> <span class="desc">── AI 동작 규칙 (4개)</span>
 │   ├── <span class="file">korean-communication.md</span>      <span class="desc">한국어 소통</span>
 │   ├── <span class="file">business-planning-style.md</span>   <span class="desc">문서 스타일</span>
 │   ├── <span class="file">safety-guidelines.md</span>         <span class="desc">안전 가이드</span>
 │   └── <span class="file">update-check.md</span>              <span class="desc">자동 업데이트</span>
 │
-├── <span class="folder">🔄 .agent/workflows/</span> <span class="desc">── 슬래시 명령어 워크플로우 (13개)</span>
+├── <span class="folder">🔄 .agent/workflows/</span> <span class="desc">── 자동 분석 기능 (13개)</span>
 │   ├── <span class="file">market-research.md</span>           <span class="desc">시장 조사</span>
 │   ├── <span class="file">competitor-analysis.md</span>       <span class="desc">경쟁 분석</span>
 │   ├── <span class="file">financial-modeling.md</span>        <span class="desc">재무 모델링</span>
@@ -2132,7 +2139,7 @@
 │   ├── <span class="file">idea-validation.md</span>           <span class="desc">아이디어 검증</span>
 │   └── <span class="file">idea-portfolio.md</span>            <span class="desc">포트폴리오</span>
 │
-├── <span class="folder">🧠 .agent/skills/</span> <span class="desc">── 전문 AI 스킬 (12개 + 4 스크립트)</span>
+├── <span class="folder">🧠 .agent/skills/</span> <span class="desc">── 전문 분석 도구 (12개 + 4 스크립트)</span>
 │   ├── <span class="file">business-researcher.md</span>       <span class="desc">사업 리서처</span>
 │   ├── <span class="file">financial-analyst.md</span>         <span class="desc">재무 분석가</span>
 │   ├── <span class="file">report-writer.md</span>             <span class="desc">보고서 작성</span>
@@ -2156,7 +2163,7 @@
 │   ├── <span class="folder">presentations/</span>  <span class="desc">피치덱</span>
 │   └── <span class="folder">samples/</span>        <span class="desc">샘플 데이터</span>
 │
-├── <span class="file">⚡ setup.sh</span>                      <span class="desc">원클릭 세팅 (2,885줄)</span>
+├── <span class="file">⚡ setup.sh</span>                      <span class="desc">자동 설치 프로그램</span>
 ├── <span class="file">📖 GUIDE.md</span>                      <span class="desc">사용 가이드</span>
 └── <span class="file">🔗 mcp-config-template.json</span>      <span class="desc">MCP 설정 템플릿</span>
                 </div>
@@ -2179,12 +2186,12 @@
                         <tr>
                             <td><strong>.agent/workflows/</strong></td>
                             <td>13개</td>
-                            <td>슬래시 명령어로 실행 가능한 사업 기획 워크플로우</td>
+                            <td>대화창에서 실행하는 자동 분석 기능</td>
                         </tr>
                         <tr>
                             <td><strong>.agent/skills/</strong></td>
                             <td>11개 + 4개 스크립트</td>
-                            <td>전문 영역별 AI 스킬 정의 및 Python 유틸리티</td>
+                            <td>전문 영역별 자동 분석 도구</td>
                         </tr>
                         <tr>
                             <td><strong>templates/</strong></td>
@@ -2194,12 +2201,12 @@
                         <tr>
                             <td><strong>output/</strong></td>
                             <td>4개 하위 디렉토리</td>
-                            <td>분석 결과 및 산출물 저장 공간 (샘플은 setup.sh 실행 시 자동 생성)</td>
+                            <td>분석 결과 및 산출물 저장 공간 (샘플은 설치 시 자동 생성)</td>
                         </tr>
                         <tr>
                             <td><strong>setup.sh</strong></td>
-                            <td>2,885줄</td>
-                            <td>전체 환경 자동 구성 스크립트</td>
+                            <td>전체 환경 자동 구성</td>
+                            <td>자동 설치 프로그램</td>
                         </tr>
                     </tbody>
                 </table>
@@ -2211,239 +2218,195 @@
                 <details>
                 <summary><h2>도구 상세 안내</h2></summary>
 
-                <h3>3.1 기본 설정 (Rules) — 3개</h3>
-                <p>AI 에이전트가 사업 기획 작업을 수행할 때 따라야 하는 기본 원칙과 가이드라인입니다.</p>
+                <h3>3.1 AI가 따르는 기본 규칙</h3>
+                <p>AI가 사업 기획을 도울 때 자동으로 따르는 기본 원칙입니다. 별도로 설정할 필요가 없습니다.</p>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>파일명</th>
-                            <th>목적</th>
-                            <th>주요 내용</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>korean-communication.md</strong></td>
-                            <td>한국어 소통 규칙</td>
-                            <td>존댓말 사용, 한국식 단위(억/만원), 기술 용어 영어 병기, 한국 비즈니스 문화 반영</td>
-                        </tr>
-                        <tr>
-                            <td><strong>business-planning-style.md</strong></td>
-                            <td>문서 작성 스타일</td>
-                            <td>데이터 기반 근거 제시, 출처 명시, 프레임워크 활용(SWOT/PESTEL/Porter's), 핵심 요약 포함</td>
-                        </tr>
-                        <tr>
-                            <td><strong>safety-guidelines.md</strong></td>
-                            <td>AI 안전 가이드라인</td>
-                            <td>추정치 명시, 전문가 자문 권고, 민감 정보 보호, 시나리오 분석 필수, 책임 제한 공지</td>
-                        </tr>
-                        <tr>
-                            <td><strong>update-check.md</strong></td>
-                            <td>자동 업데이트 확인</td>
-                            <td>세션 시작 시 git fetch로 새 버전 확인, 업데이트 안내, 세션당 1회 실행</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>🇰🇷 한국어 소통</h4>
+                        <p><strong>무엇을 하나요?</strong> 존댓말 사용, 원(₩) 단위, 억/만원 표기 등 한국 비즈니스 문화에 맞게 소통합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📋 문서 품질 관리</h4>
+                        <p><strong>무엇을 하나요?</strong> 데이터 근거를 반드시 제시하고, 출처를 명시하며, SWOT 등 검증된 분석 프레임워크를 활용합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🛡️ 안전 가이드라인</h4>
+                        <p><strong>무엇을 하나요?</strong> 모든 수치에 "추정치" 표시, 전문가 자문 권고, 민감 정보 보호 등 신뢰할 수 있는 결과를 보장합니다.</p>
+                    </div>
+                </div>
 
-                <h3>3.2 자동 분석 기능 (Workflows) — 13개</h3>
-                <p>슬래시 명령어로 실행 가능한 체계적인 사업 기획 프로세스입니다.</p>
+                <h3>3.2 자동 분석 기능 — 13가지</h3>
+                <p>Antigravity 대화창에 말하면 자동으로 실행되는 분석 기능입니다.</p>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>워크플로우</th>
-                            <th>슬래시 명령어</th>
-                            <th>주요 기능</th>
-                            <th>결과 저장</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>시장 조사</strong></td>
-                            <td>/market-research</td>
-                            <td>TAM/SAM/SOM 추정, 시장 트렌드 분석, 고객 세그먼트 정의</td>
-                            <td>output/research/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>경쟁 분석</strong></td>
-                            <td>/competitor-analysis</td>
-                            <td>Porter's Five Forces, 경쟁사 SWOT 매트릭스, 차별화 포인트 도출</td>
-                            <td>output/research/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>재무 모델링</strong></td>
-                            <td>/financial-modeling</td>
-                            <td>손익계산서, BEP 계산, 3개년 재무제표, 시나리오 분석</td>
-                            <td>output/financials/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>사업계획서 작성</strong></td>
-                            <td>/business-plan-draft</td>
-                            <td>10개 섹션 종합 사업계획서, Executive Summary 포함</td>
-                            <td>output/reports/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>브랜딩 전략</strong></td>
-                            <td>/branding-strategy</td>
-                            <td>브랜드 포지셔닝, 페르소나 설정, 브랜드명 제안, 마케팅 채널 전략</td>
-                            <td>output/reports/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>운영 계획</strong></td>
-                            <td>/operations-plan</td>
-                            <td>공급망 관리, 인력 계획, 일일 운영 프로세스, 품질 관리</td>
-                            <td>output/reports/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>법률/인허가 체크리스트</strong></td>
-                            <td>/legal-checklist</td>
-                            <td>사업자 등록, 업종별 인허가, 세금 구조, 지적재산권, 보험</td>
-                            <td>output/reports/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>제품 원가 계산</strong></td>
-                            <td>/menu-costing</td>
-                            <td>원재료비 산정, 원가율 분석, 가격 민감도, 규모의 경제 분석</td>
-                            <td>output/financials/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>아이디어 발굴</strong></td>
-                            <td>/idea-discovery</td>
-                            <td>구조화 질문 5개로 도메인 경험에서 사업 아이디어 3-5개 도출, Go/Pivot/Drop 평가</td>
-                            <td>output/ideas/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>아이디어 검증</strong></td>
-                            <td>/idea-validation</td>
-                            <td>간이 시장 검증, 핵심 가정 식별, MVP 검증 방안 제안, selected-idea.md 생성</td>
-                            <td>output/ideas/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>아이디어 포트폴리오</strong></td>
-                            <td>/idea-portfolio</td>
-                            <td>멀티 아이디어 대시보드, 진행률 비교, 아이디어 전환, portfolio.md 자동 갱신</td>
-                            <td>output/ideas/</td>
-                        </tr>
-                        <tr>
-                            <td><strong>진행률 확인</strong></td>
-                            <td>/check-progress</td>
-                            <td>기획 프로세스 진행 상황 추적 (조건부 Stage 0 + 8단계), 완료/미완료 단계 표시</td>
-                            <td>터미널 출력</td>
-                        </tr>
-                        <tr>
-                            <td><strong>문서 내보내기</strong></td>
-                            <td>/export-documents</td>
-                            <td>Markdown 문서를 스타일링된 HTML로 변환, 브라우저에서 PDF 저장 가능</td>
-                            <td>output/ (HTML)</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>🔍 시장 조사</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 시장 규모 추정, 트렌드 분석, 고객층 파악을 자동으로 수행합니다.<br>
+                            <strong>언제 쓰나요?</strong> 시장 조사 단계(Step 1)에서 사용합니다.<br>
+                            <strong>시작하려면:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>우리 시장을 조사해줘</pre>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>⚔️ 경쟁 분석</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 경쟁사 분석, 차별화 포인트 도출, 시장 내 위치를 파악합니다.<br>
+                            <strong>언제 쓰나요?</strong> 경쟁 분석 단계(Step 2)에서 사용합니다.<br>
+                            <strong>시작하려면:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>경쟁사를 분석해줘</pre>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>💰 재무 모델링</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 손익계산서, 손익분기점, 3개년 재무 예측, 시나리오 분석을 수행합니다.<br>
+                            <strong>언제 쓰나요?</strong> 재무 계획 단계(Step 4)에서 사용합니다.<br>
+                            <strong>시작하려면:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>재무 모델링을 해줘</pre>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📝 사업계획서 작성</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 10개 섹션의 종합 사업계획서를 자동으로 작성합니다.<br>
+                            <strong>언제 쓰나요?</strong> 모든 분석이 완료된 후(Step 7)에 사용합니다.<br>
+                            <strong>시작하려면:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>사업계획서를 작성해줘</pre>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>💡 아이디어 발굴</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 5가지 질문을 통해 경험에서 사업 아이디어 3~5개를 도출합니다.<br>
+                            <strong>언제 쓰나요?</strong> 아이디어 탐색 단계(Step 0)에서 사용합니다.<br>
+                            <strong>시작하려면:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>사업 아이디어를 찾아줘</pre>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📊 진행률 확인</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 기획 프로세스의 진행 상황을 한눈에 보여줍니다.<br>
+                            <strong>언제 쓰나요?</strong> 언제든지 현재 진행 상황이 궁금할 때 사용합니다.<br>
+                            <strong>시작하려면:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>진행률을 확인해줘</pre>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📄 문서 내보내기</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 작성된 문서를 깔끔한 HTML/PDF로 변환합니다.<br>
+                            <strong>언제 쓰나요?</strong> 완성된 문서를 공유하거나 인쇄할 때 사용합니다.<br>
+                            <strong>시작하려면:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>사업계획서를 PDF로 내보내줘</pre>
+                        </div>
+                    </div>
+                </div>
 
-                <h3>3.3 전문 도구 (Skills) — 12개</h3>
-                <p>각 전문 영역을 담당하는 AI 스킬로, 워크플로우에서 호출되어 사용됩니다.</p>
+                <p style="margin-top: 1.2rem;"><strong>그 외 분석 기능:</strong></p>
+                <ul style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8;">
+                    <li><strong>브랜딩 전략</strong> — 브랜드 포지셔닝, 브랜드명 제안, 마케팅 채널 전략</li>
+                    <li><strong>운영 계획</strong> — 공급망 관리, 인력 계획, 일일 운영 프로세스</li>
+                    <li><strong>법률/인허가 체크리스트</strong> — 사업자 등록, 업종별 인허가, 세금 구조</li>
+                    <li><strong>제품 원가 계산</strong> — 원재료비 산정, 원가율 분석, 가격 민감도</li>
+                    <li><strong>아이디어 검증</strong> — 시장 검증, 핵심 가정 식별, MVP 검증 방안</li>
+                    <li><strong>아이디어 포트폴리오</strong> — 여러 아이디어 비교 대시보드, 진행률 비교</li>
+                </ul>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>스킬명</th>
-                            <th>설명</th>
-                            <th>부가 스크립트</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>business-researcher</strong></td>
-                            <td>시장 데이터 웹 수집 및 구조화된 보고서 작성. 한국 데이터 소스 우선 (통계청, KOSIS, 산업통상자원부 등)</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><strong>financial-analyst</strong></td>
-                            <td>재무 분석, 원가 계산, 손익 예측, 투자 수익률 분석, 시나리오 플래닝</td>
-                            <td>calculate_costs.py</td>
-                        </tr>
-                        <tr>
-                            <td><strong>report-writer</strong></td>
-                            <td>사업계획서, 제안서, 보고서 전문 작성. 템플릿 기반 일관된 형식 유지</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><strong>pitch-deck-creator</strong></td>
-                            <td>투자자용 피치덱 10-15장 구성. 슬라이드별 스피커 노트 및 디자인 가이드 포함</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><strong>swot-analyzer</strong></td>
-                            <td>SWOT, PESTEL, Porter's Five Forces, Business Model Canvas 등 전략 분석 프레임워크 활용</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><strong>opportunity-finder</strong></td>
-                            <td>도메인 경험에서 사업 아이디어 발굴. 구조화 질문 5개, Go/Pivot/Drop 5점 척도 평가, 가설 수준 아이디어 도출</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><strong>data-visualizer</strong></td>
-                            <td>차트 및 그래프 시각화. 데이터 기반 인사이트 도출 및 비주얼라이제이션</td>
-                            <td>create_chart.py</td>
-                        </tr>
-                        <tr>
-                            <td><strong>progress-tracker</strong></td>
-                            <td>기획 프로세스 진행률 추적 (조건부 Stage 0 + 8단계). output/ 폴더 기반 자동 완료 판별 및 다음 단계 추천</td>
-                            <td>check_progress.py</td>
-                        </tr>
-                        <tr>
-                            <td><strong>document-exporter</strong></td>
-                            <td>Markdown 문서를 인쇄 친화적 HTML로 변환. A4 페이지 최적화, 한국어 폰트 지원</td>
-                            <td>export_docs.py</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3>3.3 전문 분석 도구 — 12가지</h3>
+                <div class="info-box">
+                    <strong>이 도구들은 AI가 필요할 때 자동으로 사용합니다</strong><br>
+                    <span style="color: var(--text-secondary); font-size: 0.92rem;">
+                        직접 실행할 필요가 없습니다. 위의 자동 분석 기능을 사용하면 적절한 도구가 자동으로 동작합니다.
+                    </span>
+                </div>
 
-                <h3>3.4 문서 양식 (Templates) — 6개</h3>
-                <p>일관된 품질의 문서 작성을 지원하는 표준 템플릿입니다.</p>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>🔍 사업 리서처</h4>
+                        <p><strong>무엇을 하나요?</strong> 시장 데이터를 수집하고 구조화된 보고서를 작성합니다. 한국 통계청, KOSIS 등 국내 데이터를 우선 활용합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>💰 재무 분석가</h4>
+                        <p><strong>무엇을 하나요?</strong> 원가 계산, 손익 예측, 투자 수익률 분석, 시나리오별 재무 계획을 수행합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📝 보고서 작성</h4>
+                        <p><strong>무엇을 하나요?</strong> 사업계획서, 제안서, 보고서를 전문적인 형식으로 작성합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 SWOT 분석</h4>
+                        <p><strong>무엇을 하나요?</strong> SWOT, 시장 환경 분석 등 검증된 전략 분석 프레임워크를 활용하여 분석합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📊 데이터 시각화</h4>
+                        <p><strong>무엇을 하나요?</strong> 분석 결과를 한눈에 볼 수 있는 차트와 그래프로 만들어줍니다.</p>
+                    </div>
+                </div>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>템플릿</th>
-                            <th>용도</th>
-                            <th>주요 섹션</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>business-plan-template.md</strong></td>
-                            <td>사업계획서</td>
-                            <td>Executive Summary, 시장 분석, 경쟁 분석, 마케팅 계획, 운영 계획, 재무 계획, 팀 구성, 리스크 분석, 로드맵, 부록 (10개 섹션)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>financial-projection-template.md</strong></td>
-                            <td>재무 예측</td>
-                            <td>핵심 가정, 초기 투자, 고정/변동비, 월별 손익, BEP, 낙관/비관/기본 시나리오, 3개년 요약</td>
-                        </tr>
-                        <tr>
-                            <td><strong>market-analysis-template.md</strong></td>
-                            <td>시장 분석</td>
-                            <td>시장 규모(TAM/SAM/SOM), 시장 트렌드, 고객 세그먼트, Porter's Five Forces, 진입 장벽 분석</td>
-                        </tr>
-                        <tr>
-                            <td><strong>pitch-deck-outline.md</strong></td>
-                            <td>투자자 피치덱</td>
-                            <td>12장 구성: 표지, 문제점, 솔루션, 시장 기회, 제품/서비스, 비즈니스 모델, 경쟁 우위, 트랙션, 재무 예측, 팀, 투자 요청, 연락처 (각 슬라이드별 스피커 노트 포함)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>idea-evaluation-template.md</strong></td>
-                            <td>아이디어 평가서</td>
-                            <td>사용자 프로필, 아이디어 후보 3개, 5점 척도 정량 평가(시장크기/경쟁강도/적합성/자원/타이밍), Go/Pivot/Drop 판정, 검증 결과, MVP 방안</td>
-                        </tr>
-                        <tr>
-                            <td><strong>portfolio-template.md</strong></td>
-                            <td>포트폴리오 대시보드</td>
-                            <td>아이디어 현황 테이블, 단계별 요약, 자동 갱신(AUTO:START~END) 영역, 사용자 메모 영역</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <p style="margin-top: 1.2rem;"><strong>그 외 전문 도구:</strong></p>
+                <ul style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8;">
+                    <li><strong>피치덱 생성</strong> — 투자자용 발표 자료 10~15장 자동 구성</li>
+                    <li><strong>아이디어 발굴</strong> — 경험에서 사업 아이디어를 체계적으로 도출</li>
+                    <li><strong>런칭 전략</strong> — 시장 진입 전략 및 단계별 실행 계획</li>
+                    <li><strong>가격 전략</strong> — 최적 가격 설정 및 수익 모델 분석</li>
+                    <li><strong>KPI 프레임워크</strong> — 핵심 성과 지표 설정 및 추적</li>
+                    <li><strong>진행률 추적</strong> — 기획 단계별 완료 현황 자동 파악</li>
+                    <li><strong>문서 변환</strong> — 작성된 문서를 깔끔한 HTML/PDF로 변환</li>
+                </ul>
+
+                <h3>3.4 자동으로 만들어주는 문서 양식</h3>
+                <p>분석 결과를 아래 양식에 맞춰 자동으로 문서화합니다. 양식을 직접 편집할 필요가 없습니다.</p>
+
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>📋 사업계획서</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 요약, 시장 분석, 경쟁 분석, 마케팅 계획, 운영 계획, 재무 계획, 팀 구성, 리스크 분석, 로드맵 등 10개 섹션</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>💰 재무 예측서</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 초기 투자비, 고정/변동비, 월별 손익, 손익분기점, 낙관/비관/기본 시나리오, 3개년 재무 요약</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🔍 시장 분석서</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 시장 규모, 성장 트렌드, 고객 유형 분류, 경쟁 환경, 진입 장벽 분석</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎤 투자자 피치덱</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 12장 구성 — 문제점, 솔루션, 시장 기회, 비즈니스 모델, 재무 예측, 팀 소개, 투자 요청 등</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>💡 아이디어 평가서</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 아이디어 후보 비교, 시장 크기/경쟁/적합성 평가, 추천 판정, 검증 방안</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📊 포트폴리오 대시보드</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 여러 아이디어의 현황 비교, 단계별 진행 요약, 자동 갱신 현황판</p>
+                    </div>
+                </div>
                 </details>
             </section>
 
@@ -2451,91 +2414,97 @@
             <section id="automation">
                 <details>
                 <summary><h2>자동 설치 과정</h2></summary>
+                <div class="info-box">
+                    <strong>설치는 자동입니다</strong><br>
+                    <span style="color: var(--text-secondary); font-size: 0.92rem;">
+                        아래는 자동 설치 프로그램이 무엇을 준비하는지 참고용으로 보여드립니다.<br>
+                        직접 하나씩 설정할 필요 없이, 한 번의 실행으로 모든 것이 자동으로 준비됩니다.
+                    </span>
+                </div>
                 <p>
-                    <strong>setup.sh</strong>는 전체 개발 환경을 자동으로 구성하는 2,885줄의 Bash 스크립트입니다.
-                    원클릭 실행만으로 모든 디렉토리, 규칙, 워크플로우, 스킬, 템플릿을 생성합니다.
+                    자동 설치 프로그램이 사업 기획에 필요한 모든 환경을 한 번에 준비해줍니다.
                 </p>
 
-                <h3>10단계 자동 세팅 프로세스</h3>
+                <h3>10단계 자동 준비 과정</h3>
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <div class="timeline-title">1단계: 사전 요건 확인</div>
-                            <div class="timeline-meta">시스템 검증</div>
-                            <div class="timeline-desc">macOS/Windows/Linux, Python 3.8+, Git, Google Antigravity 설치 여부 확인</div>
+                            <div class="timeline-title">1단계: 컴퓨터 환경 확인</div>
+                            <div class="timeline-meta">필요한 프로그램 확인</div>
+                            <div class="timeline-desc">운영체제, Python, Git, Google Antigravity가 설치되어 있는지 자동으로 확인합니다</div>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <div class="timeline-title">2단계: 디렉토리 생성</div>
-                            <div class="timeline-meta">18개 디렉토리</div>
-                            <div class="timeline-desc">.agent/rules, workflows, skills/scripts, templates, output/{ideas, research, financials, reports, presentations, samples} 생성</div>
+                            <div class="timeline-title">2단계: 작업 공간 준비</div>
+                            <div class="timeline-meta">폴더 자동 생성</div>
+                            <div class="timeline-desc">분석 결과, 보고서, 재무 자료 등을 저장할 폴더를 자동으로 만들어줍니다</div>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <div class="timeline-title">3단계: Rules 생성</div>
-                            <div class="timeline-meta">4개 규칙 파일</div>
-                            <div class="timeline-desc">korean-communication.md, business-planning-style.md, safety-guidelines.md, update-check.md 생성</div>
+                            <div class="timeline-title">3단계: AI 규칙 설정</div>
+                            <div class="timeline-meta">AI 동작 원칙 설정</div>
+                            <div class="timeline-desc">한국어 소통, 문서 품질 관리, 안전 가이드라인 등 AI가 따를 기본 규칙을 설정합니다</div>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <div class="timeline-title">4단계: Workflows 생성</div>
-                            <div class="timeline-meta">13개 워크플로우</div>
-                            <div class="timeline-desc">아이디어 발굴, 아이디어 검증, 아이디어 포트폴리오, 시장 조사, 경쟁 분석, 재무 모델링, 진행률 확인, 문서 내보내기 등 13개 슬래시 명령어 워크플로우 생성</div>
+                            <div class="timeline-title">4단계: 자동 분석 기능 설치</div>
+                            <div class="timeline-meta">13가지 분석 기능</div>
+                            <div class="timeline-desc">시장 조사, 경쟁 분석, 재무 모델링, 사업계획서 작성 등 13가지 자동 분석 기능을 설치합니다</div>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <div class="timeline-title">5단계: Skills 생성</div>
-                            <div class="timeline-meta">12개 스킬 + 4개 Python 스크립트</div>
-                            <div class="timeline-desc">opportunity-finder, business-researcher, financial-analyst, progress-tracker, document-exporter 등 12개 전문 스킬 및 calculate_costs.py, create_chart.py, check_progress.py, export_docs.py 생성</div>
+                            <div class="timeline-title">5단계: 전문 분석 도구 설치</div>
+                            <div class="timeline-meta">12가지 전문 도구</div>
+                            <div class="timeline-desc">사업 리서처, 재무 분석가, SWOT 분석, 데이터 시각화 등 12가지 전문 분석 도구를 설치합니다</div>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <div class="timeline-title">6단계: Templates 생성</div>
-                            <div class="timeline-meta">6개 템플릿 + MCP 설정</div>
-                            <div class="timeline-desc">사업계획서, 재무 예측, 시장 분석, 피치덱, 아이디어 평가서, 포트폴리오 대시보드 템플릿 및 mcp-config-template.json 생성</div>
+                            <div class="timeline-title">6단계: 문서 양식 설치</div>
+                            <div class="timeline-meta">6가지 문서 양식</div>
+                            <div class="timeline-desc">사업계획서, 재무 예측서, 시장 분석서, 피치덱, 아이디어 평가서, 포트폴리오 대시보드 양식을 설치합니다</div>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <div class="timeline-title">7단계: 샘플 데이터 생성</div>
-                            <div class="timeline-meta">업종별 샘플 파일</div>
-                            <div class="timeline-desc">업종별 시장조사, 경쟁분석, 재무모델, 사업계획서 요약 예시 파일 자동 생성</div>
+                            <div class="timeline-title">7단계: 예시 데이터 준비</div>
+                            <div class="timeline-meta">참고용 예시 파일</div>
+                            <div class="timeline-desc">업종별 시장조사, 경쟁분석, 재무모델 등 참고할 수 있는 예시 파일을 만들어줍니다</div>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <div class="timeline-title">8단계: Python 환경 세팅</div>
-                            <div class="timeline-meta">venv 생성 + matplotlib, markdown 설치</div>
-                            <div class="timeline-desc">Python 가상환경 생성 및 차트 생성, 문서 변환을 위한 패키지 자동 설치</div>
+                            <div class="timeline-title">8단계: 분석 도구 준비</div>
+                            <div class="timeline-meta">차트·문서 변환 도구 자동 설치</div>
+                            <div class="timeline-desc">차트 생성, 문서 변환 등에 필요한 보조 도구를 자동으로 설치합니다</div>
                         </div>
                     </div>
 
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
-                            <div class="timeline-title">9단계: Git 초기화</div>
-                            <div class="timeline-meta">git init + 초기 커밋</div>
-                            <div class="timeline-desc">버전 관리를 위한 Git 저장소 초기화 및 .gitignore 설정</div>
+                            <div class="timeline-title">9단계: 버전 관리 준비</div>
+                            <div class="timeline-meta">작업 이력 자동 저장 설정</div>
+                            <div class="timeline-desc">작업 내용이 자동으로 저장되도록 버전 관리 환경을 설정합니다</div>
                         </div>
                     </div>
 
@@ -2549,31 +2518,30 @@
                     </div>
                 </div>
 
-                <h3>실행 방법</h3>
+                <h3>설치 방법</h3>
+                <p style="color: var(--text-secondary); font-size: 0.92rem;">
+                    빠른 실행 가이드의 Step 2를 따르면 자동으로 실행됩니다.<br>
+                    또는 Antigravity 채팅창에 아래와 같이 입력하세요:
+                </p>
                 <div class="cmd-block">
                     <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
-                    <pre>chmod +x setup.sh</pre>
-                </div>
-                <div class="cmd-block">
-                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
-                    <pre>./setup.sh</pre>
+                    <pre>setup.sh를 실행해줘</pre>
                 </div>
 
                 <h3>요구사항</h3>
                 <ul>
-                    <li><strong>운영체제:</strong> macOS / Windows (Git Bash) / Linux</li>
-                    <li><strong>Python:</strong> 3.8 이상</li>
+                    <li><strong>운영체제:</strong> macOS / Windows / Linux</li>
+                    <li><strong>Python:</strong> 3.8 이상 (대부분의 컴퓨터에 이미 설치되어 있습니다)</li>
                     <li><strong>플랫폼:</strong> Google Antigravity 설치 필요</li>
-                    <li><strong>권한:</strong> 디렉토리 생성 및 파일 쓰기 권한</li>
                 </ul>
 
                 <div class="success-box">
                     <h4>특징</h4>
                     <ul style="margin-bottom: 0;">
-                        <li>컬러 출력으로 진행 상황 시각화</li>
-                        <li>각 단계별 성공/실패 메시지</li>
-                        <li>에러 발생 시 자동 중단 및 디버깅 정보 제공</li>
-                        <li>멱등성(Idempotency) 보장 — 반복 실행 가능</li>
+                        <li>진행 상황을 색상으로 알기 쉽게 표시</li>
+                        <li>각 단계마다 성공/실패를 알려줍니다</li>
+                        <li>문제 발생 시 자동으로 멈추고 원인을 알려줍니다</li>
+                        <li>여러 번 실행해도 안전합니다 — 이미 설치된 항목은 건너뜁니다</li>
                     </ul>
                 </div>
                 </details>
@@ -2700,177 +2668,64 @@
             <section id="utilities">
                 <details>
                 <summary><h2>분석 도구</h2></summary>
-                <p>재무 계산과 데이터 시각화를 자동화하는 4개의 Python 스크립트가 포함되어 있습니다.</p>
+                <p>AI가 분석할 때 자동으로 사용하는 4가지 도구입니다.</p>
 
-                <h3>1. calculate_costs.py</h3>
-                <p><strong>위치:</strong> <code>.agent/skills/scripts/calculate_costs.py</code></p>
-                <p><strong>목적:</strong> 재무 계산 자동화 (BEP, 마진율, 월별 손익)</p>
-
-                <h4>3가지 계산 기능</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>기능</th>
-                            <th>설명</th>
-                            <th>입력 파라미터</th>
-                            <th>출력</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>BEP 계산</strong></td>
-                            <td>손익분기점 산출</td>
-                            <td>고정비, 변동비, 단가</td>
-                            <td>손익분기 판매량, 손익분기 매출액</td>
-                        </tr>
-                        <tr>
-                            <td><strong>마진율 계산</strong></td>
-                            <td>수익률 분석</td>
-                            <td>원가, 판매가</td>
-                            <td>마진율(%), 마진액</td>
-                        </tr>
-                        <tr>
-                            <td><strong>월별 P&L</strong></td>
-                            <td>손익계산서 생성</td>
-                            <td>월별 매출, 고정비, 변동비</td>
-                            <td>월별 순이익, 누적 손익</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h4>사용 예시</h4>
-                <pre>python calculate_costs.py --mode bep --fixed-cost 10000000 --variable-cost 3000 --price 8000</pre>
-
-                <h3>2. create_chart.py</h3>
-                <p><strong>위치:</strong> <code>.agent/skills/scripts/create_chart.py</code></p>
-                <p><strong>목적:</strong> 데이터 시각화 (차트 생성)</p>
-
-                <h4>3가지 차트 타입</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>차트 타입</th>
-                            <th>용도</th>
-                            <th>예시</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>막대 차트 (bar)</strong></td>
-                            <td>카테고리별 비교</td>
-                            <td>월별 매출 비교, 제품별 판매량</td>
-                        </tr>
-                        <tr>
-                            <td><strong>파이 차트 (pie)</strong></td>
-                            <td>구성 비율 표시</td>
-                            <td>비용 구조, 시장 점유율</td>
-                        </tr>
-                        <tr>
-                            <td><strong>선 차트 (line)</strong></td>
-                            <td>추세 및 변화 분석</td>
-                            <td>월별 성장률, 손익 추이</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="success-box">
-                    <h4>주요 특징</h4>
-                    <ul style="margin-bottom: 0;">
-                        <li><strong>matplotlib 기반:</strong> 산업 표준 파이썬 시각화 라이브러리 사용</li>
-                        <li><strong>한국어 폰트 지원:</strong> AppleGothic(macOS), Malgun Gothic(Windows), NanumGothic(Linux) 자동 감지</li>
-                        <li><strong>고해상도 출력:</strong> PNG 형식, 150 DPI</li>
-                        <li><strong>CLI 인터페이스:</strong> 명령줄에서 간편하게 사용</li>
-                        <li><strong>JSON 출력:</strong> 다른 도구와 연동 가능</li>
-                    </ul>
+                <div class="info-box">
+                    <strong>이 도구들은 AI가 알아서 실행합니다</strong><br>
+                    <span style="color: var(--text-secondary); font-size: 0.92rem;">
+                        직접 명령어를 입력할 필요 없습니다. 아래는 어떤 도구가 있는지 참고용입니다.
+                    </span>
                 </div>
 
-                <h4>사용 예시</h4>
-                <pre>python create_chart.py --type bar --data "1월:1200,2월:1500,3월:1800" --output "monthly_sales.png" --title "월별 매출"</pre>
-
-                <h3>3. check_progress.py</h3>
-                <p><strong>위치:</strong> <code>.agent/skills/progress-tracker/scripts/check_progress.py</code></p>
-                <p><strong>목적:</strong> 기획 프로세스 진행률 추적 및 시각화 (조건부 Stage 0 + 8단계)</p>
-
-                <h4>주요 기능</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>기능</th>
-                            <th>설명</th>
-                            <th>출력</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>진행률 추적</strong></td>
-                            <td>output/ 폴더의 파일 존재 여부로 각 단계 완료 판별</td>
-                            <td>프로그레스 바, 단계별 ✅/⬜ 표시</td>
-                        </tr>
-                        <tr>
-                            <td><strong>다음 단계 추천</strong></td>
-                            <td>미완료 단계 중 우선순위 기반 추천</td>
-                            <td>추천 단계 및 실행 명령어 안내</td>
-                        </tr>
-                        <tr>
-                            <td><strong>JSON 출력</strong></td>
-                            <td>프로그래밍 방식으로 활용 가능한 JSON 포맷</td>
-                            <td>진행률 데이터 (JSON)</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h4>사용 예시</h4>
-                <div class="cmd-block">
-                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
-                    <pre>python check_progress.py</pre>
-                </div>
-                <div class="cmd-block">
-                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
-                    <pre>python check_progress.py --json</pre>
-                </div>
-
-                <h3>4. export_docs.py</h3>
-                <p><strong>위치:</strong> <code>.agent/skills/document-exporter/scripts/export_docs.py</code></p>
-                <p><strong>목적:</strong> Markdown 문서를 인쇄 친화적 HTML로 변환</p>
-
-                <h4>주요 기능</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>기능</th>
-                            <th>설명</th>
-                            <th>출력</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>단일 파일 변환</strong></td>
-                            <td>개별 MD 파일을 스타일링된 HTML로 변환</td>
-                            <td>.html 파일 (같은 디렉토리)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>배치 변환</strong></td>
-                            <td>디렉토리 내 모든 MD 파일 일괄 변환</td>
-                            <td>복수 .html 파일</td>
-                        </tr>
-                        <tr>
-                            <td><strong>PDF 내보내기</strong></td>
-                            <td>HTML을 브라우저에서 열어 Cmd+P로 PDF 저장</td>
-                            <td>A4 최적화 PDF</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h4>사용 예시</h4>
-                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;">단일 파일 변환:</p>
-                <div class="cmd-block">
-                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
-                    <pre>python export_docs.py report.md</pre>
-                </div>
-                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;">폴더 전체 일괄 변환:</p>
-                <div class="cmd-block">
-                    <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
-                    <pre>python export_docs.py --batch ./output --recursive</pre>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>💰 재무 자동 계산기</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 손익분기점(BEP), 마진율, 월별 손익계산서를 자동으로 계산합니다.<br>
+                            <strong>언제 사용되나요?</strong> 재무 모델링(Step 4) 진행 시 AI가 자동으로 실행합니다.<br>
+                            <strong>Antigravity에게 이렇게 말하면 됩니다:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>월 고정비 1000만원, 제품 단가 8000원, 변동비 3000원일 때 손익분기점을 계산해줘</pre>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📊 차트 자동 생성기</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 막대 차트, 파이 차트, 선 차트 등을 자동으로 생성합니다. 한국어가 정상적으로 표시됩니다.<br>
+                            <strong>언제 사용되나요?</strong> 데이터 분석 결과를 시각적으로 보고 싶을 때 AI가 자동으로 실행합니다.<br>
+                            <strong>Antigravity에게 이렇게 말하면 됩니다:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>월별 매출 데이터로 차트를 만들어줘</pre>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📋 진행률 추적기</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 기획 프로세스의 진행 상황을 한눈에 보여주고, 다음에 할 일을 추천합니다.<br>
+                            <strong>언제 사용되나요?</strong> 현재 어디까지 진행했는지 확인하고 싶을 때 사용합니다.<br>
+                            <strong>Antigravity에게 이렇게 말하면 됩니다:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>지금까지 진행률을 확인해줘</pre>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📄 문서 변환기</h4>
+                        <p>
+                            <strong>무엇을 하나요?</strong> 작성된 문서를 깔끔한 HTML로 변환하고, 브라우저에서 PDF로 저장할 수 있게 해줍니다.<br>
+                            <strong>언제 사용되나요?</strong> 완성된 보고서를 공유하거나 인쇄할 때 사용합니다.<br>
+                            <strong>Antigravity에게 이렇게 말하면 됩니다:</strong>
+                        </p>
+                        <div class="cmd-block">
+                            <button class="copy-btn" onclick="copyCmd(this)">📋 복사</button>
+                            <pre>사업계획서를 PDF로 내보내줘</pre>
+                        </div>
+                    </div>
                 </div>
                 </details>
             </section>
