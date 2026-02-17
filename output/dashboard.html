@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 사업 기획 현황 | Antigravity Business Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <style>
+        :root {
+            --bg-deep: #0a0e27;
+            --bg-space: #0d1117;
+            --bg-card: rgba(15, 20, 40, 0.8);
+            --bg-card-hover: rgba(20, 30, 60, 0.9);
+            --text-primary: #e8edf5;
+            --text-secondary: #8892b0;
+            --text-muted: #5a6785;
+            --accent-gold: #ffd700;
+            --accent-blue: #667eea;
+            --accent-cyan: #00d2ff;
+            --accent-green: #43e97b;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glass-hover: rgba(255, 255, 255, 0.15);
+            --glass-subtle: rgba(15, 20, 40, 0.4);
+            --glass-standard: rgba(15, 20, 40, 0.7);
+            --glass-elevated: rgba(20, 28, 58, 0.85);
+            --blur-subtle: blur(8px);
+            --blur-standard: blur(16px);
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Fira Code', monospace;
+            --rainbow: linear-gradient(135deg, #667eea, #00d2ff, #43e97b, #f7971e, #ff6b9d, #c471ed);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100dvh;
+            overflow-y: auto;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-md) var(--space-lg);
+        }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            padding: var(--space-xl) 0 var(--space-lg);
+        }
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--rainbow);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+            animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        .hero-sub {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .stat-card {
+            background: var(--glass-standard);
+            backdrop-filter: var(--blur-subtle);
+            border: 1px solid var(--border-glass);
+            border-top: 2px solid var(--accent-blue);
+            border-radius: var(--radius-sm);
+            padding: var(--space-sm);
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        .stat-card:hover {
+            border-color: var(--border-glass-hover);
+        }
+        .stat-progress { border-top-color: var(--accent-green); }
+        .stat-recent { border-top-color: var(--accent-cyan); }
+        .stat-cat { border-top-color: var(--accent-gold); }
+
+        .stat-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .stat-filename {
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            word-break: break-all;
+        }
+        .stat-denom {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        .stat-lbl {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* ── Progress Section ── */
+        .progress-section {
+            margin: var(--space-lg) 0;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+        .section-header h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .progress-pct {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+        .progress-track {
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: var(--space-md);
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan), var(--accent-green));
+            transition: width 0.4s ease;
+        }
+
+        .stages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: var(--space-xs);
+        }
+        .stage-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: var(--space-sm) var(--space-xs);
+            background: var(--glass-standard);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .stage-done {
+            border-color: rgba(67, 233, 123, 0.3);
+            background: rgba(67, 233, 123, 0.06);
+        }
+        .stage-pending {
+            opacity: 0.5;
+        }
+        .stage-icon {
+            font-size: 1.3rem;
+        }
+        .stage-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .stage-done .stage-check {
+            background: var(--accent-green);
+            color: var(--bg-deep);
+        }
+        .stage-pending .stage-check {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-muted);
+        }
+        .stage-name {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            line-height: 1.3;
+        }
+        .stage-done .stage-name {
+            color: var(--text-primary);
+        }
+
+        /* ── Category Sections ── */
+        .category-section {
+            margin: var(--space-lg) 0;
+        }
+        .category-section h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            padding-bottom: var(--space-xs);
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: var(--space-sm);
+        }
+
+        .file-card {
+            background: var(--glass-standard);
+            backdrop-filter: var(--blur-subtle);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: var(--space-sm);
+            transition: all 0.2s ease;
+        }
+        .file-card:hover {
+            border-color: var(--border-glass-hover);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .file-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .file-card-header h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+        .file-name {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+        }
+        .file-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .open-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 0.78rem;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .open-link:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Idea card specifics */
+        .idea-card { }
+        .idea-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .idea-score {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+        .score-unit {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        .idea-files {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .sub-file-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sub-file {
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            padding: 3px 0;
+            border-top: 1px solid var(--border-glass);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .badge-go {
+            background: rgba(67,233,123,0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(67,233,123,0.3);
+        }
+        .badge-pivot {
+            background: rgba(247,151,30,0.15);
+            color: #f7971e;
+            border: 1px solid rgba(247,151,30,0.3);
+        }
+        .badge-drop {
+            background: rgba(255,107,157,0.15);
+            color: #ff6b9d;
+            border: 1px solid rgba(255,107,157,0.3);
+        }
+        .badge-default {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-muted);
+            border: 1px solid var(--border-glass);
+        }
+
+        /* Empty state */
+        .empty-category {
+            text-align: center;
+            padding: var(--space-lg) var(--space-md);
+            color: var(--text-muted);
+        }
+        .empty-category p {
+            margin-bottom: 6px;
+        }
+        .empty-cmd code {
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+        }
+        .empty-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            padding-top: 4px;
+        }
+
+        /* ── Quick Start ── */
+        .quickstart-section {
+            margin: var(--space-xl) 0 var(--space-lg);
+            padding: var(--space-md);
+            background: var(--glass-standard);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+        }
+        .quickstart-section h2 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .quickstart-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: var(--space-sm);
+        }
+        .guide-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--glass-subtle);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+        }
+        .guide-item code {
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .guide-item span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: var(--space-md) 0;
+            margin-top: var(--space-lg);
+            border-top: 1px solid var(--border-glass);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stages-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header class="hero">
+            <h1>내 사업 기획 현황</h1>
+            <p class="hero-sub">마지막 업데이트: 2026-02-17 12:23</p>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-num">11</div>
+                    <div class="stat-lbl">전체 파일</div>
+                </div>
+                <div class="stat-card stat-progress">
+                    <div class="stat-num">5<span class="stat-denom">/9</span></div>
+                    <div class="stat-lbl">완료 단계</div>
+                </div>
+                <div class="stat-card stat-recent">
+                    <div class="stat-num stat-filename">Antigravity-Business-Planner.html</div>
+                    <div class="stat-lbl">최근 수정</div>
+                </div>
+                <div class="stat-card stat-cat">
+                    <div class="stat-num">2</div>
+                    <div class="stat-lbl">카테고리</div>
+                </div>
+            </div>
+        </header>
+        <section class="progress-section">
+            <div class="section-header">
+                <h2>진행 단계</h2>
+                <span class="progress-pct">56%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width:56%"></div>
+            </div>
+            <div class="stages-grid">
+                <div class="stage-item stage-done">
+                    <div class="stage-icon">&#128161;</div>
+                    <div class="stage-check">&#10003;</div>
+                    <div class="stage-name">아이디어 발굴</div>
+                </div>
+                <div class="stage-item stage-done">
+                    <div class="stage-icon">&#128202;</div>
+                    <div class="stage-check">&#10003;</div>
+                    <div class="stage-name">시장 조사</div>
+                </div>
+                <div class="stage-item stage-done">
+                    <div class="stage-icon">&#128269;</div>
+                    <div class="stage-check">&#10003;</div>
+                    <div class="stage-name">경쟁 분석</div>
+                </div>
+                <div class="stage-item stage-done">
+                    <div class="stage-icon">&#127991;</div>
+                    <div class="stage-check">&#10003;</div>
+                    <div class="stage-name">제품/원가</div>
+                </div>
+                <div class="stage-item stage-pending">
+                    <div class="stage-icon">&#128176;</div>
+                    <div class="stage-check">4</div>
+                    <div class="stage-name">재무 모델</div>
+                </div>
+                <div class="stage-item stage-pending">
+                    <div class="stage-icon">&#9881;</div>
+                    <div class="stage-check">5</div>
+                    <div class="stage-name">운영 계획</div>
+                </div>
+                <div class="stage-item stage-pending">
+                    <div class="stage-icon">&#127912;</div>
+                    <div class="stage-check">6</div>
+                    <div class="stage-name">브랜딩</div>
+                </div>
+                <div class="stage-item stage-pending">
+                    <div class="stage-icon">&#9878;</div>
+                    <div class="stage-check">7</div>
+                    <div class="stage-name">법률/인허가</div>
+                </div>
+                <div class="stage-item stage-done">
+                    <div class="stage-icon">&#128203;</div>
+                    <div class="stage-check">&#10003;</div>
+                    <div class="stage-name">사업계획서</div>
+                </div>
+            </div>
+        </section>
+        <section class="category-section">
+            <h2>&#128161; 아이디어</h2>
+            <div class="category-body">
+                <div class="cards-grid">
+                    <div class="file-card idea-card">
+                        <div class="file-card-header">
+                            <h4>동네 스페셜티 커피 로스터리</h4>
+                            <span class="badge badge-go">Go</span>
+                        </div>
+                        <div class="idea-meta-row">
+                            <span class="idea-score">76<span class="score-unit">/100</span></span>
+                            <span class="idea-files">5 files</span>
+                        </div>
+                        <ul class="sub-file-list"><li class="sub-file">financials/원가분석.md</li><li class="sub-file">hypothesis.md</li><li class="sub-file">research/경쟁분석.md</li><li class="sub-file">research/시장조사.md</li></ul>
+                    </div>
+                    <div class="file-card idea-card">
+                        <div class="file-card-header">
+                            <h4>AI 식단 추천 구독 앱</h4>
+                            <span class="badge badge-pivot">Pivot</span>
+                        </div>
+                        <div class="idea-meta-row">
+                            <span class="idea-score">56<span class="score-unit">/100</span></span>
+                            <span class="idea-files">3 files</span>
+                        </div>
+                        <ul class="sub-file-list"><li class="sub-file">hypothesis.md</li><li class="sub-file">research/시장조사.md</li></ul>
+                    </div>
+                    <div class="file-card idea-card">
+                        <div class="file-card-header">
+                            <h4>친환경 리필 스테이션</h4>
+                            <span class="badge badge-drop">Drop</span>
+                        </div>
+                        <div class="idea-meta-row">
+                            <span class="idea-score">44<span class="score-unit">/100</span></span>
+                            <span class="idea-files">1 files</span>
+                        </div>
+                        <p class="empty-hint">아직 하위 파일이 없습니다</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="category-section">
+            <h2>&#128202; 시장조사</h2>
+            <div class="category-body">
+                
+                    <div class="empty-category">
+                        <p>아직 산출물이 없습니다</p>
+                        <p class="empty-cmd"><code>/market-research</code> 로 시장조사를 시작해보세요</p>
+                    </div>
+            </div>
+        </section>
+        <section class="category-section">
+            <h2>&#128176; 재무분석</h2>
+            <div class="category-body">
+                
+                    <div class="empty-category">
+                        <p>아직 산출물이 없습니다</p>
+                        <p class="empty-cmd"><code>/financial-modeling</code> 로 재무 모델링을 시작해보세요</p>
+                    </div>
+            </div>
+        </section>
+        <section class="category-section">
+            <h2>&#128203; 보고서</h2>
+            <div class="category-body">
+                <div class="cards-grid">
+                    <div class="file-card">
+                        <div class="file-card-header">
+                            <h4 class="file-name">Antigravity-Business-Planner.html</h4>
+                        </div>
+                        <div class="file-meta">
+                            <span>2026-02-17 12:22</span>
+                            <span>291.7 KB</span>
+                        </div>
+                        <a class="open-link" href="Antigravity-Business-Planner.html" target="_blank">&#x1f517; 브라우저에서 열기</a>
+                    </div>
+                    <div class="file-card">
+                        <div class="file-card-header">
+                            <h4 class="file-name">test_cosmic.html</h4>
+                        </div>
+                        <div class="file-meta">
+                            <span>2026-02-09 21:07</span>
+                            <span>30.3 KB</span>
+                        </div>
+                        <a class="open-link" href="test_cosmic.html" target="_blank">&#x1f517; 브라우저에서 열기</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="category-section">
+            <h2>&#127916; 발표자료</h2>
+            <div class="category-body">
+                
+                    <div class="empty-category">
+                        <p>아직 산출물이 없습니다</p>
+                        <p class="empty-cmd"><code>/export-documents</code> 로 발표자료를 준비해보세요</p>
+                    </div>
+            </div>
+        </section>
+        <section class="quickstart-section">
+            <h2>&#128640; 빠른 시작 가이드</h2>
+            <p class="quickstart-desc">아래 명령어를 대화창에 입력해보세요</p>
+            <div class="guide-grid">
+                    <div class="guide-item">
+                        <code>/market-research</code>
+                        <span>시장조사를 시작해보세요</span>
+                    </div>
+                    <div class="guide-item">
+                        <code>/financial-modeling</code>
+                        <span>재무 모델링을 시작해보세요</span>
+                    </div>
+            </div>
+        </section>
+        <footer class="footer">
+            Antigravity Business Planner &mdash; Generated 2026-02-17 12:23
+        </footer>
+    </div>
+</body>
+</html>

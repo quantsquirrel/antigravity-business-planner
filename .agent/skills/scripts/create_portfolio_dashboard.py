@@ -143,7 +143,8 @@ def _build_idea_card(idea, stages_completed):
     """Build HTML for a single idea card."""
     full_name = idea.get("full_name", idea.get("name", ""))
     status = idea.get("status", "")
-    score = idea.get("score", 0) or 0
+    raw_score = idea.get("score", 0) or 0
+    score = raw_score * 4 if raw_score <= 25 else raw_score
     score_details = idea.get("score_details", {})
     created = idea.get("created", "")
 
@@ -192,7 +193,7 @@ def _build_idea_card(idea, stages_completed):
                         <span class="badge {badge_class}">{badge_label}</span>
                     </div>
                     <div class="score-section">
-                        <div class="total-score">{score}<span class="score-max">/25</span></div>
+                        <div class="total-score">{score}<span class="score-max">/100</span></div>
                         <div class="score-bars">{score_bars_html}
                         </div>
                     </div>
@@ -210,7 +211,8 @@ def _build_comparison_row(idea, stages_completed):
     full_name = idea.get("full_name", idea.get("name", ""))
     status = idea.get("status", "")
     score_details = idea.get("score_details", {})
-    score = idea.get("score", 0) or 0
+    raw_score = idea.get("score", 0) or 0
+    score = raw_score * 4 if raw_score <= 25 else raw_score
     completed_count = sum(stages_completed)
     percentage = round(completed_count / TOTAL_STAGES * 100)
 
@@ -373,9 +375,10 @@ def generate_html(ideas, output_path):
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
             background: var(--bg-deep);
             color: var(--text-primary);
-            line-height: 1.4;
-            height: 100vh;
+            line-height: 1.3;
+            height: 100dvh;
             overflow: hidden;
+            font-size: clamp(0.7rem, 1.2vh, 0.95rem);
         }}
 
         h1, h2, h3 {{
@@ -385,17 +388,16 @@ def generate_html(ideas, output_path):
         .container {{
             max-width: 1200px;
             margin: 0 auto;
-            padding: var(--space-sm) var(--space-md) var(--space-xs);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding: 1vh 2vw 0.5vh;
+            height: 100dvh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
         }}
 
         /* Hero */
         .hero {{
             text-align: center;
-            padding: var(--space-xs) 0;
-            flex-shrink: 0;
+            padding: 0.5vh 0;
         }}
         .hero h1 {{
             font-size: 1.5rem;
@@ -444,12 +446,11 @@ def generate_html(ideas, output_path):
 
         /* Cards + Comparison wrapper */
         .dashboard-body {{
-            flex: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: var(--space-sm);
+            gap: 1vw;
             min-height: 0;
-            overflow: auto;
+            overflow: hidden;
         }}
         .cards-section {{
             display: contents;
@@ -457,16 +458,23 @@ def generate_html(ideas, output_path):
         .highlight-grid {{
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 1vh;
+            min-height: 0;
         }}
 
         /* Idea card */
         .idea-card {{
+            flex: 1;
+            min-height: 0;
+            max-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             background: var(--glass-standard);
             backdrop-filter: var(--blur-standard);
             border: 1px solid var(--border-glass);
             border-radius: var(--radius-sm);
-            padding: 12px 14px;
+            padding: 1.2vh 1vw;
             transition: all 0.2s ease;
         }}
         .idea-card:hover {{
@@ -477,13 +485,16 @@ def generate_html(ideas, output_path):
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 0.5vh;
             gap: 6px;
         }}
         .idea-header h3 {{
-            font-size: 0.95rem;
+            font-size: 0.95em;
             font-weight: 600;
-            line-height: 1.3;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }}
 
         /* Badge */
@@ -516,8 +527,8 @@ def generate_html(ideas, output_path):
         .score-section {{
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 6px;
+            gap: 0.5vw;
+            margin-bottom: 0.3vh;
         }}
         .total-score {{
             font-family: 'Outfit', sans-serif;
@@ -536,7 +547,7 @@ def generate_html(ideas, output_path):
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 0.2vh;
         }}
         .score-bar-item {{
             display: flex;
@@ -570,7 +581,7 @@ def generate_html(ideas, output_path):
 
         /* Progress section */
         .progress-section {{
-            margin-bottom: 4px;
+            margin-bottom: 0.3vh;
         }}
         .progress-label {{
             font-size: 0.72rem;
@@ -596,15 +607,18 @@ def generate_html(ideas, output_path):
 
         /* Meta */
         .idea-meta {{
-            font-size: 0.68rem;
+            font-size: 0.68em;
             color: var(--text-muted);
-            padding-top: 4px;
+            padding-top: 0.3vh;
             border-top: 1px solid var(--border-glass);
         }}
 
         /* Comparison table */
         .comparison {{
             margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
         }}
         .comparison h2 {{
             font-size: 1rem;
@@ -617,20 +631,43 @@ def generate_html(ideas, output_path):
         .comparison table {{
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.78rem;
+            font-size: 0.78em;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }}
+        .comparison thead {{
+            flex: 0 0 auto;
+        }}
+        .comparison tbody {{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }}
+        .comparison tr {{
+            flex: 1;
+            display: flex;
+            align-items: center;
         }}
         .comparison th {{
+            flex: 1;
             text-align: left;
-            padding: 6px 8px;
+            padding: 0.5vh 0.4vw;
             color: var(--text-secondary);
             font-weight: 500;
             border-bottom: 1px solid var(--border-glass-hover);
             white-space: nowrap;
         }}
         .comparison td {{
-            padding: 6px 8px;
+            flex: 1;
+            padding: 0.5vh 0.4vw;
             border-bottom: 1px solid var(--border-glass);
             color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }}
         .comparison tr:hover td {{
             background: var(--glass-subtle);
@@ -666,12 +703,10 @@ def generate_html(ideas, output_path):
         /* Footer */
         .footer {{
             text-align: center;
-            margin-top: auto;
-            padding-top: 6px;
+            padding-top: 0.5vh;
             border-top: 1px solid var(--border-glass);
-            font-size: 0.68rem;
+            font-size: 0.68em;
             color: var(--text-muted);
-            flex-shrink: 0;
         }}
 
         /* Responsive */

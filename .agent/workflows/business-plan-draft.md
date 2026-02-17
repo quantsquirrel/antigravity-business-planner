@@ -19,3 +19,4 @@
 * output/research/ 와 output/financials/ 에 있는 기존 분석 결과를 최대한 활용합니다
 * 각 섹션에 핵심 수치와 데이터를 포함합니다
 * output/reports/ 폴더에 결과를 저장합니다
+* 완성 후 `templates/business-plan-template.md`의 "BP 품질 자가 점검표"로 완성도를 확인합니다

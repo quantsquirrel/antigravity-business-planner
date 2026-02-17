@@ -508,7 +508,11 @@ class ProgressTracker:
         name = meta.get("name", idea_progress["idea_dir"])
         status = meta.get("status") or "미평가"
         score = meta.get("score")
-        score_str = f"{score}점" if score is not None else "미평가"
+        if score is not None:
+            display_score = score * 4 if score <= 25 else score
+            score_str = f"{display_score}/100"
+        else:
+            score_str = "미평가"
 
         print("\n" + "=" * 60)
         print(f"📊 아이디어 진행률: {name}")
@@ -563,7 +567,8 @@ class ProgressTracker:
             pct_1_8 = stages_1_8_done / total_1_8 * 100 if total_1_8 > 0 else 0
 
             if score is not None:
-                label = f"{status} {score}점"
+                display_score = score * 4 if score <= 25 else score
+                label = f"{status} {display_score}/100"
             else:
                 label = "미평가"
 
@@ -595,7 +600,11 @@ class ProgressTracker:
             name = meta.get("name", "")
             status = meta.get("status") or "미평가"
             score = meta.get("score")
-            score_str = f"{score}/25" if score is not None else "-"
+            if score is not None:
+                display_score = score * 4 if score <= 25 else score
+                score_str = f"{display_score}/100"
+            else:
+                score_str = "-"
             stages_1_8_done = sum(
                 1 for s in idea["stages"] if s["id"] > 0 and s["completed"]
             )

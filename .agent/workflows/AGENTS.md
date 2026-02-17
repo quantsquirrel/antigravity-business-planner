@@ -23,6 +23,8 @@ Slash-command workflow definitions for structured business planning steps. Users
 | `idea-discovery.md` | `/idea-discovery` — Structured questions to discover business ideas from domain expertise |
 | `idea-validation.md` | `/idea-validation` — Validate discovered ideas with market checks, assumptions, MVP proposals |
 | `idea-portfolio.md` | `/idea-portfolio` — Multi-idea portfolio dashboard: view, compare, and switch between ideas |
+| `lean-canvas.md` | `/lean-canvas` — Lean Canvas 1페이지 가설 정리 (아이디어 확정 후, 시장조사 전) |
+| `my-outputs.md` | `/my-outputs` — output/ 전체 산출물 통합 대시보드 생성 |
 
 ## For AI Agents
 
