@@ -18,3 +18,26 @@
 * 주요 가정(assumptions)을 명확히 기술합니다
 * "이 수치는 추정치이며, 실제와 다를 수 있습니다"를 명시합니다
 * output/financials/ 폴더에 결과를 저장합니다
+
+## AI 사업 재무 모델링 (v2.0 Phase 6)
+
+idea.json에 `ai_business.detected: true`가 설정된 경우, AI 특화 재무 모델을 추가로 수행합니다.
+
+### 트리거 조건
+* `output/ideas/{id}-{name}/idea.json`의 `ai_business.detected` 값이 `true`일 때 자동 활성화
+
+### 사용 템플릿
+* 기본 재무 템플릿 대신 `templates/ai-business-financial-template.md` 양식을 사용합니다
+* 기존 `templates/financial-projection-template.md`의 항목도 병행 분석할 수 있습니다
+
+### 추가 분석 항목
+* **AI 변동비 분석**: LLM API 호출 비용(원/1K토큰), GPU 컴퓨팅, 임베딩/벡터 검색, 데이터 저장/전송 비용을 항목별로 산출합니다
+* **비용 스케일링 시뮬레이션**: MAU 100 / 1,000 / 10,000 / 100,000 구간별 비용 곡선을 작성합니다
+* **Unit Economics**: ARPU, AI 마진(>60% 양호), CAC, LTV, LTV/CAC(>3배 양호)를 계산합니다
+* **AI 재무 건전성 지표 5개**: AI 마진, LTV/CAC, BEP 도달, AI 비용 비중, R&D 비율을 평가합니다
+* **AI 비용 리스크**: API 가격 인상, 오픈소스 대체재, AI 규제, 데이터 저작권 리스크를 분석합니다
+
+### 출력 형식
+* 기존 재무 모델과 동일하게 마크다운 표 형식으로 정리합니다
+* AI 비용은 고정비/변동비를 명확히 분리하여 표기합니다
+* output/financials/ 폴더에 결과를 저장합니다
