@@ -17,6 +17,7 @@ Document templates and HTML export themes. Templates define the standard structu
 | `idea-evaluation-template.md` | Idea evaluation template (v2.0): user profile, candidate ideas, 100-point weighted scoring, 4-tier judgment (Go/Pivot-optimize/Pivot-review/Drop), Kill Switch |
 | `lean-canvas-template.md` | Lean Canvas template: 9-block business model canvas (problem, solution, UVP, channels, revenue, cost, metrics, unfair advantage, customer segments) |
 | `portfolio-template.md` | Portfolio dashboard template: multi-idea status overview, stage summary, user notes |
+| `ai-business-financial-template.md` | AI 사업 특화 재무 모델: AI 변동비(API/GPU/데이터), 비용 스케일링, Unit Economics, AI 재무 건전성 5개 지표, AI 비용 리스크 |
 
 ## Subdirectories
 

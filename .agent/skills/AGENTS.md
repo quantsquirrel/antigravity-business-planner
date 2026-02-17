@@ -19,6 +19,7 @@ Specialized capability packages that activate based on context. Contains 9 core 
 | `report-writer/` | Business document writing using templates (see `report-writer/AGENTS.md`) |
 | `swot-analyzer/` | Strategic framework analysis: SWOT, PESTEL, Porter's, BMC (see `swot-analyzer/AGENTS.md`) |
 | `opportunity-finder/` | Business idea discovery from domain expertise (v2.0: 2-step interview, 100-point weighted scoring, 4-tier judgment, Impact-Effort matrix, brainstorm frameworks) (Step 0) |
+| `ai-business-analyst/` | AI 비즈니스 전문 분석: AI 사업 유형 8개 분류, 보충 질문, 유형별 수익/리스크/방어력 가이드, AI 경쟁력 보충 스코어링 |
 | `launch-strategy/` | *Symlink* -> `../../.agents/skills/launch-strategy` — Product launch planning |
 | `pricing-strategy/` | *Symlink* -> `../../.agents/skills/pricing-strategy` — Pricing and monetization design |
 | `startup-metrics-framework/` | *Symlink* -> `../../.agents/skills/startup-metrics-framework` — KPI and metrics tracking |

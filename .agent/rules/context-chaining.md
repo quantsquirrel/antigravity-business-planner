@@ -18,6 +18,8 @@
 | 브랜딩 전략 (/branding-strategy) | output/ideas/*/hypothesis.md, output/research/*.md |
 | 법률 체크리스트 (/legal-checklist) | output/ideas/*/idea.json |
 | 사업계획서 (/business-plan-draft) | output/research/*.md, output/financials/*.md, output/reports/*.md |
+| AI 분석 (ai-business-analyst) | output/ideas/*/idea.json (ai_business 블록), output/ideas/*/ai-analysis.md |
+| AI 재무 모델링 (/financial-modeling + AI) | output/ideas/*/ai-analysis.md, output/financials/원가*.md, templates/ai-business-financial-template.md |
 
 ## 요약 생성 규칙
 
