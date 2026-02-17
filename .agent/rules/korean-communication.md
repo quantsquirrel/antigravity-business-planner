@@ -23,6 +23,8 @@
 | setup.sh | 자동 설치 | 원클릭 환경 구성 |
 | output/ | 산출물 폴더 | 분석 결과가 저장되는 곳 |
 | Opportunity Finder | 아이디어 발굴 도구 | 사업 기회를 찾아주는 기능 |
-| Go/Pivot/Drop | 진행/수정/중단 | 아이디어 평가 판정 결과 |
+| Go/Pivot/Drop | 진행/수정/중단 | 아이디어 평가 판정 결과 (v2.0: Go/Pivot-최적화/Pivot-재검토/Drop) |
+| Kill Switch | 안전장치 경고 | 개별 항목 3점 미만 시 Critical Warning |
+| Founder-Problem Fit | 창업자-문제 적합성 | 창업자/팀이 해당 문제를 풀기에 적합한지 평가 |
 | Selected Idea | 선택된 아이디어 | Step 0에서 확정된 사업 아이디어 |
 | MVP (Minimum Viable Product) | 최소 검증 제품 | 최소 비용으로 가설을 검증하는 방법 |
