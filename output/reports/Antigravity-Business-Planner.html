@@ -1640,7 +1640,7 @@
                 <span class="hero-divider"></span>
                 <span class="hero-tag">비개발자를 위한 사업 기획 도구</span>
                 <span class="hero-divider"></span>
-                <span class="hero-tag">자동 분석 15개 · 전문 스킬 12개 · 문서 양식 7개</span>
+                <span class="hero-tag">자동 분석 16개 · 전문 스킬 12개 · 문서 양식 7개</span>
             </div>
         </div>
     </div>
@@ -1711,7 +1711,7 @@
                     <pre>bash setup.sh</pre>
                 </div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                    ⏱️ 약 1-2분 소요 | 워크플로우 15개, 스킬 12개, 템플릿 7개, 샘플 데이터가 자동 생성됩니다.
+                    ⏱️ 약 1-2분 소요 | 워크플로우 16개, 스킬 12개, 템플릿 7개, 샘플 데이터가 자동 생성됩니다.
                 </p>
 
                 <h3>Step 3: 사업 기획 시작!</h3>
@@ -1763,6 +1763,11 @@
                             <td>Lean Canvas 작성</td>
                             <td><code>/lean-canvas</code></td>
                             <td>아이디어 가설을 9블록 1페이지로 정리</td>
+                        </tr>
+                        <tr>
+                            <td>브레인스토밍 프레임워크</td>
+                            <td><code>/idea-brainstorm</code></td>
+                            <td>역발상 리스크 발견 + 다각적 관점 분석 (Invisible Framework)</td>
                         </tr>
                         <tr>
                             <td>산출물 대시보드</td>
@@ -1864,7 +1869,7 @@
                             <div class="timeline-title">Step 0: 아이디어 발굴 + 검증 (선택)</div>
                             <div class="timeline-meta">예상 소요: 반나절~1일 | 아이디어가 있으면 건너뛰기</div>
                             <div class="timeline-desc">
-                                <strong>명령어:</strong> <code>/idea-discovery</code>, <code>/idea-validation</code>, <code>/idea-portfolio</code>, <code>/lean-canvas</code><br>
+                                <strong>명령어:</strong> <code>/idea-discovery</code>, <code>/idea-validation</code>, <code>/idea-portfolio</code>, <code>/lean-canvas</code>, <code>/idea-brainstorm</code><br>
                                 2단계 인터뷰(3+2문) Progressive Profiling으로 도메인 경험에서 아이디어 도출, PSST 프레임워크 암묵적 구조화, 5항목 × 5점 × 가중치 = 100점 스코어링, 4단계 판정(Go / Pivot-optimize / Pivot-review / Drop), Kill Switch(개별 항목 &lt;3점 Critical Warning), 유사도 &gt;0.85시 조건부 SCAMPER, 점수 확정 전 Human-in-the-Loop 검토, ASCII 차트 + R&amp;D 키워드 매핑 시각화
                             </div>
                             <div style="margin-top: 12px; padding: 12px 16px; background: rgba(102, 126, 234, 0.08); border-left: 3px solid var(--accent-cyan); border-radius: 0 8px 8px 0; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
@@ -2122,7 +2127,7 @@
 │   ├── <span class="file">safety-guidelines.md</span>         <span class="desc">안전 가이드</span>
 │   └── <span class="file">update-check.md</span>              <span class="desc">자동 업데이트</span>
 │
-├── <span class="folder">🔄 .agent/workflows/</span> <span class="desc">── 자동 분석 기능 (15개)</span>
+├── <span class="folder">🔄 .agent/workflows/</span> <span class="desc">── 자동 분석 기능 (16개)</span>
 │   ├── <span class="file">market-research.md</span>           <span class="desc">시장 조사</span>
 │   ├── <span class="file">competitor-analysis.md</span>       <span class="desc">경쟁 분석</span>
 │   ├── <span class="file">financial-modeling.md</span>        <span class="desc">재무 모델링</span>
@@ -2137,9 +2142,10 @@
 │   ├── <span class="file">idea-validation.md</span>           <span class="desc">아이디어 검증</span>
 │   ├── <span class="file">idea-portfolio.md</span>            <span class="desc">포트폴리오</span>
 │   ├── <span class="file">lean-canvas.md</span>               <span class="desc">Lean Canvas</span>
+│   ├── <span class="file">idea-brainstorm-frameworks.md</span> <span class="desc">브레인스토밍</span>
 │   └── <span class="file">my-outputs.md</span>                <span class="desc">산출물 대시보드</span>
 │
-├── <span class="folder">🧠 .agent/skills/</span> <span class="desc">── 전문 분석 도구 (12개 + 4 스크립트)</span>
+├── <span class="folder">🧠 .agent/skills/</span> <span class="desc">── 전문 분석 도구 (12개 + 5 스크립트)</span>
 │   ├── <span class="file">business-researcher.md</span>       <span class="desc">사업 리서처</span>
 │   ├── <span class="file">financial-analyst.md</span>         <span class="desc">재무 분석가</span>
 │   ├── <span class="file">report-writer.md</span>             <span class="desc">보고서 작성</span>
@@ -2185,12 +2191,12 @@
                         </tr>
                         <tr>
                             <td><strong>.agent/workflows/</strong></td>
-                            <td>15개</td>
+                            <td>16개</td>
                             <td>대화창에서 실행하는 자동 분석 기능</td>
                         </tr>
                         <tr>
                             <td><strong>.agent/skills/</strong></td>
-                            <td>12개 (9 core + 3 symlink) + 4개 스크립트</td>
+                            <td>12개 (9 core + 3 symlink) + 5개 스크립트</td>
                             <td>전문 영역별 자동 분석 도구</td>
                         </tr>
                         <tr>

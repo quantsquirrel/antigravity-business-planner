@@ -21,13 +21,15 @@ output/ideas/ 탐색 → 아이디어 유무 확인 → 포트폴리오 요약 �
 ### 2단계: 포트폴리오 요약 표시
 * `scripts/check_progress.py --portfolio` 를 활용하여 전체 아이디어 현황을 수집합니다
 * 각 아이디어별 이름, 점수, 진행률, Go/Pivot-optimize/Pivot-review/Drop 판정을 표로 정리합니다
+* **Impact-Effort 매트릭스 뷰**: 아이디어가 2개 이상이면 `scripts/create_impact_effort_matrix.py --dir output/ideas/`로 2x2 매트릭스를 생성하여 Quick Wins / Big Bets / Fill-ins / Avoid 사분면에 배치합니다
 
 ### 3단계: 사용자 행동 선택지 제시
 사용자에게 다음 중 하나를 선택하도록 안내합니다:
 1. **특정 아이디어 상세 보기** → `scripts/check_progress.py --idea {id}` 로 해당 아이디어의 진행률 상세 표시
 2. **아이디어 비교하기** → 2개 아이디어를 선택하여 점수/진행률을 나란히 비교
-3. **새 아이디어 추가하기** → `/idea-discovery` 로 이동
-4. **특정 아이디어 다음 단계 진행하기** → 해당 아이디어 컨텍스트로 전환
+3. **Impact-Effort 매트릭스로 우선순위 보기** → `scripts/create_impact_effort_matrix.py --dir output/ideas/`로 전체 아이디어의 Impact-Effort 사분면 배치 확인
+4. **새 아이디어 추가하기** → `/idea-discovery` 로 이동
+5. **특정 아이디어 다음 단계 진행하기** → 해당 아이디어 컨텍스트로 전환
 
 ### 4단계: portfolio.md 갱신
 * 워크플로우 실행 시 `output/ideas/portfolio.md`를 자동 갱신합니다

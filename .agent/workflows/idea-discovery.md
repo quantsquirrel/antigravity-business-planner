@@ -48,10 +48,19 @@ AI가 내부적으로 PSST의 **Solution + Team**에 매핑합니다.
 
 ## 프로세스 흐름 (v2.0)
 ```
-Step A(문제 탐색 3문) → Step B(솔루션/팀 2문) → 키워드 추출 → 아이디어 3-5개 생성
-  → [다양성 낮으면] 조건부 SCAMPER → 사용자 확인(HITL) → 5점 척도 평가
+Step A(문제 탐색 3문) → Step B(솔루션/팀 2문) → 키워드 추출
+  → [선택: /idea-brainstorm 프레임워크 발산] → 아이디어 3-5개 생성
+  → [다양성 낮으면] 조건부 SCAMPER → 사용자 확인(HITL)
+  → [Impact-Effort 매트릭스 수렴] → 5점 척도 평가
   → Kill Switch 검사 → ASCII 시각화 + R&D 키워드 → Go/Pivot-최적화/Pivot-재검토/Drop
 ```
+
+### 선택: 브레인스토밍 프레임워크
+
+키워드 추출 후, 사용자가 더 많은 아이디어를 탐색하고 싶을 때 `/idea-brainstorm`을 사용할 수 있습니다:
+- **발산 단계**: SCAMPER, Reverse Brainstorming 등 프레임워크로 아이디어 후보를 확장합니다
+- **수렴 단계**: Impact-Effort 매트릭스(`scripts/create_impact_effort_matrix.py`)로 후보를 필터링합니다
+- 이 단계는 선택적이며, 건너뛰면 기존 프로세스대로 아이디어 생성 단계로 진행합니다
 
 ### 아이디어 다양성 보호 — 조건부 SCAMPER (v2.0)
 
@@ -113,6 +122,7 @@ output/ideas/{id}-{name}/
 * **Pivot-재검토 판정**: 방향 전환 권고, 새로운 관점에서 재검토
 * **모두 Drop이면**: 질문을 보완하여 처음부터 재시도
 * **Kill Switch 발동 시**: 경고 확인 후 진행 여부 결정
+* **아이디어를 더 발산하려면**: `/idea-brainstorm` 으로 프레임워크 기반 브레인스토밍
 * **여러 아이디어를 관리하려면**: `/idea-portfolio` 로 포트폴리오 확인
 
 ## 시각화 출력 (v2.0)
@@ -131,6 +141,9 @@ python3 scripts/create_idea_score_chart.py --name "아이디어명" --scores "4,
 
 # idea.json에서 자동 로드
 python3 scripts/create_idea_score_chart.py --json output/ideas/{id}-{name}/idea.json
+
+# Impact-Effort 매트릭스 (여러 아이디어 비교 시)
+python3 scripts/create_impact_effort_matrix.py --dir output/ideas/
 ```
 
 > matplotlib 미설치 시 "차트 생략" 경고만 표시하고 텍스트 결과는 정상 출력됩니다.

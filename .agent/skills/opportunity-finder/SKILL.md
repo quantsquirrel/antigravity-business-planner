@@ -41,12 +41,14 @@ description: 도메인 지식은 있지만 사업 아이디어가 없는 사용�
 1. **Step A** 질문 3개로 문제와 기존 대안을 파악합니다
 2. **Step B** 질문 2개로 솔루션과 팀 역량을 파악합니다
 3. 사용자의 답변에서 핵심 키워드와 기회 영역을 추출합니다
-4. 3-5개의 사업 아이디어를 가설 형태로 생성합니다
-5. 각 아이디어를 5점 척도로 평가합니다 (Go/Pivot/Drop, v2.0 판정 기준)
-6. Kill Switch 검사를 수행합니다 (개별 항목 <3점 경고)
-7. 사용자와 함께 1-2개 아이디어를 선택합니다
-8. 확정된 아이디어의 폴더를 생성합니다 (아이디어 폴더 생성 규칙 참조)
-9. `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조를 유지합니다
+4. **(선택) 프레임워크 발산**: `/idea-brainstorm`으로 SCAMPER, Reverse Brainstorming 등 프레임워크를 활용하여 아이디어 후보를 확장합니다. 이 단계는 선택적이며, 건너뛰면 바로 아이디어 생성으로 진행합니다
+5. 3-5개의 사업 아이디어를 가설 형태로 생성합니다
+6. **(수렴) Impact-Effort 매트릭스**: 아이디어가 5개 이상이면 Impact-Effort 매트릭스로 우선순위를 필터링합니다
+7. 각 아이디어를 5점 척도로 평가합니다 (Go/Pivot/Drop, v2.0 판정 기준)
+8. Kill Switch 검사를 수행합니다 (개별 항목 <3점 경고)
+9. 사용자와 함께 1-2개 아이디어를 선택합니다
+10. 확정된 아이디어의 폴더를 생성합니다 (아이디어 폴더 생성 규칙 참조)
+11. `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조를 유지합니다
 
 ## Go/Pivot/Drop 평가 기준 (5점 척도, v2.0)
 
@@ -180,6 +182,26 @@ output/ideas/{id}-{name}/
 - matplotlib 미설치 시 graceful degradation — 텍스트 결과만 표시
 
 출력에 한국 R&D 평가 키워드(필요성/차별화)가 자동 매핑됩니다.
+
+### Impact-Effort 매트릭스
+
+여러 아이디어를 비교할 때 `scripts/create_impact_effort_matrix.py`로 2x2 매트릭스를 생성합니다:
+
+```bash
+python3 scripts/create_impact_effort_matrix.py --dir output/ideas/
+```
+
+**Impact/Effort 매핑 공식:**
+- **Impact** = (시장 크기 × 5 + 타이밍 × 3) / 8 → 1~5 스케일
+- **Effort** = 6 - (자원 요건 × 3 + 창업자-문제 적합성 × 5) / 8 → 1~5 스케일 (높을수록 어려움)
+
+**사분면 해석:**
+| 사분면 | Impact | Effort | 판정 |
+|--------|--------|--------|------|
+| Quick Wins | 높음 | 낮음 | 우선 실행 |
+| Big Bets | 높음 | 높음 | 전략적 검토 |
+| Fill-ins | 낮음 | 낮음 | 여유 시 실행 |
+| Avoid | 낮음 | 높음 | 보류/제외 |
 
 ## 출력 규칙
 - 아이디어는 가설 형태(1문단)로 간결하게 작성합니다
