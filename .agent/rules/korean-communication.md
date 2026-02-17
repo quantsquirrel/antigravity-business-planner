@@ -28,3 +28,9 @@
 | Founder-Problem Fit | 창업자-문제 적합성 | 창업자/팀이 해당 문제를 풀기에 적합한지 평가 |
 | Selected Idea | 선택된 아이디어 | Step 0에서 확정된 사업 아이디어 |
 | MVP (Minimum Viable Product) | 최소 검증 제품 | 최소 비용으로 가설을 검증하는 방법 |
+| Data Moat | 데이터 해자 | 경쟁자가 쉽게 복제할 수 없는 독점 데이터 자산 |
+| API Dependency | 외부 API 의존도 | 외부 AI 서비스에 대한 기술적/비용적 의존 |
+| Unit Economics | 단위 경제학 | 고객 1명당 수익과 비용의 구조 |
+| Fine-tuning | 모델 미세조정 | AI를 특정 분야에 맞게 추가 학습시키는 것 |
+| RAG (Retrieval-Augmented Generation) | 검색 증강 생성 | 외부 정보를 찾아 답변하는 AI 기법 |
+| AI Agent | AI 에이전트 | 스스로 판단하고 작업을 수행하는 AI |
