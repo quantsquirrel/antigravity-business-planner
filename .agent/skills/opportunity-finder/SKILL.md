@@ -154,9 +154,18 @@ output/ideas/{id}-{name}/
 - 멀티 아이디어 모드에서도 가장 최근 Go 판정 아이디어를 `selected-idea.md`에 링크
 - 단일 아이디어만 있는 경우 기존 흐름 그대로
 
+## 시각화 출력 (v2.0)
+
+평가 완료 후 `scripts/create_idea_score_chart.py`를 실행합니다:
+- **기본**: ASCII/유니코드 바 차트 (의존성 없음, 항상 동작)
+- **선택**: `--chart` 플래그 시 레이더 차트 PNG 생성 (matplotlib 필요)
+- matplotlib 미설치 시 graceful degradation — 텍스트 결과만 표시
+
+출력에 한국 R&D 평가 키워드(필요성/차별화)가 자동 매핑됩니다.
+
 ## 출력 규칙
 - 아이디어는 가설 형태(1문단)로 간결하게 작성합니다
-- 평가 결과는 표 형식으로 시각화합니다
+- 평가 결과는 ASCII 차트 + 한국 R&D 키워드 매핑으로 시각화합니다
 - 멀티 모드: 확정된 아이디어는 `output/ideas/{id}-{name}/` 폴더에 저장합니다
 - 레거시 호환: `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조를 유지합니다
 - 아이디어 후보 목록은 `output/ideas/`에 저장합니다

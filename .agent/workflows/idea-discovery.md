@@ -88,8 +88,37 @@ output/ideas/{id}-{name}/
 * **Kill Switch 발동 시**: 경고 확인 후 진행 여부 결정
 * **여러 아이디어를 관리하려면**: `/idea-portfolio` 로 포트폴리오 확인
 
+## 시각화 출력 (v2.0)
+
+평가 완료 후 `scripts/create_idea_score_chart.py`를 실행하여 결과를 시각화합니다:
+
+* **기본 (의존성 없음)**: ASCII/유니코드 바 차트 + 한국 R&D 키워드 매핑
+* **선택 (--chart)**: Python matplotlib 레이더 차트 PNG 생성
+
+```bash
+# 기본: ASCII 차트 (항상 동작)
+python3 scripts/create_idea_score_chart.py --name "아이디어명" --scores "4,3,5,4,3"
+
+# 선택: 레이더 차트 (matplotlib 필요)
+python3 scripts/create_idea_score_chart.py --name "아이디어명" --scores "4,3,5,4,3" --chart --output output/ideas/{id}-{name}/radar.png
+
+# idea.json에서 자동 로드
+python3 scripts/create_idea_score_chart.py --json output/ideas/{id}-{name}/idea.json
+```
+
+> matplotlib 미설치 시 "차트 생략" 경고만 표시하고 텍스트 결과는 정상 출력됩니다.
+
+### 한국 R&D 평가 키워드 매핑
+| PSST 내부 매핑 | 한국어 출력 | 정부지원사업 키워드 |
+|---|---|---|
+| Problem + Market | 시장 크기 | 필요성(Necessity) |
+| Solution + Alternatives | 경쟁 강도 + 창업자-문제 적합성 | 차별화(Differentiation) |
+| Team/Founder | 창업자-문제 적합성 | 팀 역량 |
+| Scale | 타이밍 | 성장성/확장성 |
+
 ## 출력 형식
 * 각 아이디어를 가설 형태(1문단)로 작성합니다
-* 평가 결과를 표로 정리합니다
+* 평가 결과를 ASCII 차트 또는 표로 시각화합니다
+* 한국 R&D 키워드(필요성, 차별화)를 출력에 포함합니다
 * Go 판정 아이디어는 `output/ideas/{id}-{name}/` 폴더에 저장합니다
 * `output/ideas/selected-idea.md`에도 최신 Go 아이디어 참조를 유지합니다
