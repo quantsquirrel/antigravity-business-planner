@@ -49,10 +49,11 @@ AI가 내부적으로 PSST의 **Solution + Team**에 매핑합니다.
 ## 프로세스 흐름 (v2.0)
 ```
 Step A(문제 탐색 3문) → Step B(솔루션/팀 2문) → 키워드 추출
-  → [선택: /idea-brainstorm 프레임워크 발산] → 아이디어 3-5개 생성
-  → [다양성 낮으면] 조건부 SCAMPER → 사용자 확인(HITL)
+  → [트렌드 매칭] → [선택: /idea-brainstorm 프레임워크 발산] → 아이디어 3-5개 생성
+  → [5개 이상: 클러스터링] → [다양성 낮으면] 조건부 SCAMPER → 사용자 확인(HITL)
   → [Impact-Effort 매트릭스 수렴] → 5점 척도 평가
   → Kill Switch 검사 → ASCII 시각화 + R&D 키워드 → Go/Pivot-최적화/Pivot-재검토/Drop
+  → [마인드맵 시각화]
 ```
 
 ### 선택: 브레인스토밍 프레임워크
@@ -147,6 +148,8 @@ python3 scripts/create_impact_effort_matrix.py --dir output/ideas/
 ```
 
 > matplotlib 미설치 시 "차트 생략" 경고만 표시하고 텍스트 결과는 정상 출력됩니다.
+
+* 마인드맵: `scripts/create_mindmap.py --dir output/ideas/` 실행으로 HTML 마인드맵 생성 (아이디어 간 관계 시각화)
 
 ### 한국 R&D 평가 키워드 매핑
 | PSST 내부 매핑 | 한국어 출력 | 정부지원사업 키워드 |

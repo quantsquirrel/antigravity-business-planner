@@ -32,6 +32,10 @@
       "_comment": "Sequential Thinking - for structured analysis",
       "_setup": "Available directly in Antigravity MCP Store. Search 'Sequential Thinking' and click Install.",
       "note": "Install from MCP Store - no manual config needed"
+    },
+    "_tavily": {
+      "_setup": "1. tavily.com에서 API Key 발급 (무료 월 1000회), 2. MCP Store에서 'Tavily' 검색 후 설치, 3. API Key 입력",
+      "_note": "심층 웹 검색 — 경쟁사 정보, 산업 통계, 시장 동향 수집에 활용"
     }
   }
 }

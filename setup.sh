@@ -88,6 +88,7 @@ directories=(
     ".agent/skills/progress-tracker/scripts"
     ".agent/skills/document-exporter/scripts"
     ".agent/skills/opportunity-finder"
+    ".agent/skills/scripts"
     "templates"
     "output/ideas"
     "output/research"
@@ -174,10 +175,41 @@ cat << 'RULE4_EOF' > "$PROJECT_ROOT/.agent/rules/update-check.md"
 * 업데이트 확인은 세션당 **최초 1회만** 수행합니다. 이후 대화에서 반복하지 않습니다.
 RULE4_EOF
 
+# Rule 5: context-chaining.md
+cat << 'RULE5_EOF' > "$PROJECT_ROOT/.agent/rules/context-chaining.md"
+# Context Chaining
+
+* 워크플로우 시작 시 output/ 디렉토리를 스캔하여 관련 선행 산출물을 확인합니다.
+* 선행 산출물이 있으면 핵심 내용을 요약(3-5줄)하여 현재 분석의 컨텍스트로 활용합니다.
+* output/ideas/ 하위의 idea.json 메타데이터(score_details, judgment, psst_mapping)를 후속 단계에 자동 전파합니다.
+* 과도한 컨텍스트 주입을 방지합니다: 전체 파일이 아닌 요약본만 로드합니다.
+* 참조한 선행 산출물의 파일명을 문서 서두에 "참조 문서" 항목으로 명시합니다.
+
+## 단계별 참조 매핑
+
+| 현재 단계 | 참조할 선행 산출물 |
+|-----------|-------------------|
+| 시장 조사 (/market-research) | output/ideas/*/idea.json, hypothesis.md |
+| 경쟁 분석 (/competitor-analysis) | output/research/시장조사*.md |
+| 제품/원가 분석 (/menu-costing) | output/ideas/*/idea.json |
+| 재무 모델링 (/financial-modeling) | output/research/*.md, output/financials/원가*.md |
+| 운영 계획 (/operations-plan) | output/ideas/*/idea.json, output/financials/*.md |
+| 브랜딩 전략 (/branding-strategy) | output/ideas/*/hypothesis.md, output/research/*.md |
+| 법률 체크리스트 (/legal-checklist) | output/ideas/*/idea.json |
+| 사업계획서 (/business-plan-draft) | output/research/*.md, output/financials/*.md, output/reports/*.md |
+
+## 요약 생성 규칙
+
+* 선행 산출물이 500자 이하이면 전문을 포함합니다.
+* 500자 초과 시 핵심 요약(3-5줄)만 추출합니다: Executive Summary, 핵심 수치, 판정 결과 위주.
+* idea.json은 항상 전문을 포함합니다 (구조화된 메타데이터이므로).
+RULE5_EOF
+
 echo -e "  ${GREEN}✓${NC} korean-communication.md"
 echo -e "  ${GREEN}✓${NC} business-planning-style.md"
 echo -e "  ${GREEN}✓${NC} safety-guidelines.md"
 echo -e "  ${GREEN}✓${NC} update-check.md"
+echo -e "  ${GREEN}✓${NC} context-chaining.md"
 echo ""
 
 # --- Step 4: Create Workflows ---
@@ -557,6 +589,250 @@ output/ideas/ 탐색 → 아이디어 유무 확인 → 포트폴리오 요약 �
 * 결과물은 `output/ideas/portfolio.md`에 저장합니다
 WF13_EOF
 
+# Workflow 14: lean-canvas.md
+cat << 'WF14_EOF' > "$PROJECT_ROOT/.agent/workflows/lean-canvas.md"
+# lean-canvas
+
+아이디어의 핵심 가설을 Lean Canvas 1페이지로 정리합니다.
+`/idea-validation` 완료 후, `/market-research` 전에 사용합니다.
+
+## 수행 작업
+* 확정된 아이디어(Go 판정)의 핵심 요소를 Lean Canvas 9블록으로 정리합니다
+* output/ideas/{id}-{name}/ 폴더의 hypothesis.md, evaluation.md를 참조합니다
+* 사용자와 대화하며 각 블록을 채워나갑니다
+* 완성된 Lean Canvas를 아이디어 폴더에 저장합니다
+
+## 프로세스 흐름
+아이디어 폴더 확인 → 가설/평가 참조 → 9블록 순서대로 작성 → 저장
+
+## 출력 규칙
+* templates/lean-canvas-template.md 형식을 따릅니다
+* output/ideas/{id}-{name}/lean-canvas.md에 저장합니다
+* 빈 블록이 있어도 저장하되, "[미작성 - 시장조사 후 보완]"으로 표기합니다
+
+## 다음 단계
+* /market-research로 시장 조사 진행
+* /competitor-analysis로 경쟁 분석 진행
+WF14_EOF
+
+# Workflow 15: idea-brainstorm-frameworks.md
+cat << 'WF15_EOF' > "$PROJECT_ROOT/.agent/workflows/idea-brainstorm-frameworks.md"
+# idea-brainstorm-frameworks
+
+사업 아이디어를 다각적으로 분석합니다. 역발상으로 숨겨진 리스크를 발견하고, 6가지 관점에서 아이디어를 입체적으로 검토하는 워크플로우입니다.
+
+## 수행 작업
+* 역발상을 통해 사업의 숨겨진 리스크를 발견하고 방어 전략으로 전환합니다
+* 6가지 관점(사실, 감정, 비판, 긍정, 창의, 종합)에서 아이디어를 입체적으로 분석합니다
+* 분석 결과를 구조화된 문서로 저장합니다
+
+## 전제 조건
+* 분석할 사업 아이디어가 있어야 합니다 (직접 입력 또는 `/idea-discovery`에서 Go 판정을 받은 아이디어)
+* 아이디어가 없으면 `/idea-discovery`부터 진행합니다
+
+## 설계 원칙
+* **Invisible Framework**: 내부 프레임워크(역 브레인스토밍, 6 Thinking Hats) 용어를 사용자에게 노출하지 않습니다. AI가 내부적으로 적용하고, 사용자는 자연어 분석 결과만 경험합니다
+* **한국어 우선**: 모든 질문과 출력은 한국어로 제공합니다
+* **실행 가능한 인사이트**: 추상적 분석이 아닌, 바로 행동할 수 있는 결과를 제공합니다
+
+## 프로세스 흐름
+```
+아이디어 입력 → Phase 1(역발상 리스크 발견) → Phase 2(다각적 관점 분석) → 종합 보고서 생성
+```
+
+### Phase 1: 역발상 리스크 발견
+
+AI가 내부적으로 역 브레인스토밍(Reverse Brainstorming)을 적용합니다. 사용자에게는 "리스크 분석" 결과로만 표시됩니다.
+
+**실행 단계:**
+1. AI가 "이 사업이 실패하는 시나리오 5-7가지"를 내부적으로 생성합니다
+2. 각 실패 시나리오를 뒤집어 "방어 전략"으로 변환합니다
+3. 핵심 리스크 3-5개를 도출하고 우선순위를 매깁니다
+
+**출력 형식 — 리스크-방어전략 테이블:**
+| # | 숨겨진 리스크 | 심각도 | 방어 전략 | 실행 난이도 |
+|---|-------------|--------|----------|------------|
+| 1 | (리스크 설명) | 상/중/하 | (방어 전략) | 상/중/하 |
+
+**사용자에게 보이는 메시지 예시:**
+> "아이디어의 잠재적 리스크를 분석했습니다. 아래는 발견된 주요 리스크와 대응 전략입니다."
+
+### Phase 2: 다각적 관점 분석
+
+AI가 내부적으로 6 Thinking Hats를 적용합니다. 사용자에게는 모자 색상이나 프레임워크 이름을 언급하지 않고, "6가지 관점 분석"으로 표시됩니다.
+
+**6가지 관점 (내부 매핑):**
+| 내부 매핑 | 사용자에게 보이는 관점명 | 분석 내용 |
+|----------|----------------------|----------|
+| 흰색 모자 | 사실과 데이터 | 검증 가능한 시장 데이터, 통계, 사실 관계 |
+| 빨간색 모자 | 감정과 직관 | 첫인상, 고객의 감정적 반응 예측, 직관적 매력도 |
+| 검은색 모자 | 비판과 리스크 | 잠재적 문제점, 법적/규제 리스크, 실패 가능성 |
+| 노란색 모자 | 긍정과 기회 | 성장 가능성, 차별화 포인트, 시너지 효과 |
+| 초록색 모자 | 창의와 대안 | 새로운 접근법, 피벗 가능성, 확장 아이디어 |
+| 파란색 모자 | 종합 정리 | 전체 분석 요약, 핵심 인사이트, 우선 행동 항목 |
+
+**실행 규칙:**
+* 각 관점별 2-3개 핵심 포인트를 도출합니다
+* 관점 간 상충되는 의견이 있으면 명시적으로 기술합니다
+* "종합 정리" 관점에서 최종 액션 아이템 3개를 제시합니다
+
+**사용자에게 보이는 메시지 예시:**
+> "아이디어를 6가지 관점에서 분석했습니다. 각 관점의 핵심 인사이트를 확인하세요."
+
+## 출력 형식
+
+### 분석 보고서 구조
+```markdown
+# 브레인스토밍 분석: {아이디어명}
+
+## 1. 리스크 분석
+(리스크-방어전략 테이블)
+
+## 2. 다각적 관점 분석
+
+### 사실과 데이터
+- (핵심 포인트 2-3개)
+
+### 감정과 직관
+- (핵심 포인트 2-3개)
+
+### 비판과 리스크
+- (핵심 포인트 2-3개)
+
+### 긍정과 기회
+- (핵심 포인트 2-3개)
+
+### 창의와 대안
+- (핵심 포인트 2-3개)
+
+### 종합 정리
+- (전체 요약)
+- **우선 행동 항목**: 1. / 2. / 3.
+
+## 3. 종합 판단
+- 아이디어 강화 포인트
+- 즉시 검증이 필요한 가정
+- 권장 다음 단계
+```
+
+### 저장 위치
+* `output/ideas/{id}-{name}/brainstorm-analysis.md`에 저장합니다
+* 기존 아이디어 폴더가 있으면 해당 폴더에 추가합니다
+* 아이디어 폴더가 없으면 새로 생성합니다 (ID 자동 채번)
+
+## 다음 단계
+* **리스크가 관리 가능하면**: `/idea-validation`으로 검증 진행
+* **근본적 문제 발견 시**: `/idea-discovery`로 돌아가 아이디어 보완
+* **새로운 관점이 나왔으면**: 해당 관점을 반영하여 아이디어 피벗
+* **여러 아이디어를 비교하려면**: `/idea-portfolio`로 포트폴리오 확인
+WF15_EOF
+
+# Workflow 16: my-outputs.md
+cat << 'WF16_EOF' > "$PROJECT_ROOT/.agent/workflows/my-outputs.md"
+# my-outputs
+
+모든 사업 기획 산출물을 한눈에 확인하는 통합 대시보드를 생성합니다.
+
+## 수행 작업
+* output/ 폴더의 모든 산출물을 스캔합니다
+* 진행 단계별 완료/미완료 현황을 시각화합니다
+* 카테고리별 (아이디어, 시장조사, 재무, 보고서, 발표자료) 파일 목록을 정리합니다
+* 시각적인 HTML 대시보드를 생성합니다
+
+## 실행 방법
+* 스크립트를 실행합니다: `.agent/skills/scripts/create_outputs_dashboard.py`
+* 가상 환경이 있으면 `.venv/bin/python`을, 없으면 `python3`을 사용합니다
+* 특정 아이디어만 보려면 `--idea {아이디어ID}` 옵션을 사용합니다
+
+## 출력
+* `output/dashboard.html`에 대시보드가 생성됩니다
+* 브라우저에서 열어 확인할 수 있습니다
+* 대화창에서 "내 산출물 보여줘", "진행 현황 확인" 등으로 실행할 수 있습니다
+
+## 다음 단계
+* 미완료 단계가 있으면 해당 워크플로우 명령어를 안내합니다
+* 모든 단계가 완료되면 `/export-documents`로 최종 문서 내보내기를 안내합니다
+WF16_EOF
+
+# Workflow 17: auto-plan.md
+cat << 'WF17_EOF' > "$PROJECT_ROOT/.agent/workflows/auto-plan.md"
+# auto-plan
+
+사업 기획 8단계 전체를 순차적으로 안내합니다. 사용자가 주제만 말하면 각 단계를 자동으로 진행하고, 핵심 의사결정 포인트 3곳에서만 사용자의 확인을 받습니다.
+
+## 사용법
+
+```
+/auto-plan 카페 창업
+/auto-plan 앱 개발 사업
+```
+
+## 수행 작업
+
+* 현재 진행 상황을 `scripts/check_progress.py`로 확인합니다
+* 이미 완료된 단계는 건너뛰고 첫 번째 미완료 단계부터 시작합니다
+* 각 단계 완료 후 핵심 결과를 1-2줄로 요약하고 다음 단계를 자동으로 제안합니다
+* 의사결정 포인트(HITL) 3곳에서 사용자의 확인을 받습니다
+
+## 8단계 프로세스
+
+| Step | 워크플로우 | 핵심 산출물 | HITL |
+|------|-----------|-----------|------|
+| 0 (선택) | /idea-discovery → /idea-validation | idea.json, evaluation.md | **HITL #1: 아이디어 선택** |
+| 1 | /market-research | 시장조사 보고서 | |
+| 2 | /competitor-analysis | 경쟁분석 보고서 | |
+| 3 | /menu-costing | 원가분석표 | **HITL #2: 제품/가격 확인** |
+| 4 | /financial-modeling | 재무모델, 3개년 재무제표 | |
+| 5 | /operations-plan | 운영계획서 | |
+| 6 | /branding-strategy | 브랜딩/마케팅 전략 | **HITL #3: 브랜드 확정** |
+| 7 | /legal-checklist | 법률/인허가 체크리스트 | |
+| 8 | /business-plan-draft | 종합 사업계획서 | |
+
+## 의사결정 포인트 (Human-in-the-Loop)
+
+### HITL #1: 아이디어 선택 (Step 0 완료 후)
+* Go 판정을 받은 아이디어 목록을 제시합니다
+* "어떤 아이디어로 진행하시겠습니까?" 라고 물어봅니다
+* 사용자가 선택하면 해당 아이디어의 idea.json을 기준으로 이후 단계를 진행합니다
+
+### HITL #2: 제품/가격 확인 (Step 3 완료 후)
+* 원가 분석 결과를 요약하여 보여줍니다 (원가율, 마진율, 예상 판매가)
+* "이 가격 구조로 진행하시겠습니까?" 라고 확인합니다
+* 수정이 필요하면 대화 모드로 전환합니다
+
+### HITL #3: 브랜드 확정 (Step 6 완료 후)
+* 브랜드명 후보, 포지셔닝, 핵심 메시지를 제시합니다
+* "이 브랜드 방향으로 확정하시겠습니까?" 라고 확인합니다
+* 확정하면 나머지 단계를 자동으로 진행합니다
+
+## 단계 완료 후 자동 안내
+
+각 단계가 완료되면:
+1. 해당 단계의 핵심 결과를 1-2줄로 요약합니다
+2. 결과 파일 저장 위치를 안내합니다
+3. "다음 단계: [Step N: 단계명]을 진행합니다. 계속할까요?" 를 표시합니다
+4. 사용자가 확인하면 자동으로 다음 워크플로우를 실행합니다
+
+## Context Chaining 연동
+
+* 각 단계 시작 시 context-chaining 규칙에 따라 선행 산출물을 자동 참조합니다
+* idea.json의 메타데이터를 전 과정에 걸쳐 전파합니다
+* 이전 단계에서 도출된 핵심 수치(TAM, 원가율, BEP 등)를 다음 단계에 자동 반영합니다
+
+## 출력 규칙
+
+* 진행률을 프로그레스 바로 표시합니다: `[████████░░] 80% (Step 7/8)`
+* 각 단계 시작 시 "📋 Step N/8: [단계명] 시작" 을 표시합니다
+* 완료된 단계는 ✅, 현재 단계는 🔄, 미완료는 ⬜ 로 표시합니다
+* 중간에 중단해도 진행 상황이 output/에 저장되어 있으므로 이어서 진행 가능합니다
+
+## 병렬 실행 안내
+
+* Step 5(운영), 6(브랜딩), 7(법률)은 서로 독립적이므로 병렬 실행 가능합니다
+* "Step 5-7은 병렬 실행 가능합니다. 한 번에 진행할까요?" 라고 제안합니다
+* 사용자가 동의하면 3개 단계를 동시에 안내합니다
+WF17_EOF
+
 echo -e "  ${GREEN}✓${NC} market-research.md"
 echo -e "  ${GREEN}✓${NC} competitor-analysis.md"
 echo -e "  ${GREEN}✓${NC} financial-modeling.md"
@@ -570,6 +846,10 @@ echo -e "  ${GREEN}✓${NC} export-documents.md"
 echo -e "  ${GREEN}✓${NC} idea-discovery.md"
 echo -e "  ${GREEN}✓${NC} idea-validation.md"
 echo -e "  ${GREEN}✓${NC} idea-portfolio.md"
+echo -e "  ${GREEN}✓${NC} lean-canvas.md"
+echo -e "  ${GREEN}✓${NC} idea-brainstorm-frameworks.md"
+echo -e "  ${GREEN}✓${NC} my-outputs.md"
+echo -e "  ${GREEN}✓${NC} auto-plan.md"
 echo ""
 
 # --- Step 5: Create Skills ---
@@ -2358,6 +2638,891 @@ echo -e "  ${GREEN}✓${NC} document-exporter/scripts/export_docs.py"
 echo -e "  ${GREEN}✓${NC} opportunity-finder/SKILL.md"
 echo ""
 
+# ── 공유 스크립트 (Shared Scripts) ──
+echo -e "${BLUE}  → 공유 스크립트 생성 중...${NC}"
+
+# Shared Script 1: create_idea_score_chart.py
+cat << 'SHARED1_EOF' > "$PROJECT_ROOT/.agent/skills/scripts/create_idea_score_chart.py"
+#!/usr/bin/env python3
+"""
+Idea Score Visualization (v2.0)
+
+Default: ASCII/Unicode bar chart (no dependencies)
+Optional: Radar chart PNG via matplotlib (--chart flag)
+
+Usage:
+    python create_idea_score_chart.py --name "AI 재고관리" --scores "4,3,5,4,3"
+    python create_idea_score_chart.py --name "AI 재고관리" --scores "4,3,5,4,3" --chart --output radar.png
+    python create_idea_score_chart.py --json idea.json
+"""
+
+import argparse
+import json
+import sys
+import os
+
+# Evaluation items with weights and Korean R&D keyword mapping
+ITEMS = [
+    {"key": "market_size",  "label": "시장 크기",           "weight": 5, "rnd_keyword": "필요성(Necessity)"},
+    {"key": "competition",  "label": "경쟁 강도",           "weight": 4, "rnd_keyword": ""},
+    {"key": "founder_fit",  "label": "창업자-문제 적합성",   "weight": 5, "rnd_keyword": "팀 역량"},
+    {"key": "resources",    "label": "자원 요건",           "weight": 3, "rnd_keyword": ""},
+    {"key": "timing",       "label": "타이밍",              "weight": 3, "rnd_keyword": "성장성/확장성"},
+]
+
+# R&D composite mappings
+RND_COMPOSITES = [
+    {"keyword": "필요성(Necessity)",    "sources": ["market_size"],             "desc": "Problem + Market Context"},
+    {"keyword": "차별화(Differentiation)", "sources": ["competition", "founder_fit"], "desc": "Solution + Existing Alternatives"},
+]
+
+VERDICT_RANGES = [
+    (80, 100, "Go",          "즉시 심층 분석 진행"),
+    (66,  79, "Pivot-최적화", "특정 항목 보완 후 재평가"),
+    (48,  65, "Pivot-재검토", "근본적 재검토 필요"),
+    (20,  47, "Drop",        "다른 아이디어 탐색"),
+]
+
+KILL_SWITCH_THRESHOLD = 3
+
+
+def get_verdict(score):
+    for low, high, label, desc in VERDICT_RANGES:
+        if low <= score <= high:
+            return label, desc
+    return "Unknown", ""
+
+
+def check_kill_switch(scores):
+    warnings = []
+    for item, score in zip(ITEMS, scores):
+        if score < KILL_SWITCH_THRESHOLD:
+            warnings.append(
+                f"  {item['label']} = {score}점 (임계값 {KILL_SWITCH_THRESHOLD}점 미만)"
+            )
+    return warnings
+
+
+def calc_total(scores):
+    total = sum(s * item["weight"] for s, item in zip(scores, ITEMS))
+    return total
+
+
+def render_ascii(name, scores):
+    """Render ASCII/Unicode bar chart — zero dependencies."""
+    total = calc_total(scores)
+    verdict, verdict_desc = get_verdict(total)
+    kill_warnings = check_kill_switch(scores)
+
+    bar_full = "\u2588"  # █
+    bar_empty = "\u2591"  # ░
+    max_bar = 10
+
+    lines = []
+    lines.append(f"\n{'='*60}")
+    lines.append(f"  아이디어 평가 결과: {name}")
+    lines.append(f"{'='*60}")
+    lines.append("")
+    lines.append(f"{'  평가 항목':<20} {'점수':>4}  {'':10}  {'가중':>4}  {'R&D 키워드'}")
+    lines.append(f"  {'─'*56}")
+
+    for item, score in zip(ITEMS, scores):
+        filled = int(score / 5 * max_bar)
+        bar = bar_full * filled + bar_empty * (max_bar - filled)
+        weighted = score * item["weight"]
+        rnd = item["rnd_keyword"]
+        warn = " ⚠️" if score < KILL_SWITCH_THRESHOLD else ""
+        lines.append(
+            f"  {item['label']:<16} {score:>2}/5  {bar}  {weighted:>3}/{item['weight']*5}  {rnd}{warn}"
+        )
+
+    lines.append(f"  {'─'*56}")
+    lines.append(f"  {'총점':<16} {total:>3}/100")
+    lines.append(f"  {'판정':<16} {verdict} — {verdict_desc}")
+    lines.append("")
+
+    # R&D keyword composite scores
+    lines.append("  [한국 R&D 평가 키워드 매핑]")
+    score_map = {item["key"]: s for item, s in zip(ITEMS, scores)}
+    for comp in RND_COMPOSITES:
+        avg = sum(score_map[k] for k in comp["sources"]) / len(comp["sources"])
+        lines.append(f"  · {comp['keyword']}: {avg:.1f}/5 ({comp['desc']})")
+    lines.append("")
+
+    # Kill Switch warnings
+    if kill_warnings:
+        lines.append("  ⚠️  Kill Switch 경고:")
+        for w in kill_warnings:
+            lines.append(w)
+        lines.append("  → 총점과 무관하게 해당 항목의 보완이 권고됩니다.")
+        lines.append("  → 진행하려면 CONTINUE를 입력하세요. (자동화: --force)")
+        lines.append("")
+
+    lines.append(f"{'='*60}")
+    lines.append("  평가 버전: v2.0 | Kill Switch: 개별 항목 3점 미만 경고")
+    lines.append(f"{'='*60}\n")
+
+    return "\n".join(lines)
+
+
+def render_radar(name, scores, output_path):
+    """Render radar chart PNG via matplotlib — optional dependency."""
+    try:
+        import matplotlib
+        matplotlib.use('Agg')
+        import matplotlib.pyplot as plt
+        import matplotlib.font_manager as fm
+        import numpy as np
+    except ImportError:
+        print("⚠️  matplotlib 미설치 — 차트를 생략하고 텍스트 결과만 표시합니다.")
+        print("    설치: pip install matplotlib numpy")
+        return False
+
+    # Korean font setup
+    for font_name in ['AppleGothic', 'NanumGothic', 'Malgun Gothic']:
+        try:
+            fm.findfont(font_name, fallback_to_default=False)
+            plt.rcParams['font.family'] = font_name
+            plt.rcParams['axes.unicode_minus'] = False
+            break
+        except Exception:
+            continue
+
+    labels = [item["label"] for item in ITEMS]
+    N = len(labels)
+    angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
+    angles += angles[:1]
+    values = scores + scores[:1]
+
+    fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
+    ax.fill(angles, values, color='#4285F4', alpha=0.25)
+    ax.plot(angles, values, 'o-', color='#4285F4', linewidth=2)
+
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(labels, fontsize=12)
+    ax.set_ylim(0, 5)
+    ax.set_yticks([1, 2, 3, 4, 5])
+    ax.set_yticklabels(['1', '2', '3', '4', '5'], fontsize=9, color='gray')
+
+    # Mark kill switch threshold
+    threshold_values = [KILL_SWITCH_THRESHOLD] * (N + 1)
+    ax.plot(angles, threshold_values, '--', color='#EA4335', linewidth=1, alpha=0.5, label='Kill Switch (3점)')
+    ax.legend(loc='upper right', bbox_to_anchor=(1.15, 1.1))
+
+    total = calc_total(scores)
+    verdict, _ = get_verdict(total)
+    ax.set_title(f"{name}\n총점: {total}/100 — {verdict}", fontsize=14, fontweight='bold', pad=20)
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"✅ 레이더 차트 저장: {output_path}")
+    return True
+
+
+def load_from_json(json_path):
+    """Load scores from idea.json file."""
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    details = data.get("score_details", {})
+    name = data.get("full_name", data.get("name", "Unknown"))
+    scores = [
+        details.get("market_size", 3),
+        details.get("competition", 3),
+        details.get("founder_fit", details.get("fit", 3)),
+        details.get("resources", 3),
+        details.get("timing", 3),
+    ]
+    return name, scores
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Idea Score Visualization (v2.0)")
+    parser.add_argument("--name", help="Idea name")
+    parser.add_argument("--scores", help="Comma-separated scores (5 items, 1-5 each)")
+    parser.add_argument("--json", help="Load from idea.json file")
+    parser.add_argument("--chart", action="store_true", help="Generate radar chart PNG (requires matplotlib)")
+    parser.add_argument("--output", default="idea-radar.png", help="Radar chart output path")
+    args = parser.parse_args()
+
+    if args.json:
+        name, scores = load_from_json(args.json)
+    elif args.name and args.scores:
+        name = args.name
+        scores = [int(v.strip()) for v in args.scores.split(",")]
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    if len(scores) != 5:
+        print(f"Error: 5개 항목 점수가 필요합니다 (입력: {len(scores)}개)")
+        sys.exit(1)
+
+    # Always print ASCII chart
+    print(render_ascii(name, scores))
+
+    # Optionally generate radar chart
+    if args.chart:
+        render_radar(name, scores, args.output)
+
+
+if __name__ == "__main__":
+    main()
+SHARED1_EOF
+chmod +x "$PROJECT_ROOT/.agent/skills/scripts/create_idea_score_chart.py"
+
+echo -e "  ${GREEN}✓${NC} scripts/create_idea_score_chart.py"
+
+# Shared Script 2: create_impact_effort_matrix.py
+cat << 'SHARED2_EOF' > "$PROJECT_ROOT/.agent/skills/scripts/create_impact_effort_matrix.py"
+#!/usr/bin/env python3
+"""
+Impact-Effort Matrix Visualization (v1.0)
+
+Default: ASCII 2x2 matrix (no dependencies)
+Optional: Scatter plot PNG via matplotlib (--chart flag)
+
+Usage:
+    python create_impact_effort_matrix.py --name "AI 재고관리" --scores "4.2,3.1"
+    python create_impact_effort_matrix.py --json idea.json
+    python create_impact_effort_matrix.py --dir output/ideas/
+    python create_impact_effort_matrix.py --dir output/ideas/ --chart --output matrix.png
+"""
+
+import argparse
+import json
+import sys
+import os
+import glob
+
+# Quadrant definitions (Impact high/low x Effort high/low)
+QUADRANTS = {
+    "quick_win":      {"label": "Quick Win",      "desc": "즉시 실행",   "icon": "★"},
+    "major_project":  {"label": "Major Project",  "desc": "장기 과제",   "icon": "◆"},
+    "fill_in":        {"label": "Fill-in",        "desc": "자투리 과제", "icon": "○"},
+    "thankless_task": {"label": "Thankless Task", "desc": "비효율 과제", "icon": "✕"},
+}
+
+# Midpoint threshold for quadrant classification (1-5 scale)
+MID = 2.5
+
+
+def calc_impact(score_details):
+    """Calculate impact from score_details: (market_size * 5 + timing * 3) / 8."""
+    market_size = score_details.get("market_size", 3)
+    timing = score_details.get("timing", 3)
+    return (market_size * 5 + timing * 3) / 8
+
+
+def calc_effort(score_details):
+    """Calculate effort from score_details: 6 - (resources * 3 + founder_fit * 5) / 8.
+    Higher value = harder to execute."""
+    resources = score_details.get("resources", 3)
+    founder_fit = score_details.get("founder_fit", score_details.get("fit", 3))
+    return 6 - (resources * 3 + founder_fit * 5) / 8
+
+
+def classify_quadrant(impact, effort):
+    """Classify into quadrant based on impact and effort values."""
+    if impact >= MID and effort < MID:
+        return "quick_win"
+    elif impact >= MID and effort >= MID:
+        return "major_project"
+    elif impact < MID and effort < MID:
+        return "fill_in"
+    else:
+        return "thankless_task"
+
+
+def load_from_json(json_path):
+    """Load a single idea from idea.json file."""
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    details = data.get("score_details", {})
+    name = data.get("full_name", data.get("name", "Unknown"))
+    impact = calc_impact(details)
+    effort = calc_effort(details)
+    return {"name": name, "impact": impact, "effort": effort}
+
+
+def load_from_dir(dir_path):
+    """Scan directory for idea.json files and load all."""
+    ideas = []
+    pattern = os.path.join(dir_path, "*/idea.json")
+    for json_path in sorted(glob.glob(pattern)):
+        try:
+            idea = load_from_json(json_path)
+            ideas.append(idea)
+        except (json.JSONDecodeError, KeyError) as e:
+            print(f"  경고: {json_path} 로드 실패 — {e}", file=sys.stderr)
+    return ideas
+
+
+def render_ascii(ideas):
+    """Render ASCII 2x2 impact-effort matrix — zero dependencies."""
+    # Classify ideas into quadrants
+    buckets = {"quick_win": [], "major_project": [], "fill_in": [], "thankless_task": []}
+    for idea in ideas:
+        q = classify_quadrant(idea["impact"], idea["effort"])
+        buckets[q].append(idea)
+
+    lines = []
+    lines.append(f"\n{'='*64}")
+    lines.append("  Impact-Effort 매트릭스")
+    lines.append(f"{'='*64}")
+    lines.append("")
+
+    # Axis labels
+    lines.append(f"  Impact (높음)")
+    lines.append(f"  {'│':>4}")
+
+    # Top row: Quick Win (left) | Major Project (right)
+    qw_items = buckets["quick_win"]
+    mp_items = buckets["major_project"]
+    # Bottom row: Fill-in (left) | Thankless Task (right)
+    fi_items = buckets["fill_in"]
+    tt_items = buckets["thankless_task"]
+
+    col_w = 28
+
+    def format_cell(items, qkey):
+        """Format items for a quadrant cell."""
+        q = QUADRANTS[qkey]
+        cell_lines = []
+        cell_lines.append(f"{q['icon']} {q['label']}")
+        cell_lines.append(f"  ({q['desc']})")
+        if items:
+            for idea in items:
+                cell_lines.append(f"  · {idea['name'][:18]}")
+                cell_lines.append(f"    I={idea['impact']:.1f} E={idea['effort']:.1f}")
+        else:
+            cell_lines.append("  (없음)")
+        return cell_lines
+
+    qw_cell = format_cell(qw_items, "quick_win")
+    mp_cell = format_cell(mp_items, "major_project")
+    fi_cell = format_cell(fi_items, "fill_in")
+    tt_cell = format_cell(tt_items, "thankless_task")
+
+    # Render top row
+    max_top = max(len(qw_cell), len(mp_cell))
+    lines.append(f"  {'│':>4}  {'─' * (col_w * 2 + 3)}")
+    for i in range(max_top):
+        left = qw_cell[i] if i < len(qw_cell) else ""
+        right = mp_cell[i] if i < len(mp_cell) else ""
+        lines.append(f"  {'│':>4}  │ {left:<{col_w}} │ {right:<{col_w}} │")
+    lines.append(f"  {'│':>4}  {'─' * (col_w * 2 + 3)}")
+
+    # Render bottom row
+    max_bot = max(len(fi_cell), len(tt_cell))
+    for i in range(max_bot):
+        left = fi_cell[i] if i < len(fi_cell) else ""
+        right = tt_cell[i] if i < len(tt_cell) else ""
+        lines.append(f"  {'│':>4}  │ {left:<{col_w}} │ {right:<{col_w}} │")
+    lines.append(f"  {'│':>4}  {'─' * (col_w * 2 + 3)}")
+
+    lines.append(f"  Impact (낮음)")
+    lines.append(f"  {'':>4}  Effort (낮음) ──────────── Effort (높음)")
+    lines.append("")
+
+    # Detail table
+    lines.append(f"  {'아이디어':<20} {'Impact':>7} {'Effort':>7}  {'사분면'}")
+    lines.append(f"  {'─'*58}")
+    for idea in ideas:
+        q = classify_quadrant(idea["impact"], idea["effort"])
+        qinfo = QUADRANTS[q]
+        lines.append(
+            f"  {idea['name'][:18]:<20} {idea['impact']:>5.2f}  {idea['effort']:>5.2f}   "
+            f"{qinfo['icon']} {qinfo['label']} ({qinfo['desc']})"
+        )
+    lines.append(f"  {'─'*58}")
+    lines.append("")
+
+    # Action summary
+    lines.append("  [권장 액션]")
+    if buckets["quick_win"]:
+        names = ", ".join(i["name"][:15] for i in buckets["quick_win"])
+        lines.append(f"  ★ Quick Win → 즉시 실행: {names}")
+    if buckets["major_project"]:
+        names = ", ".join(i["name"][:15] for i in buckets["major_project"])
+        lines.append(f"  ◆ Major Project → 로드맵 수립: {names}")
+    if buckets["fill_in"]:
+        names = ", ".join(i["name"][:15] for i in buckets["fill_in"])
+        lines.append(f"  ○ Fill-in → 여유 시간 활용: {names}")
+    if buckets["thankless_task"]:
+        names = ", ".join(i["name"][:15] for i in buckets["thankless_task"])
+        lines.append(f"  ✕ Thankless Task → 재검토 또는 보류: {names}")
+    lines.append("")
+
+    lines.append(f"{'='*64}")
+    lines.append("  매핑: Impact=(market_size*5+timing*3)/8, Effort=6-(resources*3+fit*5)/8")
+    lines.append(f"{'='*64}\n")
+
+    return "\n".join(lines)
+
+
+def render_chart(ideas, output_path):
+    """Render scatter plot PNG via matplotlib — optional dependency."""
+    try:
+        import matplotlib
+        matplotlib.use('Agg')
+        import matplotlib.pyplot as plt
+        import matplotlib.font_manager as fm
+    except ImportError:
+        print("  matplotlib 미설치 — 차트를 생략하고 텍스트 결과만 표시합니다.")
+        print("    설치: pip install matplotlib")
+        return False
+
+    # Korean font setup
+    for font_name in ['AppleGothic', 'NanumGothic', 'Malgun Gothic']:
+        try:
+            fm.findfont(font_name, fallback_to_default=False)
+            plt.rcParams['font.family'] = font_name
+            plt.rcParams['axes.unicode_minus'] = False
+            break
+        except Exception:
+            continue
+
+    fig, ax = plt.subplots(figsize=(10, 8))
+
+    # Quadrant background colors
+    ax.axhspan(MID, 5.5, xmin=0, xmax=0.5, alpha=0.10, color='#34A853', label='Quick Win')
+    ax.axhspan(MID, 5.5, xmin=0.5, xmax=1.0, alpha=0.10, color='#4285F4', label='Major Project')
+    ax.axhspan(0, MID, xmin=0, xmax=0.5, alpha=0.10, color='#FBBC04', label='Fill-in')
+    ax.axhspan(0, MID, xmin=0.5, xmax=1.0, alpha=0.10, color='#EA4335', label='Thankless Task')
+
+    # Quadrant divider lines
+    ax.axhline(y=MID, color='gray', linestyle='--', linewidth=0.8, alpha=0.5)
+    ax.axvline(x=MID, color='gray', linestyle='--', linewidth=0.8, alpha=0.5)
+
+    # Quadrant labels
+    ax.text(1.25, 4.5, 'Quick Win\n(즉시 실행)', ha='center', va='center',
+            fontsize=10, color='#34A853', alpha=0.6, fontweight='bold')
+    ax.text(3.75, 4.5, 'Major Project\n(장기 과제)', ha='center', va='center',
+            fontsize=10, color='#4285F4', alpha=0.6, fontweight='bold')
+    ax.text(1.25, 1.0, 'Fill-in\n(자투리 과제)', ha='center', va='center',
+            fontsize=10, color='#FBBC04', alpha=0.6, fontweight='bold')
+    ax.text(3.75, 1.0, 'Thankless Task\n(비효율 과제)', ha='center', va='center',
+            fontsize=10, color='#EA4335', alpha=0.6, fontweight='bold')
+
+    # Plot ideas
+    colors = {'quick_win': '#34A853', 'major_project': '#4285F4',
+              'fill_in': '#FBBC04', 'thankless_task': '#EA4335'}
+    for idea in ideas:
+        q = classify_quadrant(idea["impact"], idea["effort"])
+        ax.scatter(idea["effort"], idea["impact"], s=200, c=colors[q],
+                   edgecolors='white', linewidth=1.5, zorder=5)
+        ax.annotate(idea["name"][:15], (idea["effort"], idea["impact"]),
+                    textcoords="offset points", xytext=(8, 8),
+                    fontsize=9, fontweight='bold')
+
+    ax.set_xlabel("Effort (높을수록 어려움) →", fontsize=12)
+    ax.set_ylabel("Impact (높을수록 효과적) →", fontsize=12)
+    ax.set_xlim(0.5, 5.5)
+    ax.set_ylim(0.5, 5.5)
+    ax.set_xticks([1, 2, 3, 4, 5])
+    ax.set_yticks([1, 2, 3, 4, 5])
+    ax.set_title("Impact-Effort 매트릭스", fontsize=14, fontweight='bold', pad=15)
+    ax.legend(loc='upper left', fontsize=9, framealpha=0.8)
+    ax.grid(True, alpha=0.2)
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"  매트릭스 차트 저장: {output_path}")
+    return True
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Impact-Effort Matrix Visualization (v1.0)")
+    parser.add_argument("--name", help="Idea name (used with --scores)")
+    parser.add_argument("--scores", help="Comma-separated impact,effort (e.g. '3.5,2.1')")
+    parser.add_argument("--json", help="Load from idea.json file")
+    parser.add_argument("--dir", help="Scan directory for idea.json files")
+    parser.add_argument("--chart", action="store_true", help="Generate scatter plot PNG (requires matplotlib)")
+    parser.add_argument("--output", default="impact-effort-matrix.png", help="Chart output path")
+    args = parser.parse_args()
+
+    ideas = []
+
+    if args.dir:
+        ideas = load_from_dir(args.dir)
+        if not ideas:
+            print(f"  오류: {args.dir} 에서 idea.json 파일을 찾을 수 없습니다.")
+            sys.exit(1)
+    elif args.json:
+        ideas = [load_from_json(args.json)]
+    elif args.name and args.scores:
+        parts = [float(v.strip()) for v in args.scores.split(",")]
+        if len(parts) != 2:
+            print("  오류: --scores는 impact,effort 2개 값이 필요합니다 (예: '3.5,2.1')")
+            sys.exit(1)
+        ideas = [{"name": args.name, "impact": parts[0], "effort": parts[1]}]
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    # Always print ASCII matrix
+    print(render_ascii(ideas))
+
+    # Optionally generate scatter chart
+    if args.chart:
+        render_chart(ideas, args.output)
+
+
+if __name__ == "__main__":
+    main()
+SHARED2_EOF
+chmod +x "$PROJECT_ROOT/.agent/skills/scripts/create_impact_effort_matrix.py"
+
+echo -e "  ${GREEN}✓${NC} scripts/create_impact_effort_matrix.py"
+
+# Shared Script 3: create_portfolio_dashboard.py
+python3 -c "
+import shutil, os
+src = os.path.join('$PROJECT_ROOT', '.agent', 'skills', 'scripts', 'create_portfolio_dashboard.py')
+" 2>/dev/null
+
+cat << 'SHARED3_EOF' > "$PROJECT_ROOT/.agent/skills/scripts/create_portfolio_dashboard.py"
+#!/usr/bin/env python3
+"""Idea Portfolio HTML Dashboard Generator
+
+Reads output/ideas/*/idea.json files and generates a visual HTML dashboard
+at output/ideas/portfolio-dashboard.html.
+
+Usage:
+    python create_portfolio_dashboard.py [--output-dir OUTPUT_DIR]
+
+Requires Python 3.8+ standard library only (json, os, glob, datetime, pathlib).
+"""
+
+import argparse
+import json
+import os
+import sys
+from datetime import datetime
+from pathlib import Path
+
+STAGES = [
+    {"id": 0, "name": "아이디어 발굴", "icon": "\U0001f4a1"},
+    {"id": 1, "name": "시장 조사", "icon": "\U0001f4ca"},
+    {"id": 2, "name": "경쟁 분석", "icon": "\U0001f50d"},
+    {"id": 3, "name": "제품/원가", "icon": "\U0001f3f7\ufe0f"},
+    {"id": 4, "name": "재무 모델", "icon": "\U0001f4b0"},
+    {"id": 5, "name": "운영 계획", "icon": "\u2699\ufe0f"},
+    {"id": 6, "name": "브랜딩", "icon": "\U0001f3a8"},
+    {"id": 7, "name": "법률/인허가", "icon": "\u2696\ufe0f"},
+    {"id": 8, "name": "사업계획서", "icon": "\U0001f4cb"},
+]
+
+TOTAL_STAGES = len(STAGES)  # 9 (0-8)
+
+
+def find_project_root():
+    script_path = Path(__file__).resolve()
+    return script_path.parent.parent.parent.parent
+
+
+def load_ideas(ideas_dir):
+    ideas_dir = Path(ideas_dir)
+    if not ideas_dir.exists():
+        return []
+
+    ideas = []
+    for child in sorted(ideas_dir.iterdir()):
+        if child.is_dir():
+            idea_file = child / "idea.json"
+            if idea_file.exists():
+                try:
+                    with open(idea_file, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    data["dir_path"] = str(child)
+                    ideas.append(data)
+                except (json.JSONDecodeError, OSError):
+                    continue
+    return ideas
+
+
+def check_stage_completion(idea_dir):
+    idea_dir = Path(idea_dir)
+    completed = [False] * TOTAL_STAGES
+
+    if (idea_dir / "hypothesis.md").exists() or (idea_dir / "evaluation.md").exists():
+        completed[0] = True
+
+    research_dir = idea_dir / "research"
+    if research_dir.exists():
+        files = [f for f in research_dir.rglob("*") if f.is_file()]
+        if files:
+            completed[1] = True
+        for f in files:
+            fname = f.name.lower()
+            if "경쟁" in fname or "competitor" in fname:
+                completed[2] = True
+                break
+
+    financials_dir = idea_dir / "financials"
+    if financials_dir.exists():
+        for f in financials_dir.rglob("*"):
+            if f.is_file():
+                fname = f.name.lower()
+                if "원가" in fname or "cost" in fname or "menu" in fname:
+                    completed[3] = True
+                if "재무" in fname or "financial" in fname or "projection" in fname:
+                    completed[4] = True
+
+    reports_dir = idea_dir / "reports"
+    if reports_dir.exists():
+        for f in reports_dir.rglob("*"):
+            if f.is_file():
+                fname = f.name.lower()
+                if "운영" in fname or "operation" in fname:
+                    completed[5] = True
+                if "브랜딩" in fname or "brand" in fname:
+                    completed[6] = True
+                if "법률" in fname or "legal" in fname:
+                    completed[7] = True
+                if "사업계획" in fname or "business-plan" in fname:
+                    completed[8] = True
+
+    return completed
+
+
+def _status_label(status):
+    mapping = {"go": "Go", "pivot": "Pivot", "drop": "Drop"}
+    return mapping.get(status, status or "미평가")
+
+
+def _status_class(status):
+    if status == "go":
+        return "go"
+    elif status == "pivot":
+        return "pivot"
+    elif status == "drop":
+        return "drop"
+    return ""
+
+
+def _build_idea_card(idea, stages_completed):
+    full_name = idea.get("full_name", idea.get("name", ""))
+    status = idea.get("status", "")
+    raw_score = idea.get("score", 0) or 0
+    score = raw_score * 4 if raw_score <= 25 else raw_score
+    score_details = idea.get("score_details", {})
+    created = idea.get("created", "")
+    completed_count = sum(stages_completed)
+    percentage = round(completed_count / TOTAL_STAGES * 100)
+    current_stage_name = "완료"
+    next_stage_name = "-"
+    for i, done in enumerate(stages_completed):
+        if not done:
+            current_stage_name = STAGES[i]["name"]
+            next_idx = i + 1
+            if next_idx < TOTAL_STAGES:
+                next_stage_name = STAGES[next_idx]["name"]
+            else:
+                next_stage_name = "-"
+            break
+    score_items = [
+        ("시장 크기", score_details.get("market_size", 0)),
+        ("경쟁 강도", score_details.get("competition", 0)),
+        ("적합성", score_details.get("fit", 0)),
+        ("자원 요건", score_details.get("resources", 0)),
+        ("타이밍", score_details.get("timing", 0)),
+    ]
+    score_bars_html = ""
+    for label, value in score_items:
+        width = (value or 0) * 20
+        score_bars_html += f"""
+                        <div class="score-bar-item">
+                            <span class="score-label">{label}</span>
+                            <div class="score-bar"><div class="score-fill" style="width:{width}%"></div></div>
+                            <span class="score-value">{value}</span>
+                        </div>"""
+    badge_class = _status_class(status)
+    badge_label = _status_label(status)
+    return f"""
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <h3>{full_name}</h3>
+                        <span class="badge {badge_class}">{badge_label}</span>
+                    </div>
+                    <div class="score-section">
+                        <div class="total-score">{score}<span class="score-max">/100</span></div>
+                        <div class="score-bars">{score_bars_html}
+                        </div>
+                    </div>
+                    <div class="progress-section">
+                        <div class="progress-label">진행률 {percentage}%</div>
+                        <div class="progress-track"><div class="progress-fill" style="width:{percentage}%"></div></div>
+                        <div class="current-stage">현재: {current_stage_name} &rarr; 다음: {next_stage_name}</div>
+                    </div>
+                    <div class="idea-meta">생성일: {created}</div>
+                </div>"""
+
+
+def _build_comparison_row(idea, stages_completed):
+    full_name = idea.get("full_name", idea.get("name", ""))
+    status = idea.get("status", "")
+    score_details = idea.get("score_details", {})
+    raw_score = idea.get("score", 0) or 0
+    score = raw_score * 4 if raw_score <= 25 else raw_score
+    completed_count = sum(stages_completed)
+    percentage = round(completed_count / TOTAL_STAGES * 100)
+    badge_class = _status_class(status)
+    badge_label = _status_label(status)
+    return f"""
+                        <tr>
+                            <td>{full_name}</td>
+                            <td><span class="badge {badge_class}">{badge_label}</span></td>
+                            <td>{score_details.get("market_size", "-")}</td>
+                            <td>{score_details.get("competition", "-")}</td>
+                            <td>{score_details.get("fit", "-")}</td>
+                            <td>{score_details.get("resources", "-")}</td>
+                            <td>{score_details.get("timing", "-")}</td>
+                            <td><strong>{score}</strong></td>
+                            <td>{percentage}%</td>
+                        </tr>"""
+
+
+def generate_html(ideas, output_path):
+    enriched = []
+    for idea in ideas:
+        stages_completed = check_stage_completion(idea["dir_path"])
+        enriched.append((idea, stages_completed))
+    total = len(ideas)
+    go_count = sum(1 for i in ideas if i.get("status") == "go")
+    pivot_count = sum(1 for i in ideas if i.get("status") == "pivot")
+    drop_count = sum(1 for i in ideas if i.get("status") == "drop")
+    generated_at = datetime.now().strftime("%Y-%m-%d %H:%M")
+    if total == 0:
+        body_content = """
+            <div class="empty-state">
+                <h2>아직 아이디어가 없습니다</h2>
+                <p>Antigravity 대화창에서 아래와 같이 말해보세요:</p>
+                <div class="cmd-block"><pre>사업 아이디어를 찾아보고 싶어요</pre></div>
+            </div>"""
+    else:
+        hero_html = f"""
+            <div class="hero">
+                <h1>아이디어 포트폴리오</h1>
+                <p class="hero-subtitle">내 사업 아이디어를 한눈에 관리하세요</p>
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-number">{total}</div><div class="stat-label">전체 아이디어</div></div>
+                    <div class="stat-card" style="border-top-color: var(--accent-green)"><div class="stat-number">{go_count}</div><div class="stat-label">Go (진행)</div></div>
+                    <div class="stat-card" style="border-top-color: #f7971e"><div class="stat-number">{pivot_count}</div><div class="stat-label">Pivot (수정)</div></div>
+                    <div class="stat-card" style="border-top-color: #ff6b9d"><div class="stat-number">{drop_count}</div><div class="stat-label">Drop (보류)</div></div>
+                </div>
+            </div>"""
+        cards_html = ""
+        for idea, stages_completed in enriched:
+            cards_html += _build_idea_card(idea, stages_completed)
+        grid_html = f"""
+            <section class="cards-section">
+                <div class="highlight-grid">{cards_html}
+                </div>
+            </section>"""
+        rows_html = ""
+        for idea, stages_completed in enriched:
+            rows_html += _build_comparison_row(idea, stages_completed)
+        comparison_html = f"""
+            <section class="comparison">
+                <h2>아이디어 비교</h2>
+                <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>아이디어</th><th>상태</th><th>시장</th><th>경쟁</th><th>적합</th><th>자원</th><th>타이밍</th><th>총점</th><th>진행률</th></tr></thead>
+                    <tbody>{rows_html}
+                    </tbody>
+                </table>
+                </div>
+            </section>"""
+        body_content = hero_html + f"""
+            <div class="dashboard-body">
+{grid_html}
+{comparison_html}
+            </div>"""
+    html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디어 포트폴리오 | Antigravity Business Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <style>
+        :root {{--bg-deep:#0a0e27;--bg-card:rgba(15,20,40,0.8);--text-primary:#e8edf5;--text-secondary:#8892b0;--text-muted:#5a6785;--accent-gold:#ffd700;--accent-blue:#667eea;--accent-cyan:#00d2ff;--accent-green:#43e97b;--border-glass:rgba(255,255,255,0.08);--border-glass-hover:rgba(255,255,255,0.15);--glass-standard:rgba(15,20,40,0.7);--blur-subtle:blur(8px);--blur-standard:blur(16px);--space-xs:8px;--space-sm:16px;--space-md:24px;--radius-sm:8px;--radius-md:16px;--font-mono:'JetBrains Mono','SF Mono','Monaco','Fira Code',monospace;--rainbow:linear-gradient(135deg,#667eea,#00d2ff,#43e97b,#f7971e,#ff6b9d,#c471ed);}}
+        *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
+        body{{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;background:var(--bg-deep);color:var(--text-primary);line-height:1.3;height:100dvh;overflow:hidden;font-size:clamp(0.7rem,1.2vh,0.95rem);}}
+        h1,h2,h3{{font-family:'Outfit',sans-serif;}}
+        .container{{max-width:1200px;margin:0 auto;padding:1vh 2vw 0.5vh;height:100dvh;display:grid;grid-template-rows:auto 1fr auto;}}
+        .hero{{text-align:center;padding:0.5vh 0;}}.hero h1{{font-size:1.5rem;font-weight:600;background:var(--rainbow);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:2px;}}.hero-subtitle{{color:var(--text-secondary);font-size:0.85rem;margin-bottom:var(--space-sm);}}
+        .stats-grid{{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-xs);max-width:500px;margin:0 auto;}}.stat-card{{background:var(--glass-standard);backdrop-filter:var(--blur-subtle);border:1px solid var(--border-glass);border-top:2px solid var(--accent-blue);border-radius:var(--radius-sm);padding:8px 10px;text-align:center;}}.stat-number{{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:600;}}.stat-label{{font-size:0.72rem;color:var(--text-secondary);margin-top:2px;}}
+        .dashboard-body{{display:grid;grid-template-columns:1fr 1fr;gap:1vw;min-height:0;overflow:hidden;}}.cards-section{{display:contents;}}.highlight-grid{{display:flex;flex-direction:column;gap:1vh;min-height:0;}}
+        .idea-card{{flex:1;min-height:0;max-height:280px;display:flex;flex-direction:column;justify-content:center;background:var(--glass-standard);backdrop-filter:var(--blur-standard);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:1.2vh 1vw;transition:all 0.2s ease;}}.idea-card:hover{{border-color:var(--border-glass-hover);box-shadow:0 4px 20px rgba(0,0,0,0.2);}}.idea-header{{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5vh;gap:6px;}}.idea-header h3{{font-size:0.95em;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
+        .badge{{display:inline-block;padding:4px 14px;border-radius:20px;font-size:0.78rem;font-weight:500;white-space:nowrap;flex-shrink:0;}}.badge.go{{background:rgba(67,233,123,0.15);color:var(--accent-green);border:1px solid rgba(67,233,123,0.3);}}.badge.pivot{{background:rgba(247,151,30,0.15);color:#f7971e;border:1px solid rgba(247,151,30,0.3);}}.badge.drop{{background:rgba(255,107,157,0.15);color:#ff6b9d;border:1px solid rgba(255,107,157,0.3);}}
+        .score-section{{display:flex;align-items:flex-start;gap:0.5vw;margin-bottom:0.3vh;}}.total-score{{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:600;color:var(--accent-cyan);white-space:nowrap;flex-shrink:0;}}.score-max{{font-size:0.75rem;color:var(--text-muted);font-weight:400;}}.score-bars{{flex:1;display:flex;flex-direction:column;gap:0.2vh;}}.score-bar-item{{display:flex;align-items:center;font-size:0.7rem;}}.score-label{{width:52px;color:var(--text-secondary);flex-shrink:0;}}.score-bar{{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;flex:1;margin:0 6px;}}.score-fill{{height:100%;border-radius:2px;background:var(--rainbow);background-size:200% 100%;}}.score-value{{width:14px;text-align:right;color:var(--text-muted);flex-shrink:0;}}
+        .progress-section{{margin-bottom:0.3vh;}}.progress-label{{font-size:0.72rem;color:var(--text-secondary);margin-bottom:3px;}}.progress-track{{height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}}.progress-fill{{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent-blue),var(--accent-cyan),var(--accent-green));}}.current-stage{{font-size:0.7rem;color:var(--text-muted);margin-top:3px;}}
+        .idea-meta{{font-size:0.68em;color:var(--text-muted);padding-top:0.3vh;border-top:1px solid var(--border-glass);}}
+        .comparison{{margin-top:0;display:flex;flex-direction:column;min-height:0;}}.comparison h2{{font-size:1rem;font-weight:600;margin-bottom:8px;}}.table-wrapper{{overflow-x:auto;}}.comparison table{{width:100%;border-collapse:collapse;font-size:0.78em;display:flex;flex-direction:column;flex:1;min-height:0;}}.comparison thead{{flex:0 0 auto;}}.comparison tbody{{flex:1;display:flex;flex-direction:column;min-height:0;}}.comparison tr{{flex:1;display:flex;align-items:center;}}.comparison th{{flex:1;text-align:left;padding:0.5vh 0.4vw;color:var(--text-secondary);font-weight:500;border-bottom:1px solid var(--border-glass-hover);white-space:nowrap;}}.comparison td{{flex:1;padding:0.5vh 0.4vw;border-bottom:1px solid var(--border-glass);color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}.comparison tr:hover td{{background:rgba(15,20,40,0.4);}}
+        .empty-state{{text-align:center;padding:80px var(--space-md);}}.empty-state h2{{font-size:1.6rem;margin-bottom:var(--space-sm);color:var(--text-secondary);}}.cmd-block{{display:inline-block;background:var(--glass-standard);border:1px solid var(--border-glass);border-radius:var(--radius-sm);padding:var(--space-sm) var(--space-md);}}.cmd-block pre{{font-family:var(--font-mono);font-size:0.95rem;color:var(--accent-cyan);}}
+        .footer{{text-align:center;padding-top:0.5vh;border-top:1px solid var(--border-glass);font-size:0.68em;color:var(--text-muted);}}
+        @media(max-width:900px){{.dashboard-body{{grid-template-columns:1fr;overflow:auto;}}.stats-grid{{grid-template-columns:repeat(2,1fr);}}.score-section{{flex-direction:column;}}}}
+    </style>
+</head>
+<body>
+    <div class="container">
+{body_content}
+        <div class="footer">Antigravity Business Planner &mdash; Generated {generated_at}</div>
+    </div>
+</body>
+</html>"""
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(html, encoding="utf-8")
+    return str(output_path)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Idea Portfolio HTML Dashboard Generator")
+    parser.add_argument("--output-dir", default=None, help="Output directory (default: output/ideas/)")
+    args = parser.parse_args()
+    project_root = find_project_root()
+    if args.output_dir:
+        output_dir = Path(args.output_dir)
+    else:
+        output_dir = project_root / "output" / "ideas"
+    ideas_dir = project_root / "output" / "ideas"
+    ideas = load_ideas(ideas_dir)
+    output_path = output_dir / "portfolio-dashboard.html"
+    try:
+        result_path = generate_html(ideas, output_path)
+        print(result_path)
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
+SHARED3_EOF
+chmod +x "$PROJECT_ROOT/.agent/skills/scripts/create_portfolio_dashboard.py"
+
+echo -e "  ${GREEN}✓${NC} scripts/create_portfolio_dashboard.py"
+
+# 대용량 공유 스크립트 — git 저장소에 포함되어 있으므로 존재 확인만 수행
+for script in create_outputs_dashboard.py create_mindmap.py; do
+    if [ -f "$PROJECT_ROOT/.agent/skills/scripts/$script" ]; then
+        echo -e "  ${GREEN}✓${NC} scripts/$script"
+    else
+        echo -e "  ${YELLOW}!${NC} scripts/$script (git 저장소에서 누락됨 — 기능 제한 없음)"
+    fi
+done
+
+echo ""
+
 # 외부 스킬 설치 (npx skills)
 echo -e "${CYAN}  → 외부 스킬 설치 중 (launch-strategy, pricing-strategy, startup-metrics-framework)...${NC}"
 if command -v npx &> /dev/null; then
@@ -3741,9 +4906,9 @@ echo -e "${GREEN}${BOLD}  ✓ 세팅 완료!${NC}"
 echo -e "${BOLD}============================================================${NC}"
 echo ""
 echo "  생성된 항목:"
-echo -e "    ${GREEN}•${NC} 작동 원칙: 3개 (한국어 소통, 문서 스타일, 안전 가이드라인)"
-echo -e "    ${GREEN}•${NC} 기획 단계: 13개 (아이디어 발굴부터 사업계획서까지)"
-echo -e "    ${GREEN}•${NC} 전문 분석 도구: 11개 (재무, 경쟁, SWOT 등)"
+echo -e "    ${GREEN}•${NC} 작동 원칙: 5개 (한국어 소통, 문서 스타일, 안전 가이드라인, 업데이트 체크, 컨텍스트 체이닝)"
+echo -e "    ${GREEN}•${NC} 기획 단계: 17개 (아이디어 발굴부터 사업계획서까지)"
+echo -e "    ${GREEN}•${NC} 전문 분석 도구: 12개 (재무, 경쟁, SWOT 등 + 5개 공유 스크립트)"
 echo -e "    ${GREEN}•${NC} 문서 양식: 6개 (사업계획서, 재무예측, 포트폴리오 등)"
 echo -e "    ${GREEN}•${NC} 외부 도구 연동 설정: 1개"
 echo -e "    ${GREEN}•${NC} 샘플 데이터: 카페 사업 4건"
@@ -3767,6 +4932,9 @@ echo -e "    ${YELLOW}/idea-discovery${NC}        — 아이디어 발굴"
 echo -e "    ${YELLOW}/idea-validation${NC}       — 아이디어 검증"
 echo -e "    ${YELLOW}/idea-portfolio${NC}        — 아이디어 포트폴리오"
 echo -e "    ${YELLOW}/idea-brainstorm${NC}       — 브레인스토밍 프레임워크"
+echo -e "    ${YELLOW}/lean-canvas${NC}            — Lean Canvas 작성"
+echo -e "    ${YELLOW}/my-outputs${NC}             — 산출물 대시보드"
+echo -e "    ${YELLOW}/auto-plan${NC}              — 전체 기획 자동 진행"
 echo -e "    ${YELLOW}/check-progress${NC}        — 기획 진행률 확인"
 echo -e "    ${YELLOW}/export-documents${NC}      — 문서 PDF 내보내기"
 echo ""

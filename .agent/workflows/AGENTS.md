@@ -26,6 +26,7 @@ Slash-command workflow definitions for structured business planning steps. Users
 | `lean-canvas.md` | `/lean-canvas` — Lean Canvas 1페이지 가설 정리 (아이디어 확정 후, 시장조사 전) |
 | `idea-brainstorm-frameworks.md` | `/idea-brainstorm` — 역발상 리스크 발견 + 다각적 관점 분석 (Invisible Framework) |
 | `my-outputs.md` | `/my-outputs` — output/ 전체 산출물 통합 대시보드 생성 |
+| `auto-plan.md` | `/auto-plan` — 사업 기획 8단계 전체 자동 순차 진행, HITL 3곳에서 의사결정 확인 |
 
 ## For AI Agents
 
