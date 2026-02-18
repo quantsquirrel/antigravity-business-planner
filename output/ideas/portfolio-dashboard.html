@@ -550,6 +550,14 @@
 
         /* Responsive */
         @media (max-width: 900px) {
+            body {
+                overflow: auto;
+                height: auto;
+            }
+            .container {
+                height: auto;
+                min-height: 100dvh;
+            }
             .dashboard-body {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto;
@@ -865,7 +873,7 @@
                             <span class="badge drop" style="padding:2px 8px;font-size:0.62rem;">Drop</span>
                         </div>
                         <div class="action-card-status">현재: 아이디어 발굴 (0%)</div>
-                        <div class="action-card-prompt">&#8594; 시장 조사부터 시작해줘</div>
+                        <div class="action-card-prompt">&#8594; Drop 사유를 재검토해줘</div>
                     </div>
                 </div>
             </section>
