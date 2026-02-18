@@ -49,3 +49,10 @@ idea.json의 `business_scale`이 `"micro"` 또는 `"small"`인 경우, 문서 �
 8. **재무 계획** — MRR 모델, Unit Economics, BEP, 시나리오 (micro-saas-financial-template 참조)
 
 > 기존 11챕터에서 "팀 구성", "리스크 분석", "실행 로드맵"을 운영 모델과 재무 계획에 통합하여 8챕터로 간소화
+
+## 다음 단계
+* 사업계획서 완료 → `/export-documents`로 HTML/PDF 변환하여 공유
+* 산출물 전체 목록 확인 → `/my-outputs`
+* 산출물 보안 점검 → `/security-scan` (선택적 보조 워크플로우)
+* 변경 이력 관리 → `/version-history` (선택적 보조 워크플로우)
+* 전체 진행률 확인 → `/check-progress`

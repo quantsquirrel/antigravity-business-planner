@@ -74,3 +74,8 @@ idea.json의 `business_scale`이 `"micro"` 또는 `"small"`인 경우, 기존 �
 * 자동화 스택은 표로 정리합니다
 * 주간 시간 배분은 표로 정리합니다
 * output/reports/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 운영 계획 완료 → `/branding-strategy`로 브랜딩/마케팅 전략 수립
+* 인력 계획이 불확실하면 → 운영 계획을 수정하여 단계별 채용 계획 보강
+* 전체 진행률 확인 → `/check-progress`

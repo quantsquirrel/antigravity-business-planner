@@ -98,3 +98,9 @@ idea.json의 `business_scale`이 `"micro"` 또는 `"small"`인 경우, 기존 �
 * 기존 시장조사와 동일하게 마크다운 표/목록 형식
 * output/research/ 폴더에 결과를 저장합니다
 * 니치 검증 체크리스트 결과를 반드시 포함합니다
+
+## 다음 단계
+* 시장조사 완료 → `/competitor-analysis`로 경쟁 분석 진행
+* 시장 규모가 불확실하면 → `/idea-brainstorm`으로 관점 확장 후 재분석
+* MVP 범위를 먼저 좁히려면 → `/mvp-definition` (선택적 보조 워크플로우)
+* 전체 진행률 확인 → `/check-progress`

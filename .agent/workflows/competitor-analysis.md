@@ -83,3 +83,8 @@ idea.json의 `business_scale`이 `"micro"` 또는 `"small"`인 경우, 아래 Mi
 ### 출력 형식
 * 기존 경쟁 분석과 동일하게 표 형식
 * output/research/ 폴더에 기존 경쟁 분석과 함께 저장합니다
+
+## 다음 단계
+* 경쟁 분석 완료 → `/menu-costing`으로 제품 원가 분석 진행
+* 경쟁이 치열한 경우 → `/lean-canvas`로 차별화 포인트 재정리
+* 전체 진행률 확인 → `/check-progress`

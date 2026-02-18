@@ -47,3 +47,8 @@ idea.json의 `business_scale`이 `"micro"` 또는 `"small"`인 경우, 기존 �
 ### 출력 형식
 * `templates/bootstrap-growth-template.md` 양식에 맞춰 작성
 * output/reports/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 브랜딩 전략 완료 → `/legal-checklist`로 법률/인허가 요건 확인
+* 출시 전략을 구체화하려면 → `/gtm-launch` (선택적 보조 워크플로우)
+* 전체 진행률 확인 → `/check-progress`

@@ -17,3 +17,8 @@
 * 모든 수치는 표 형태로 정리합니다
 * 원가 구성 비율을 시각화합니다
 * output/financials/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 원가 분석 완료 → `/financial-modeling`으로 재무 모델 수립
+* 가격 전략을 더 정교하게 하려면 → pricing-strategy 스킬이 자동 연동됩니다
+* 전체 진행률 확인 → `/check-progress`

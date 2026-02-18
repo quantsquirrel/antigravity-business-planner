@@ -73,3 +73,10 @@ idea.json의 `business_scale`이 `"micro"` 또는 `"small"`인 경우, Micro-Saa
 ### 출력 형식
 * `templates/micro-saas-financial-template.md` 양식에 맞춰 작성
 * output/financials/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 재무 모델 완료 → `/operations-plan`으로 운영 계획 수립
+* 수익성이 낮은 경우 → `/menu-costing`으로 원가 구조 재검토
+* KPI를 먼저 정의하려면 → `/kpi-framework` (선택적 보조 워크플로우)
+* TCO를 상세 분석하려면 → `/tco-dashboard` (선택적 보조 워크플로우)
+* 전체 진행률 확인 → `/check-progress`
