@@ -28,6 +28,7 @@ output/financials/*
 output/reports/*
 output/presentations/*
 !output/ideas/.gitkeep
+!output/ideas/portfolio-dashboard.html
 !output/research/.gitkeep
 !output/financials/.gitkeep
 !output/reports/.gitkeep

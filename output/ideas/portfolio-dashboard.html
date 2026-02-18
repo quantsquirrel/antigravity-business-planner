@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디어 포트폴리오 | Antigravity Business Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <style>
+        :root {
+            --bg-deep: #0a0e27;
+            --bg-space: #0d1117;
+            --bg-card: rgba(15, 20, 40, 0.8);
+            --bg-card-hover: rgba(20, 30, 60, 0.9);
+            --text-primary: #e8edf5;
+            --text-secondary: #8892b0;
+            --text-muted: #5a6785;
+            --accent-gold: #ffd700;
+            --accent-blue: #667eea;
+            --accent-cyan: #00d2ff;
+            --accent-green: #43e97b;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glass-hover: rgba(255, 255, 255, 0.15);
+            --glass-subtle: rgba(15, 20, 40, 0.4);
+            --glass-standard: rgba(15, 20, 40, 0.7);
+            --glass-elevated: rgba(20, 28, 58, 0.85);
+            --blur-subtle: blur(8px);
+            --blur-standard: blur(16px);
+            --blur-elevated: blur(24px);
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Fira Code', monospace;
+            --rainbow: linear-gradient(135deg, #667eea, #00d2ff, #43e97b, #f7971e, #ff6b9d, #c471ed);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.3;
+            height: 100dvh;
+            overflow: hidden;
+            font-size: clamp(0.95rem, 1.8vh, 1.25rem);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1vh 2vw 0.5vh;
+            height: 100dvh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 0.5vh 0;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            background: var(--rainbow);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2px;
+        }
+        .hero-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-xs);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .stat-card {
+            background: var(--glass-standard);
+            backdrop-filter: var(--blur-subtle);
+            border: 1px solid var(--border-glass);
+            border-top: 2px solid var(--accent-blue);
+            border-radius: var(--radius-sm);
+            padding: 8px 10px;
+            text-align: center;
+        }
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* Cards + Comparison wrapper */
+        .dashboard-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr auto;
+            gap: 1vw;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .cards-section {
+            min-height: 0;
+            overflow: hidden;
+        }
+        .highlight-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8vh;
+            min-height: 0;
+            height: 100%;
+        }
+
+        /* Bottom section spanning both columns */
+        .bottom-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 7fr 3fr;
+            gap: 1vw;
+            min-height: 0;
+        }
+
+        /* Impact-Effort Matrix */
+        .matrix-container {
+            background: var(--glass-standard);
+            backdrop-filter: var(--blur-standard);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: 1vh 1vw;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .matrix-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5vh;
+        }
+        .matrix-chart {
+            flex: 1;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2px;
+            min-height: 0;
+            margin-left: 16px;
+            margin-bottom: 16px;
+        }
+        .matrix-quadrant {
+            position: relative;
+            border-radius: 4px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 6px 8px;
+        }
+        .matrix-quadrant.quick-wins {
+            background: rgba(67, 233, 123, 0.07);
+            border: 1px solid rgba(67, 233, 123, 0.12);
+        }
+        .matrix-quadrant.big-bets {
+            background: rgba(102, 126, 234, 0.07);
+            border: 1px solid rgba(102, 126, 234, 0.12);
+        }
+        .matrix-quadrant.fill-ins {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .matrix-quadrant.money-pit {
+            background: rgba(255, 107, 157, 0.07);
+            border: 1px solid rgba(255, 107, 157, 0.12);
+        }
+        .quadrant-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .matrix-dot {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 0 8px currentColor;
+            z-index: 2;
+        }
+        .matrix-dot-label {
+            position: absolute;
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            z-index: 2;
+        }
+        .matrix-axis-x {
+            position: absolute;
+            bottom: -14px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.58rem;
+            color: var(--text-muted);
+        }
+        .matrix-axis-y {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 0.58rem;
+            color: var(--text-muted);
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6vh;
+            min-height: 0;
+        }
+        .quick-actions-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.2vh;
+        }
+        .action-card {
+            flex: 1;
+            background: var(--glass-standard);
+            backdrop-filter: var(--blur-standard);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: 0.8vh 0.8vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 3px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            min-height: 0;
+        }
+        .action-card:hover {
+            border-color: var(--border-glass-hover);
+            transform: scale(1.02);
+        }
+        .action-card:nth-child(2):hover { border-color: rgba(67, 233, 123, 0.3); }
+        .action-card:nth-child(3):hover { border-color: rgba(247, 151, 30, 0.3); }
+        .action-card:nth-child(4):hover { border-color: rgba(255, 107, 157, 0.3); }
+        .action-card-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .action-card-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .action-card-status {
+            font-size: 0.62rem;
+            color: var(--text-muted);
+        }
+        .action-card-prompt {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--accent-cyan);
+            background: rgba(0, 210, 255, 0.06);
+            border: 1px solid rgba(0, 210, 255, 0.12);
+            border-radius: 4px;
+            padding: 3px 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Idea card */
+        .idea-card {
+            flex: 1;
+            min-height: 0;
+            max-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--glass-standard);
+            backdrop-filter: var(--blur-standard);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: 1.2vh 1vw;
+            transition: all 0.2s ease;
+        }
+        .idea-card:hover {
+            border-color: var(--border-glass-hover);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .idea-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5vh;
+            gap: 6px;
+        }
+        .idea-header h3 {
+            font-size: 1.15em;
+            font-weight: 600;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .badge.go {
+            background: rgba(67,233,123,0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(67,233,123,0.3);
+        }
+        .badge.pivot {
+            background: rgba(247,151,30,0.15);
+            color: #f7971e;
+            border: 1px solid rgba(247,151,30,0.3);
+        }
+        .badge.drop {
+            background: rgba(255,107,157,0.15);
+            color: #ff6b9d;
+            border: 1px solid rgba(255,107,157,0.3);
+        }
+
+        /* Score section */
+        .score-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5vw;
+            margin-bottom: 0.3vh;
+        }
+        .total-score {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .score-max {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        .score-bars {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2vh;
+        }
+        .score-bar-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.7rem;
+        }
+        .score-label {
+            width: 52px;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+        .score-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            flex: 1;
+            margin: 0 6px;
+        }
+        .score-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: var(--rainbow);
+            background-size: 200% 100%;
+        }
+        .score-value {
+            width: 14px;
+            text-align: right;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        /* Progress section */
+        .progress-section {
+            margin-bottom: 0.3vh;
+        }
+        .progress-label {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+        }
+        .progress-track {
+            height: 5px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan), var(--accent-green));
+        }
+        .current-stage {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        /* Meta */
+        .idea-meta {
+            font-size: 0.68em;
+            color: var(--text-muted);
+            padding-top: 0.3vh;
+            border-top: 1px solid var(--border-glass);
+        }
+
+        /* Comparison table */
+        .comparison {
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .comparison h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        .comparison table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1em;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+        .comparison thead {
+            flex: 0 0 auto;
+        }
+        .comparison tbody {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .comparison tr {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .comparison th {
+            flex: 1;
+            text-align: left;
+            padding: 0.5vh 0.4vw;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-glass-hover);
+            white-space: nowrap;
+        }
+        .comparison td {
+            flex: 1;
+            padding: 0.5vh 0.4vw;
+            border-bottom: 1px solid var(--border-glass);
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .comparison tr:hover td {
+            background: var(--glass-subtle);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 80px var(--space-md);
+        }
+        .empty-state h2 {
+            font-size: 1.6rem;
+            margin-bottom: var(--space-sm);
+            color: var(--text-secondary);
+        }
+        .empty-state p {
+            color: var(--text-muted);
+            margin-bottom: var(--space-md);
+        }
+        .cmd-block {
+            display: inline-block;
+            background: var(--glass-standard);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: var(--space-sm) var(--space-md);
+        }
+        .cmd-block pre {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 0.5vh;
+            border-top: 1px solid var(--border-glass);
+            font-size: 0.68em;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .dashboard-body {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                overflow: auto;
+            }
+            .bottom-section {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .score-section {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+            <div class="hero">
+                <h1>아이디어 포트폴리오</h1>
+                <p class="hero-subtitle">내 사업 아이디어를 한눈에 관리하세요</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">전체 아이디어</div>
+                    </div>
+                    <div class="stat-card" style="border-top-color: var(--accent-green)">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Go (진행)</div>
+                    </div>
+                    <div class="stat-card" style="border-top-color: #f7971e">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Pivot (수정)</div>
+                    </div>
+                    <div class="stat-card" style="border-top-color: #ff6b9d">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Drop (보류)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-body">
+
+            <section class="cards-section">
+                <div class="highlight-grid">
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <h3>동네 스페셜티 커피 로스터리</h3>
+                        <span class="badge go">Go</span>
+                    </div>
+                    <div class="score-section">
+                        <div class="total-score">19<span class="score-max">/25</span></div>
+                        <div class="score-bars">
+                        <div class="score-bar-item">
+                            <span class="score-label">시장 크기</span>
+                            <div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
+                            <span class="score-value">4</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">경쟁 강도</span>
+                            <div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
+                            <span class="score-value">3</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">적합성</span>
+                            <div class="score-bar"><div class="score-fill" style="width:100%"></div></div>
+                            <span class="score-value">5</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">자원 요건</span>
+                            <div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
+                            <span class="score-value">3</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">타이밍</span>
+                            <div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
+                            <span class="score-value">4</span>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="progress-section">
+                        <div class="progress-label">진행률 44%</div>
+                        <div class="progress-track"><div class="progress-fill" style="width:44%"></div></div>
+                        <div class="current-stage">현재: 재무 모델 &rarr; 다음: 운영 계획</div>
+                    </div>
+                    <div class="idea-meta">생성일: 2026-02-10</div>
+                </div>
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <h3>AI 식단 추천 구독 앱</h3>
+                        <span class="badge pivot">Pivot</span>
+                    </div>
+                    <div class="score-section">
+                        <div class="total-score">14<span class="score-max">/25</span></div>
+                        <div class="score-bars">
+                        <div class="score-bar-item">
+                            <span class="score-label">시장 크기</span>
+                            <div class="score-bar"><div class="score-fill" style="width:80%"></div></div>
+                            <span class="score-value">4</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">경쟁 강도</span>
+                            <div class="score-bar"><div class="score-fill" style="width:40%"></div></div>
+                            <span class="score-value">2</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">적합성</span>
+                            <div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
+                            <span class="score-value">3</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">자원 요건</span>
+                            <div class="score-bar"><div class="score-fill" style="width:40%"></div></div>
+                            <span class="score-value">2</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">타이밍</span>
+                            <div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
+                            <span class="score-value">3</span>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="progress-section">
+                        <div class="progress-label">진행률 22%</div>
+                        <div class="progress-track"><div class="progress-fill" style="width:22%"></div></div>
+                        <div class="current-stage">현재: 경쟁 분석 &rarr; 다음: 제품/원가</div>
+                    </div>
+                    <div class="idea-meta">생성일: 2026-02-12</div>
+                </div>
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <h3>친환경 리필 스테이션</h3>
+                        <span class="badge drop">Drop</span>
+                    </div>
+                    <div class="score-section">
+                        <div class="total-score">11<span class="score-max">/25</span></div>
+                        <div class="score-bars">
+                        <div class="score-bar-item">
+                            <span class="score-label">시장 크기</span>
+                            <div class="score-bar"><div class="score-fill" style="width:60%"></div></div>
+                            <span class="score-value">3</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">경쟁 강도</span>
+                            <div class="score-bar"><div class="score-fill" style="width:40%"></div></div>
+                            <span class="score-value">2</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">적합성</span>
+                            <div class="score-bar"><div class="score-fill" style="width:40%"></div></div>
+                            <span class="score-value">2</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">자원 요건</span>
+                            <div class="score-bar"><div class="score-fill" style="width:40%"></div></div>
+                            <span class="score-value">2</span>
+                        </div>
+                        <div class="score-bar-item">
+                            <span class="score-label">타이밍</span>
+                            <div class="score-bar"><div class="score-fill" style="width:40%"></div></div>
+                            <span class="score-value">2</span>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="progress-section">
+                        <div class="progress-label">진행률 0%</div>
+                        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+                        <div class="current-stage">현재: 아이디어 발굴 &rarr; 다음: 시장 조사</div>
+                    </div>
+                    <div class="idea-meta">생성일: 2026-02-15</div>
+                </div>
+                </div>
+            </section>
+
+            <section class="comparison">
+                <h2>아이디어 비교</h2>
+                <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>항목</th>
+                            <th>커피 로스터리</th>
+                            <th>AI 식단 앱</th>
+                            <th>리필 스테이션</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>상태</td>
+                            <td><span class="badge go">Go</span></td>
+                            <td><span class="badge pivot">Pivot</span></td>
+                            <td><span class="badge drop">Drop</span></td>
+                        </tr>
+                        <tr>
+                            <td>시장 크기</td>
+                            <td>4</td>
+                            <td>4</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>경쟁 강도</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>적합성</td>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>자원 요건</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>타이밍</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>총점</strong></td>
+                            <td><strong>19</strong></td>
+                            <td><strong>14</strong></td>
+                            <td><strong>11</strong></td>
+                        </tr>
+                        <tr>
+                            <td>진행률</td>
+                            <td>44%</td>
+                            <td>22%</td>
+                            <td>0%</td>
+                        </tr>
+                        <tr>
+                            <td>현재 단계</td>
+                            <td>재무 모델</td>
+                            <td>경쟁 분석</td>
+                            <td>아이디어 발굴</td>
+                        </tr>
+                        <tr>
+                            <td>다음 단계</td>
+                            <td>운영 계획</td>
+                            <td>제품/원가</td>
+                            <td>시장 조사</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </section>
+
+            <section class="bottom-section">
+                <div class="matrix-container">
+                    <div class="matrix-title">Impact-Effort Matrix</div>
+                    <div class="matrix-chart">
+                        <div class="matrix-axis-y"><span>High Impact</span><span>Low Impact</span></div>
+                        <div class="matrix-axis-x"><span>Low Effort</span><span>High Effort</span></div>
+
+                        <!-- Top-left: Quick Wins (High Impact, Low Effort) -->
+                        <div class="matrix-quadrant quick-wins">
+                            <span class="quadrant-label">&#11088; Quick Wins</span>
+                            <!-- Coffee Roastery: left ~40% of quadrant, bottom ~40% of quadrant -->
+                            <div class="matrix-dot" style="width:12px;height:12px;background:var(--accent-green);color:var(--accent-green);left:40%;bottom:40%;"></div>
+                            <span class="matrix-dot-label" style="left:calc(40% + 16px);bottom:38%;">커피 로스터리</span>
+                        </div>
+
+                        <!-- Top-right: Big Bets (High Impact, High Effort) -->
+                        <div class="matrix-quadrant big-bets">
+                            <span class="quadrant-label">&#128640; Big Bets</span>
+                            <!-- AI Diet App: left ~40% of quadrant, bottom ~20% of quadrant -->
+                            <div class="matrix-dot" style="width:10px;height:10px;background:#f7971e;color:#f7971e;left:40%;bottom:20%;"></div>
+                            <span class="matrix-dot-label" style="left:calc(40% + 14px);bottom:17%;">AI 식단 앱</span>
+                        </div>
+
+                        <!-- Bottom-left: Fill-ins (Low Impact, Low Effort) -->
+                        <div class="matrix-quadrant fill-ins">
+                            <span class="quadrant-label">&#128203; Fill-ins</span>
+                        </div>
+
+                        <!-- Bottom-right: Money Pit (Low Impact, High Effort) -->
+                        <div class="matrix-quadrant money-pit">
+                            <span class="quadrant-label">&#9888;&#65039; Money Pit</span>
+                            <!-- Refill Station: left ~50% of quadrant, top ~30% of quadrant -->
+                            <div class="matrix-dot" style="width:8px;height:8px;background:#ff6b9d;color:#ff6b9d;left:50%;top:30%;"></div>
+                            <span class="matrix-dot-label" style="left:calc(50% + 12px);top:28%;">리필 스테이션</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <div class="quick-actions-title">Quick Actions</div>
+                    <div class="action-card">
+                        <div class="action-card-header">
+                            <span class="action-card-name">커피 로스터리</span>
+                            <span class="badge go" style="padding:2px 8px;font-size:0.62rem;">Go</span>
+                        </div>
+                        <div class="action-card-status">현재: 재무 모델 (44%)</div>
+                        <div class="action-card-prompt">&#8594; 운영 계획을 수립해줘</div>
+                    </div>
+                    <div class="action-card">
+                        <div class="action-card-header">
+                            <span class="action-card-name">AI 식단 앱</span>
+                            <span class="badge pivot" style="padding:2px 8px;font-size:0.62rem;">Pivot</span>
+                        </div>
+                        <div class="action-card-status">현재: 경쟁 분석 (22%)</div>
+                        <div class="action-card-prompt">&#8594; 경쟁 우위를 재정의해줘</div>
+                    </div>
+                    <div class="action-card">
+                        <div class="action-card-header">
+                            <span class="action-card-name">리필 스테이션</span>
+                            <span class="badge drop" style="padding:2px 8px;font-size:0.62rem;">Drop</span>
+                        </div>
+                        <div class="action-card-status">현재: 아이디어 발굴 (0%)</div>
+                        <div class="action-card-prompt">&#8594; 시장 조사부터 시작해줘</div>
+                    </div>
+                </div>
+            </section>
+            </div>
+
+        <div class="footer">
+            Antigravity Business Planner &mdash; Generated 2026-02-17 11:30
+        </div>
+    </div>
+</body>
+</html>
