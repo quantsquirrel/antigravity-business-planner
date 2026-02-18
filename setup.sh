@@ -89,6 +89,9 @@ directories=(
     ".agent/skills/document-exporter/scripts"
     ".agent/skills/opportunity-finder"
     ".agent/skills/ai-business-analyst"
+    ".agent/skills/niche-validator"
+    ".agent/skills/bootstrap-calculator"
+    ".agent/skills/tech-stack-recommender"
     ".agent/skills/scripts"
     "templates"
     "output/ideas"
@@ -108,7 +111,7 @@ for gitkeep_dir in "output/ideas" "output/research" "output/reports" "output/fin
     touch "$PROJECT_ROOT/$gitkeep_dir/.gitkeep"
 done
 
-echo -e "  ${GREEN}✓${NC} 19개 디렉토리 생성 완료"
+echo -e "  ${GREEN}✓${NC} 22개 디렉토리 생성 완료"
 echo ""
 
 # --- Step 3: Create Rules ---
@@ -379,6 +382,53 @@ cat << 'RULE8_EOF' > "$PROJECT_ROOT/.agent/rules/data-confidence.md"
 ```
 RULE8_EOF
 
+# Rule 9: Mode Handler (Phase 7)
+cat << 'RULE9_EOF' > "$PROJECT_ROOT/.agent/rules/mode-handler.md"
+# Mode Handler — 규모별 AI 페르소나 전환 규칙
+
+* `business_scale` 지침이 일반 지침보다 우선합니다.
+* idea.json의 `business_scale` 값에 따라 AI의 분석 관점, 용어, 평가 기준이 자동으로 전환됩니다.
+
+## business_scale 값 정의
+
+| 값 | 대상 | 월 비용 구조 | 성장 전략 | 핵심 지표 |
+|---|---|---|---|---|
+| micro | 1인 빌더, Micro-SaaS | $100-500 | 부트스트랩, SEO/커뮤니티 | MRR, Churn, ARPU |
+| small | 2-5인 팀 | $500-5K | 부트스트랩+엔젤 | MRR, CAC, LTV |
+| startup | 스타트업 | $5K-50K | VC, 스케일업 | ARR, Burn Rate, Runway |
+| enterprise | 기존사업 | $50K+ | 전통 확장 | EBIT, OPEX, ROI |
+
+## 페르소나 전환 규칙
+
+### `micro` 페르소나 (1인 빌더 / Micro-SaaS)
+
+* "투자 유치" 대신 "현금 흐름/이익률" 관점으로 분석합니다.
+* "채용" 대신 "자동화" 관점으로 운영 계획을 수립합니다.
+* "브랜드 인지도" 대신 "직접 전환(SEO/커뮤니티)" 관점으로 마케팅을 설계합니다.
+* 재무 모델은 Micro-SaaS 템플릿(MRR 기반)을 사용합니다.
+* 운영 계획은 자동화 스택 중심으로 구성합니다.
+
+### `small` 페르소나 (소규모 팀 2-5명)
+
+* 린 운영 + 초기 팀빌딩 관점으로 분석합니다.
+* "대규모 조직" 대신 "소규모 팀 효율" 관점으로 운영을 설계합니다.
+* 자금 조달은 부트스트랩 + 엔젤 투자 범위에서 검토합니다.
+* 채용보다 아웃소싱/파트타임 활용을 우선 고려합니다.
+
+### `startup` 페르소나
+
+* 기존 동작을 유지합니다. 별도 분기 없음.
+
+### `enterprise` 페르소나
+
+* 기존 동작을 유지합니다. 별도 분기 없음.
+
+### `null` (미설정)
+
+* 기존 동작 그대로 진행합니다. 분기 없음.
+* business_scale이 설정되지 않은 경우 모든 워크플로우는 기본(startup) 관점으로 동작합니다.
+RULE9_EOF
+
 echo -e "  ${GREEN}✓${NC} korean-communication.md"
 echo -e "  ${GREEN}✓${NC} business-planning-style.md"
 echo -e "  ${GREEN}✓${NC} safety-guidelines.md"
@@ -387,6 +437,7 @@ echo -e "  ${GREEN}✓${NC} context-chaining.md"
 echo -e "  ${GREEN}✓${NC} ai-domain-knowledge.md"
 echo -e "  ${GREEN}✓${NC} quality-gate.md"
 echo -e "  ${GREEN}✓${NC} data-confidence.md"
+echo -e "  ${GREEN}✓${NC} mode-handler.md"
 echo ""
 
 # --- Step 4: Create Workflows ---
@@ -2860,7 +2911,151 @@ AI 키워드가 감지되면 opportunity-finder의 기본 질문에 아래 3개�
 * `output/ideas/{id}/ai-analysis.md` — AI 사업 분석 상세 문서 생성
 SK10_EOF
 
+# Skill 11: Niche Validator (Phase 7)
+cat << 'SK11_EOF' > "$PROJECT_ROOT/.agent/skills/niche-validator/instruction.md"
+# niche-validator
+
+니치 시장의 유효성을 검증합니다. Micro-SaaS/1인 빌더가 타겟하는 니치 시장이 실제로 수익 가능한지 판단합니다.
+
+## 활성화 조건
+* business_scale이 "micro" 또는 "small"일 때 자동 활성화
+* /market-research 워크플로우 실행 시 연동
+
+## 수행 작업
+
+### 커뮤니티 수요 분석
+* 타겟 니치의 온라인 커뮤니티를 식별합니다 (Reddit, 디스코드, 네이버 카페, 포럼)
+* 커뮤니티 규모 (멤버 수, 월간 활성 게시물)를 추정합니다
+* 반복되는 불만/요청 패턴을 수집합니다 (상위 5개)
+
+### 기존 솔루션 불만 수집
+* 경쟁 제품의 리뷰/평점을 분석합니다
+* 부정적 리뷰에서 공통 패턴을 추출합니다
+* "이 기능만 있으면", "왜 이게 안 돼" 같은 미충족 수요 시그널을 수집합니다
+
+### 지불 의향 시그널 감지
+* "I'd pay for...", "Take my money", "무료면 좋겠다" 등 지불 시그널을 검색합니다
+* 크라우드펀딩/얼리버드 성공 사례를 참고합니다
+* 유사 니치의 유료 제품 존재 여부를 확인합니다
+
+### 니치 스코어 산출
+
+| 항목 | 가중치 | 점수 (1-5) | 가중 점수 |
+|------|--------|-----------|----------|
+| 커뮤니티 규모 | 20% | | |
+| 불만 강도 | 25% | | |
+| 지불 의향 | 25% | | |
+| 경쟁 공백 | 20% | | |
+| 성장 추세 | 10% | | |
+| **합계** | **100%** | | **/5.0** |
+
+* 4.0+ : 유효한 니치 (Go)
+* 3.0-3.9 : 보완 필요 (Pivot)
+* 3.0 미만 : 재검토 필요 (Drop)
+
+## 출력 형식
+* 마크다운 표와 목록으로 정리합니다
+* output/research/niche-validation.md에 저장합니다
+* 니치 스코어와 판정(Go/Pivot/Drop)을 반드시 포함합니다
+SK11_EOF
+
+# Skill 12: Bootstrap Calculator (Phase 7)
+cat << 'SK12_EOF' > "$PROJECT_ROOT/.agent/skills/bootstrap-calculator/instruction.md"
+# bootstrap-calculator
+
+부트스트랩(자기 자본) 방식의 SaaS 사업 재무를 계산합니다. 투자 없이 구독 수익만으로 자립하는 모델을 설계합니다.
+
+## 활성화 조건
+* business_scale이 "micro" 또는 "small"일 때 자동 활성화
+* /financial-modeling 워크플로우 실행 시 연동
+
+## 수행 작업
+
+### MRR 기반 BEP 계산
+* 월 고정비 산출: SaaS 도구, 호스팅, API, 도메인 등
+* ARPU 설정: 가격 티어별 가중 평균
+* BEP 고객 수 = 월 고정비 / ARPU
+* BEP 도달 예상 시점 계산 (성장률 기반)
+
+### SaaS 비용 구조 산출
+* 고정비: 도메인, 호스팅, DB, 이메일, 모니터링
+* 변동비: API 호출, 결제 수수료, 대역폭
+* 스케일링 곡선: 고객 50/100/500/1,000명별 총비용
+
+### 구독자 성장 시나리오 시뮬레이션
+
+| 시나리오 | 월 성장률 | 월 이탈률 | 3개월 후 | 6개월 후 | 12개월 후 |
+|---------|----------|----------|---------|---------|---------|
+| 비관적 | 5% | 8% | 명 | 명 | 명 |
+| 기본 | 10% | 5% | 명 | 명 | 명 |
+| 낙관적 | 20% | 3% | 명 | 명 | 명 |
+
+### 가격 민감도 분석
+* 현재 가격의 +-30% 범위에서 전환율 변화 추정
+* 최적 가격점 제안 (수익 최대화 vs 성장 최대화)
+
+## 출력 형식
+* 모든 수치는 표 형태로 정리합니다
+* "이 수치는 추정치이며, 실제와 다를 수 있습니다"를 명시합니다
+* output/financials/bootstrap-projection.md에 저장합니다
+SK12_EOF
+
+# Skill 13: Tech Stack Recommender (Phase 7)
+cat << 'SK13_EOF' > "$PROJECT_ROOT/.agent/skills/tech-stack-recommender/instruction.md"
+# tech-stack-recommender
+
+1인/소규모 빌더를 위한 기술 스택과 자동화 도구를 추천합니다.
+
+## 활성화 조건
+* business_scale이 "micro" 또는 "small"일 때 자동 활성화
+* /operations-plan 워크플로우 실행 시 연동
+
+## 수행 작업
+
+### 사업 유형별 추천 스택
+
+| 사업 유형 | 프론트엔드 | 백엔드 | DB | 결제 | 배포 |
+|----------|----------|--------|-----|------|------|
+| SaaS (웹앱) | Next.js / Remix | Supabase / Firebase | PostgreSQL | Stripe / Paddle | Vercel / Railway |
+| API 서비스 | - | FastAPI / Hono | PostgreSQL | Stripe | Fly.io / Railway |
+| 마켓플레이스 | Next.js | Supabase | PostgreSQL | Stripe Connect | Vercel |
+| 콘텐츠/커뮤니티 | Ghost / WordPress | - | MySQL | Stripe | 자체 호스팅 |
+| 모바일 앱 | React Native / Flutter | Supabase | PostgreSQL | App Store IAP | Expo / Firebase |
+
+### 자동화 도구 스택
+
+| 영역 | 추천 도구 | 무료 티어 | 유료 시작 | 역할 |
+|------|----------|----------|----------|------|
+| 결제 | Stripe / Paddle | 수수료만 | 수수료만 | 구독 관리 |
+| 이메일 | Resend / Postmark | 100/일 | $20/월 | 트랜잭션 이메일 |
+| 분석 | Plausible / Umami | 셀프호스팅 | $9/월 | 웹 분석 |
+| 고객지원 | Crisp / Intercom | 제한적 | $25/월 | 라이브챗 |
+| 모니터링 | Sentry / BetterStack | 5K 이벤트 | $26/월 | 에러 추적 |
+| 자동화 | n8n / Make | 셀프호스팅 | $9/월 | 워크플로우 자동화 |
+| CI/CD | GitHub Actions | 2,000분 | 포함 | 빌드/배포 |
+
+### 비용 최적화 전략
+* Phase 1 (0-100 고객): 모든 무료 티어 활용, 월 $10-50
+* Phase 2 (100-1,000): 핵심 도구만 유료 전환, 월 $50-200
+* Phase 3 (1,000+): 스케일 대응, 월 $200-500
+* 스케일링 트리거: "이 지표에 도달하면 이 도구를 유료로 전환"
+
+### "두 번째 사람" 고용 판단 기준
+* 고객 지원 주 10시간+ → 파트타임 CS
+* 기능 요청 백로그 3개월분+ → 파트타임 개발자
+* MRR $5K+ 안정적 → 풀타임 고려 가능
+* 본인 번아웃 시그널 → 즉시 외주/자동화 검토
+
+## 출력 형식
+* 추천 스택을 표 형태로 정리합니다
+* 월 예상 비용을 단계별로 산출합니다
+* output/reports/tech-stack.md에 저장합니다
+SK13_EOF
+
 echo -e "  ${GREEN}✓${NC} ai-business-analyst/SKILL.md"
+echo -e "  ${GREEN}✓${NC} niche-validator/instruction.md"
+echo -e "  ${GREEN}✓${NC} bootstrap-calculator/instruction.md"
+echo -e "  ${GREEN}✓${NC} tech-stack-recommender/instruction.md"
 echo -e "  ${GREEN}✓${NC} business-researcher/SKILL.md"
 echo -e "  ${GREEN}✓${NC} financial-analyst/SKILL.md"
 echo -e "  ${GREEN}✓${NC} financial-analyst/scripts/calculate_costs.py"
@@ -4663,6 +4858,194 @@ TPL8_EOF
 
 echo -e "  ${GREEN}✓${NC} ai-business-financial-template.md"
 
+# Template 9: Micro-SaaS Financial Template (Phase 7)
+cat << 'TPL9_EOF' > "$PROJECT_ROOT/templates/micro-saas-financial-template.md"
+# Micro-SaaS 재무 모델 템플릿
+
+> 이 템플릿은 1인/소규모 SaaS 사업의 재무 모델링에 사용됩니다.
+> business_scale이 "micro" 또는 "small"일 때 자동으로 이 템플릿이 적용됩니다.
+
+## 1. 비용 구조
+
+### 고정비 (월간)
+
+| 항목 | 예상 비용 | 비고 |
+|------|----------|------|
+| 도메인 | $1/월 ($12/년) | .com 기준 |
+| 호스팅/서버 | $5-50/월 | Vercel, Railway, Fly.io 등 |
+| 데이터베이스 | $0-25/월 | Supabase 무료~Pro |
+| 이메일 서비스 | $0-20/월 | Resend, Postmark |
+| 분석 도구 | $0-10/월 | Plausible, Umami |
+| 에러 모니터링 | $0-15/월 | Sentry 무료 티어 |
+| **소계** | **$6-121/월** | |
+
+### 변동비 (사용량 비례)
+
+| 항목 | 단가 | 월 100명 | 월 1,000명 | 월 10,000명 |
+|------|------|---------|-----------|------------|
+| API 호출 (AI) | $X/1K req | | | |
+| 결제 수수료 | 2.9% + $0.30 | | | |
+| CDN/대역폭 | $X/GB | | | |
+| 고객 지원 도구 | $0-50/월 | | | |
+
+### 1인 빌더 시간 비용 (선택 산출)
+
+| 활동 | 주간 시간 | 시간당 가치 | 월 환산 |
+|------|----------|-----------|--------|
+| 개발 | h | $/h | $ |
+| 마케팅/콘텐츠 | h | $/h | $ |
+| 고객 지원 | h | $/h | $ |
+| 운영/관리 | h | $/h | $ |
+
+> "이 수치는 기회비용 추정이며, 실제 현금 지출은 아닙니다"
+
+## 2. 수익 모델
+
+### 가격 티어 설계
+
+| 티어 | 월 가격 | 연 가격 (할인) | 예상 비율 |
+|------|--------|--------------|----------|
+| Free | $0 | - | 70-80% |
+| Pro | $X/월 | $X/년 (20% 할인) | 15-25% |
+| Team | $X/월/석 | $X/년/석 | 5-10% |
+
+### MRR 예측
+
+| 월 | 신규 유료 고객 | 이탈 | 순증 | 누적 유료 | MRR | 비용 | 손익 |
+|----|-------------|------|------|----------|-----|------|------|
+| 1 | | | | | $ | $ | $ |
+| ... | | | | | | | |
+| 12 | | | | | $ | $ | $ |
+
+## 3. Unit Economics
+
+| 지표 | 산식 | 목표값 | 실제값 |
+|------|------|--------|--------|
+| ARPU | 총 MRR / 유료 고객 수 | | |
+| Monthly Churn Rate | 이탈 고객 / 전월 고객 | <5% | |
+| LTV | ARPU / Churn Rate | | |
+| CAC | 마케팅 비용 / 신규 유료 고객 | | |
+| LTV/CAC | LTV / CAC | >3x | |
+| Payback Period | CAC / ARPU | <6개월 | |
+
+## 4. 손익분기점 (BEP)
+
+* **월 고정비**: $___
+* **ARPU**: $___
+* **BEP 고객 수**: 고정비 / ARPU = ___ 명
+* **예상 BEP 도달**: ___개월차
+
+## 5. 시나리오 분석
+
+| 시나리오 | 월 성장률 | 12개월 후 MRR | BEP 도달 |
+|---------|----------|-------------|---------|
+| 비관적 | 5% | $ | 개월 |
+| 기본 | 10% | $ | 개월 |
+| 낙관적 | 20% | $ | 개월 |
+
+## 6. 핵심 재무 건전성 지표 (Micro-SaaS 5개)
+
+| 지표 | 산식 | 양호 기준 | 판정 |
+|------|------|----------|------|
+| MRR 성장률 | (이번달 MRR - 지난달) / 지난달 | >10%/월 | |
+| 이익률 | (MRR - 총비용) / MRR | >80% | |
+| LTV/CAC | LTV / CAC | >3x | |
+| Churn Rate | 월 이탈률 | <5% | |
+| 현금 활주로 | 잔여 자금 / 월 순손실 | >6개월 | |
+
+> "이 수치는 추정치이며, 실제와 다를 수 있습니다"
+TPL9_EOF
+
+echo -e "  ${GREEN}✓${NC} micro-saas-financial-template.md"
+
+# Template 10: Bootstrap Growth Template (Phase 7)
+cat << 'TPL10_EOF' > "$PROJECT_ROOT/templates/bootstrap-growth-template.md"
+# 부트스트랩 성장 전략 템플릿
+
+> 이 템플릿은 투자 없이 자체 수익으로 성장하는 사업의 마케팅/성장 전략에 사용됩니다.
+
+## 1. 성장 로드맵
+
+### Phase 1: 씨앗 (0-3개월) — 첫 10명 유료 고객
+
+| 주차 | 목표 | 핵심 활동 | KPI |
+|------|------|----------|-----|
+| 1-2 | MVP 출시 | 랜딩페이지 + 핵심 기능 1개 | 가입 수 |
+| 3-4 | 첫 고객 | 타겟 커뮤니티 직접 아웃리치 | 유료 전환 |
+| 5-8 | 피드백 루프 | 고객 인터뷰, 기능 개선 | NPS, Churn |
+| 9-12 | PMF 신호 | 유기적 유입 시작 | 월 성장률 |
+
+### Phase 2: 뿌리 (3-6개월) — MRR $1K
+
+| 채널 | 활동 | 예상 비용 | 예상 효과 |
+|------|------|----------|----------|
+| SEO | 비교 페이지, 사용법 글 10개 | $0 (시간) | 월 500 방문 |
+| 커뮤니티 | Reddit/IndieHackers 주 2회 참여 | $0 (시간) | 월 100 방문 |
+| Product Hunt | 런칭 1회 | $0 | 1일 1,000+ 방문 |
+| 레퍼럴 | 기존 고객 추천 프로그램 | 20% 할인 | 월 5명 |
+
+### Phase 3: 성장 (6-12개월) — MRR $5K
+
+| 채널 | 활동 | 예상 비용 | 예상 효과 |
+|------|------|----------|----------|
+| SEO | 롱테일 키워드 50개 타겟 | $0-100 (도구) | 월 2,000 방문 |
+| 콘텐츠 | 뉴스레터, 가이드 | $0 (시간) | 구독자 500+ |
+| 유료 광고 (선택) | Google/Twitter 소액 테스트 | $100-500/월 | CAC 측정 |
+| 파트너십 | 보완 제품과 교차 프로모션 | $0 | 상호 트래픽 |
+
+## 2. 채널별 ROI 추정
+
+| 채널 | 월 투자 (시간/비용) | 예상 신규 고객 | CAC | ROI |
+|------|-------------------|-------------|-----|-----|
+| SEO/블로그 | h + $ | 명 | $ | |
+| 커뮤니티 | h | 명 | $ | |
+| Product Hunt | h (1회) | 명 | $ | |
+| 유료 광고 | $ | 명 | $ | |
+| 레퍼럴 | 할인 비용 | 명 | $ | |
+
+## 3. Product Hunt 런칭 체크리스트
+
+- [ ] 랜딩페이지 최적화 (영어)
+- [ ] 태그라인 작성 (60자 이내)
+- [ ] 스크린샷/데모 영상 준비
+- [ ] 메이커 코멘트 작성
+- [ ] 서포터 네트워크 사전 알림 (50명+)
+- [ ] 런칭일 선택 (화-목 추천)
+- [ ] 첫 시간 반응 모니터링 계획
+
+## 4. 주간/월간 성장 지표 추적
+
+### 주간 추적
+
+| 주차 | 방문자 | 가입 | 유료 전환 | MRR | Churn |
+|------|--------|------|----------|-----|-------|
+| W1 | | | | $ | |
+| ... | | | | | |
+
+### 월간 코호트 분석
+
+| 가입 월 | 1개월 잔존 | 3개월 잔존 | 6개월 잔존 | 12개월 잔존 |
+|---------|----------|----------|----------|-----------|
+| | % | % | % | % |
+
+## 5. 가격 전략
+
+### 프리미엄 모델 설계
+
+| 요소 | Free | Pro | Team |
+|------|------|-----|------|
+| 핵심 기능 | 제한적 | 전체 | 전체 |
+| 사용량 | 제한 | 확장 | 무제한 |
+| 지원 | 커뮤니티 | 이메일 | 우선 지원 |
+| 가격 | $0 | $X/월 | $X/석/월 |
+
+### 연간 할인
+* 연간 결제 시 ___% 할인 (일반적 기준: 16-20%)
+* 목표: 연간 결제 비율 30%+ (현금 흐름 안정화)
+TPL10_EOF
+
+echo -e "  ${GREEN}✓${NC} bootstrap-growth-template.md"
+
 # MCP Config Template
 cat << 'MCP_EOF' > "$PROJECT_ROOT/mcp-config-template.json"
 {
@@ -5298,10 +5681,10 @@ echo -e "${GREEN}${BOLD}  ✓ 세팅 완료!${NC}"
 echo -e "${BOLD}============================================================${NC}"
 echo ""
 echo "  생성된 항목:"
-echo -e "    ${GREEN}•${NC} 작동 원칙: 8개 (한국어 소통, 문서 스타일, 안전 가이드라인, 업데이트 체크, 컨텍스트 체이닝, AI 도메인 지식, 품질 게이트, 데이터 신뢰도)"
+echo -e "    ${GREEN}•${NC} 작동 원칙: 9개 (한국어 소통, 문서 스타일, 안전 가이드라인, 업데이트 체크, 컨텍스트 체이닝, AI 도메인 지식, 품질 게이트, 데이터 신뢰도, 규모별 모드 전환)"
 echo -e "    ${GREEN}•${NC} 기획 단계: 17개 (아이디어 발굴부터 사업계획서까지)"
-echo -e "    ${GREEN}•${NC} 전문 분석 도구: 13개 (재무, 경쟁, SWOT, AI 비즈니스 등 + 5개 공유 스크립트)"
-echo -e "    ${GREEN}•${NC} 문서 양식: 8개 (사업계획서, 재무예측, AI 재무, 린캔버스, 포트폴리오 등)"
+echo -e "    ${GREEN}•${NC} 전문 분석 도구: 16개 (재무, 경쟁, SWOT, AI 비즈니스, 니치 검증, 부트스트랩 계산, 기술 스택 추천 등 + 5개 공유 스크립트)"
+echo -e "    ${GREEN}•${NC} 문서 양식: 10개 (사업계획서, 재무예측, AI 재무, Micro-SaaS 재무, 부트스트랩 성장, 린캔버스, 포트폴리오 등)"
 echo -e "    ${GREEN}•${NC} 외부 도구 연동 설정: 1개"
 echo -e "    ${GREEN}•${NC} 샘플 데이터: 카페 사업 4건"
 echo ""
