@@ -1,3 +1,8 @@
+---
+name: niche-validator
+description: 니치 시장의 유효성을 검증합니다. Micro-SaaS/1인 빌더가 타겟하는 니치 시장이 실제로 수익 가능한지 판단합니다.
+---
+
 # niche-validator
 
 니치 시장의 유효성을 검증합니다. Micro-SaaS/1인 빌더가 타겟하는 니치 시장이 실제로 수익 가능한지 판단합니다.

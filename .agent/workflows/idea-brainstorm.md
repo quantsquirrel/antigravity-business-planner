@@ -1,4 +1,4 @@
-# idea-brainstorm-frameworks
+# idea-brainstorm
 
 사업 아이디어를 다각적으로 분석합니다. 역발상으로 숨겨진 리스크를 발견하고, 6가지 관점에서 아이디어를 입체적으로 검토하는 워크플로우입니다.
 

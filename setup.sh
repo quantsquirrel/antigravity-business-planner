@@ -843,9 +843,9 @@ cat << 'WF14_EOF' > "$PROJECT_ROOT/.agent/workflows/lean-canvas.md"
 * /competitor-analysis로 경쟁 분석 진행
 WF14_EOF
 
-# Workflow 15: idea-brainstorm-frameworks.md
-cat << 'WF15_EOF' > "$PROJECT_ROOT/.agent/workflows/idea-brainstorm-frameworks.md"
-# idea-brainstorm-frameworks
+# Workflow 15: idea-brainstorm.md
+cat << 'WF15_EOF' > "$PROJECT_ROOT/.agent/workflows/idea-brainstorm.md"
+# idea-brainstorm
 
 사업 아이디어를 다각적으로 분석합니다. 역발상으로 숨겨진 리스크를 발견하고, 6가지 관점에서 아이디어를 입체적으로 검토하는 워크플로우입니다.
 
@@ -1075,7 +1075,7 @@ echo -e "  ${GREEN}✓${NC} idea-discovery.md"
 echo -e "  ${GREEN}✓${NC} idea-validation.md"
 echo -e "  ${GREEN}✓${NC} idea-portfolio.md"
 echo -e "  ${GREEN}✓${NC} lean-canvas.md"
-echo -e "  ${GREEN}✓${NC} idea-brainstorm-frameworks.md"
+echo -e "  ${GREEN}✓${NC} idea-brainstorm.md"
 echo -e "  ${GREEN}✓${NC} my-outputs.md"
 echo -e "  ${GREEN}✓${NC} auto-plan.md"
 echo ""
@@ -2912,7 +2912,12 @@ AI 키워드가 감지되면 opportunity-finder의 기본 질문에 아래 3개�
 SK10_EOF
 
 # Skill 11: Niche Validator (Phase 7)
-cat << 'SK11_EOF' > "$PROJECT_ROOT/.agent/skills/niche-validator/instruction.md"
+cat << 'SK11_EOF' > "$PROJECT_ROOT/.agent/skills/niche-validator/SKILL.md"
+---
+name: niche-validator
+description: 니치 시장의 유효성을 검증합니다. Micro-SaaS/1인 빌더가 타겟하는 니치 시장이 실제로 수익 가능한지 판단합니다.
+---
+
 # niche-validator
 
 니치 시장의 유효성을 검증합니다. Micro-SaaS/1인 빌더가 타겟하는 니치 시장이 실제로 수익 가능한지 판단합니다.
@@ -2960,7 +2965,12 @@ cat << 'SK11_EOF' > "$PROJECT_ROOT/.agent/skills/niche-validator/instruction.md"
 SK11_EOF
 
 # Skill 12: Bootstrap Calculator (Phase 7)
-cat << 'SK12_EOF' > "$PROJECT_ROOT/.agent/skills/bootstrap-calculator/instruction.md"
+cat << 'SK12_EOF' > "$PROJECT_ROOT/.agent/skills/bootstrap-calculator/SKILL.md"
+---
+name: bootstrap-calculator
+description: 부트스트랩(자기 자본) 방식의 SaaS 사업 재무를 계산합니다. 투자 없이 구독 수익만으로 자립하는 모델을 설계합니다.
+---
+
 # bootstrap-calculator
 
 부트스트랩(자기 자본) 방식의 SaaS 사업 재무를 계산합니다. 투자 없이 구독 수익만으로 자립하는 모델을 설계합니다.
@@ -3001,7 +3011,12 @@ cat << 'SK12_EOF' > "$PROJECT_ROOT/.agent/skills/bootstrap-calculator/instructio
 SK12_EOF
 
 # Skill 13: Tech Stack Recommender (Phase 7)
-cat << 'SK13_EOF' > "$PROJECT_ROOT/.agent/skills/tech-stack-recommender/instruction.md"
+cat << 'SK13_EOF' > "$PROJECT_ROOT/.agent/skills/tech-stack-recommender/SKILL.md"
+---
+name: tech-stack-recommender
+description: 1인/소규모 빌더를 위한 기술 스택과 자동화 도구를 추천합니다.
+---
+
 # tech-stack-recommender
 
 1인/소규모 빌더를 위한 기술 스택과 자동화 도구를 추천합니다.
@@ -3053,9 +3068,9 @@ cat << 'SK13_EOF' > "$PROJECT_ROOT/.agent/skills/tech-stack-recommender/instruct
 SK13_EOF
 
 echo -e "  ${GREEN}✓${NC} ai-business-analyst/SKILL.md"
-echo -e "  ${GREEN}✓${NC} niche-validator/instruction.md"
-echo -e "  ${GREEN}✓${NC} bootstrap-calculator/instruction.md"
-echo -e "  ${GREEN}✓${NC} tech-stack-recommender/instruction.md"
+echo -e "  ${GREEN}✓${NC} niche-validator/SKILL.md"
+echo -e "  ${GREEN}✓${NC} bootstrap-calculator/SKILL.md"
+echo -e "  ${GREEN}✓${NC} tech-stack-recommender/SKILL.md"
 echo -e "  ${GREEN}✓${NC} business-researcher/SKILL.md"
 echo -e "  ${GREEN}✓${NC} financial-analyst/SKILL.md"
 echo -e "  ${GREEN}✓${NC} financial-analyst/scripts/calculate_costs.py"
@@ -3972,6 +3987,14 @@ else
     echo -e "  ${YELLOW}!${NC} npx를 찾을 수 없습니다. 외부 스킬 설치를 건너뜁니다."
     echo -e "  ${YELLOW}    Node.js 설치 후 수동 실행: npx skills add sickn33/antigravity-awesome-skills --skill launch-strategy --skill pricing-strategy --skill startup-metrics-framework -a antigravity -y${NC}"
 fi
+
+# Symlink fallback: ensure .agent/skills/ symlinks exist for extended skills
+for ext_skill in launch-strategy pricing-strategy startup-metrics-framework; do
+    if [ -d "$PROJECT_ROOT/.agents/skills/$ext_skill" ] && [ ! -L "$PROJECT_ROOT/.agent/skills/$ext_skill" ]; then
+        ln -s "../../.agents/skills/$ext_skill" "$PROJECT_ROOT/.agent/skills/$ext_skill"
+        echo -e "  ${GREEN}✓${NC} symlink: $ext_skill"
+    fi
+done
 echo ""
 
 # --- Step 6: Create Templates ---

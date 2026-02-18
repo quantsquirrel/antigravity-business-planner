@@ -1,3 +1,8 @@
+---
+name: tech-stack-recommender
+description: 1인/소규모 빌더를 위한 기술 스택과 자동화 도구를 추천합니다.
+---
+
 # tech-stack-recommender
 
 1인/소규모 빌더를 위한 기술 스택과 자동화 도구를 추천합니다.

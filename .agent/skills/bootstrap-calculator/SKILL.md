@@ -1,3 +1,8 @@
+---
+name: bootstrap-calculator
+description: 부트스트랩(자기 자본) 방식의 SaaS 사업 재무를 계산합니다. 투자 없이 구독 수익만으로 자립하는 모델을 설계합니다.
+---
+
 # bootstrap-calculator
 
 부트스트랩(자기 자본) 방식의 SaaS 사업 재무를 계산합니다. 투자 없이 구독 수익만으로 자립하는 모델을 설계합니다.
