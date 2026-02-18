@@ -1652,14 +1652,16 @@
             <ul>
                 <li><a href="#quickstart" class="active">0. 빠른 실행</a></li>
                 <li><a href="#process">1. 추천 기획 프로세스</a></li>
-                <li><a href="#features">2. 주요 특징 및 장점</a></li>
-                <li><a href="#preview">3. 결과물 미리보기</a></li>
-                <li><a href="#overview">4. 프로젝트 소개</a></li>
-                <li><a href="#structure">5. 폴더 구조</a></li>
-                <li><a href="#components">6. 도구 상세 안내</a></li>
-                <li><a href="#automation">7. 자동 설치 과정</a></li>
-                <li><a href="#mcp">8. 외부 도구 연동</a></li>
-                <li><a href="#utilities">9. 분석 도구</a></li>
+                <li><a href="#comparison">2. 다른 도구와 비교</a></li>
+                <li><a href="#features">3. 주요 특징 및 장점</a></li>
+                <li><a href="#preview">4. 결과물 미리보기</a></li>
+                <li><a href="#overview">5. 프로젝트 소개</a></li>
+                <li><a href="#structure">6. 폴더 구조</a></li>
+                <li><a href="#components">7. 도구 상세 안내</a></li>
+                <li><a href="#automation">8. 자동 설치 과정</a></li>
+                <li><a href="#mcp">9. 외부 도구 연동</a></li>
+                <li><a href="#utilities">10. 분석 도구</a></li>
+                <li><a href="#references">11. 이론적 기반</a></li>
             </ul>
         </aside>
 
@@ -2052,6 +2054,124 @@
                 </div>
             </section>
             <div class="section-divider"></div>
+            <!-- Section: Comparison -->
+            <section id="comparison">
+                <h2>다른 도구와 비교</h2>
+                <p>사업 기획에 쓸 수 있는 기존 방법들과 비교했을 때, 이 도구만의 차이점입니다.</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>ABP (이 도구)</th>
+                                <th>ChatGPT / Claude 직접 사용</th>
+                                <th>LivePlan 등 SaaS</th>
+                                <th>컨설팅 / 액셀러레이터</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>가격</strong></td>
+                                <td><strong>무료</strong></td>
+                                <td>월 $20~</td>
+                                <td>월 $15~60</td>
+                                <td>수백만~수천만원</td>
+                            </tr>
+                            <tr>
+                                <td><strong>아이디어 없이 시작</strong></td>
+                                <td><strong>가능</strong> — 인터뷰→발굴→검증→판정 자동화</td>
+                                <td>매번 직접 프롬프트 작성</td>
+                                <td>불가 (아이디어 필수)</td>
+                                <td>가능하나 고비용</td>
+                            </tr>
+                            <tr>
+                                <td><strong>단계간 연결</strong></td>
+                                <td><strong>자동 체이닝</strong> — 앞 단계 결과가 다음 입력</td>
+                                <td>없음 (대화 끊기면 처음부터)</td>
+                                <td>부분적</td>
+                                <td>사람이 수동 연결</td>
+                            </tr>
+                            <tr>
+                                <td><strong>분석 프레임워크</strong></td>
+                                <td><strong>20개 자동 적용</strong> + 사용자에게 숨김</td>
+                                <td>사용자가 직접 요청해야 함</td>
+                                <td>제한적 (템플릿 고정)</td>
+                                <td>컨설턴트 역량에 따라 다름</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AI/SaaS 특화</strong></td>
+                                <td><strong>이중 스코어링</strong>, API 비용 자동 반영</td>
+                                <td>없음</td>
+                                <td>없음</td>
+                                <td>일부 가능</td>
+                            </tr>
+                            <tr>
+                                <td><strong>규모별 자동 전환</strong></td>
+                                <td><strong>4단계</strong> (micro~enterprise) 자동 적용</td>
+                                <td>매번 설명해야 함</td>
+                                <td>대부분 중소기업 고정</td>
+                                <td>맞춤 가능하나 고비용</td>
+                            </tr>
+                            <tr>
+                                <td><strong>수치 신뢰도 표시</strong></td>
+                                <td><strong>4등급 자동 태깅</strong> (A~D)</td>
+                                <td>없음 (할루시네이션 위험)</td>
+                                <td>없음</td>
+                                <td>사람이 판단</td>
+                            </tr>
+                            <tr>
+                                <td><strong>확장성</strong></td>
+                                <td><strong>자유 추가</strong> — 스킬/워크플로우 커스터마이징</td>
+                                <td>불가</td>
+                                <td>불가 (폐쇄형)</td>
+                                <td>해당 없음</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box" style="margin-top: 2rem;">
+                    <h4>검증된 도구들의 장점을 하나로</h4>
+                    <p style="margin-bottom: 0;">
+                        <strong>LivePlan</strong>(미국 1위 사업계획서 SaaS)의 체계적 단계별 프로세스,
+                        <strong>Strategyzer</strong>(Business Model Canvas 창시자 Osterwalder의 공식 도구)의 프레임워크 깊이,
+                        <strong>ChatGPT</strong>의 자연어 접근성을 결합하되 —
+                        아이디어 발굴, 단계간 자동 체이닝, 수치 신뢰도 검증은 기존 어떤 도구에도 없는 기능입니다.
+                    </p>
+                </div>
+
+                <h3>핵심 차별점</h3>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>💡 아이디어 없이 시작</h4>
+                        <p>
+                            다른 도구는 아이디어가 있어야 시작합니다.
+                            이 도구는 사용자의 경험에서 아이디어를 끌어내고, 점수를 매기고,
+                            "이걸로 가라 / 방향을 바꿔라 / 접어라"까지 자동으로 판단합니다.
+                        </p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🔗 끊기지 않는 8단계 체이닝</h4>
+                        <p>
+                            ChatGPT로 시장조사를 하면 그 결과를 복사해서 다시 붙여넣어야 합니다.
+                            이 도구는 시장조사의 시장 규모가 재무모델링의 입력이 되고,
+                            경쟁분석의 포지셔닝이 브랜딩 전략에 자동 반영됩니다.
+                        </p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🔍 AI가 만든 숫자를 AI가 다시 검증</h4>
+                        <p>
+                            AI의 가장 큰 문제는 그럴듯한 거짓말입니다.
+                            모든 수치에 출처 등급을 붙이고, 불확실한 추정이 많으면 경고합니다.
+                            AI 추정치를 실제 데이터와 대조 검증하는 단계까지 있습니다.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
             <!-- Section 8: Features -->
             <section id="features">
                 <h2>주요 특징 및 장점</h2>
@@ -3004,6 +3124,110 @@
                     </div>
                 </div>
                 </details>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <section id="references">
+                <h2>이론적 기반</h2>
+                <p>
+                    이 도구는 경영학·전략학·스타트업 방법론에서 <strong>수십 년간 검증된 20개 프레임워크</strong>를 기반으로 설계되었습니다.
+                    AI가 분석할 때 이 프레임워크들을 내부적으로 적용하되, 사용자에게는 쉬운 결과만 보여줍니다.
+                </p>
+
+                <h3>전략 분석</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>프레임워크</th><th>출처</th><th>적용 영역</th></tr></thead>
+                        <tbody>
+                            <tr><td>SWOT Analysis</td><td>Albert Humphrey, Stanford Research Institute (1960s)</td><td>경쟁분석 단계</td></tr>
+                            <tr><td>Porter's Five Forces</td><td>Michael E. Porter, <em>Competitive Strategy</em>, Free Press (1980)</td><td>경쟁분석 단계</td></tr>
+                            <tr><td>PESTEL Analysis</td><td>Francis Aguilar, <em>Scanning the Business Environment</em>, Macmillan (1967)</td><td>거시환경 분석</td></tr>
+                            <tr><td>VRIO Framework</td><td>Jay Barney, <em>Gaining and Sustaining Competitive Advantage</em>, Pearson (1991)</td><td>내부 경쟁력 분석</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>비즈니스 모델</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>프레임워크</th><th>출처</th><th>적용 영역</th></tr></thead>
+                        <tbody>
+                            <tr><td>Business Model Canvas</td><td>Alexander Osterwalder &amp; Yves Pigneur, <em>Business Model Generation</em>, Wiley (2010)</td><td>사업모델 설계</td></tr>
+                            <tr><td>Lean Canvas</td><td>Ash Maurya, <em>Running Lean</em>, O'Reilly (2012)</td><td>초기 가설 검증</td></tr>
+                            <tr><td>Value Proposition Canvas</td><td>Alexander Osterwalder, <em>Value Proposition Design</em>, Wiley (2014)</td><td>제품기획 단계</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>시장 분석</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>프레임워크</th><th>출처</th><th>적용 영역</th></tr></thead>
+                        <tbody>
+                            <tr><td>TAM / SAM / SOM</td><td>벤처캐피탈 업계 표준 시장 규모 추정법 (1990s~)</td><td>시장조사 단계</td></tr>
+                            <tr><td>Jobs to be Done (JTBD)</td><td>Clayton Christensen, <em>The Innovator's Solution</em>, HBS Press (2003)</td><td>고객 니즈 분석</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>아이디어 발굴</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>프레임워크</th><th>출처</th><th>적용 영역</th></tr></thead>
+                        <tbody>
+                            <tr><td>SCAMPER</td><td>Bob Eberle, <em>SCAMPER</em>, Prufrock Press (1971), Alex Osborn 기반</td><td>아이디어 확장</td></tr>
+                            <tr><td>Reverse Brainstorming</td><td>Alex Osborn, <em>Applied Imagination</em>, Scribner (1953)</td><td>역발상 리스크 발견</td></tr>
+                            <tr><td>Impact-Effort Matrix</td><td>Eisenhower Matrix 파생, 프로젝트 관리 표준 기법</td><td>아이디어 우선순위 판정</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>재무 · 성장 지표</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>프레임워크</th><th>출처</th><th>적용 영역</th></tr></thead>
+                        <tbody>
+                            <tr><td>Unit Economics (CAC / LTV)</td><td>David Skok, <em>For Entrepreneurs</em> (2010s), SaaS 업계 표준</td><td>수익성 분석</td></tr>
+                            <tr><td>MRR / ARR 모델</td><td>SaaS 업계 표준 매출 측정법</td><td>구독형 재무 모델링</td></tr>
+                            <tr><td>Burn Multiple</td><td>David Sacks, Craft Ventures (2021)</td><td>자금 효율 분석</td></tr>
+                            <tr><td>AARRR (Pirate Metrics)</td><td>Dave McClure, 500 Startups (2007)</td><td>성장 퍼널 분석</td></tr>
+                            <tr><td>North Star Metric</td><td>Sean Ellis, <em>Hacking Growth</em>, Crown Business (2017)</td><td>핵심 지표 설정</td></tr>
+                            <tr><td>BEP (Break-Even Point)</td><td>관리회계 표준, 원가-매출-이익 분석</td><td>손익분기점 계산</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>제품 · 우선순위</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>프레임워크</th><th>출처</th><th>적용 영역</th></tr></thead>
+                        <tbody>
+                            <tr><td>MoSCoW Prioritization</td><td>Dai Clegg, Oracle UK (1994), DSDM 프레임워크</td><td>MVP 기능 분류</td></tr>
+                            <tr><td>Design Thinking</td><td>IDEO / Stanford d.school (2000s~)</td><td>제품기획 단계</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>보안</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>프레임워크</th><th>출처</th><th>적용 영역</th></tr></thead>
+                        <tbody>
+                            <tr><td>OWASP Top 10</td><td>OWASP Foundation, 2021 Edition</td><td>AI 생성 코드 보안 검증</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box" style="margin-top: 2rem;">
+                    <h4>왜 이 프레임워크들인가요?</h4>
+                    <p style="margin-bottom: 0;">
+                        위 20개 프레임워크는 경영 전략, 스타트업 방법론, 재무 분석, 보안 분야에서
+                        <strong>수십 년간 학계와 실무에서 검증된 표준</strong>입니다.
+                        AI가 이 프레임워크들을 자동으로 적용하되, 사용자에게는 전문 용어 대신
+                        이해하기 쉬운 질문과 결과만 보여주는 것이 이 도구의 설계 원칙입니다.
+                    </p>
+                </div>
             </section>
 
 
