@@ -1,5 +1,5 @@
 <!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-02-16 | Updated: 2026-02-18 -->
+<!-- Generated: 2026-02-16 | Updated: 2026-02-19 -->
 
 # workflows
 
@@ -37,6 +37,10 @@ Slash-command workflow definitions for structured business planning steps. Users
 | `exit-strategy.md` | `/exit-strategy` — 사업 매각/Exit 준비 감사: Due Diligence, ARR Multiple, 매각 플랫폼, 6개월 타임라인 |
 | `global-expansion.md` | `/global-expansion` — 해외 진출 실행 가이드: i18n, 결제 인프라, 국가별 규제, 글로벌 마케팅 |
 | `solo-sustainability.md` | `/solo-sustainability` — 1인 사업자 장기 지속가능성: 에너지 관리, CS 자동화, 번아웃 진단, 고용 의사결정 |
+| `quick-start.md` | `/quick-start` — 10분 비즈니스 플랜: 5단계 압축 프로세스로 빠른 온보딩 |
+| `customer-discovery.md` | `/customer-discovery` — 고객 검증: Mom Test, 인터뷰 스크립트, Red-teaming, Pivot/Persevere |
+| `payment-setup.md` | `/payment-setup` — 결제 인프라 구축: PG 선택 트리, 구독 설정, 테스트 가이드 |
+| `pmf-measurement.md` | `/pmf-measurement` — PMF 측정 루프: Sean Ellis 40%, 코호트 리텐션, PMF 대시보드 |
 
 ## For AI Agents
 
