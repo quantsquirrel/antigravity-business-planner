@@ -43,6 +43,7 @@ Google Antigravity(AI IDE) 기반의 사업 기획 도구. 비개발자도 자�
 - Skills activate automatically when relevant context is detected
 - Output follows the planning flow: (optional) idea discovery -> market research -> SWOT -> product planning -> financial modeling -> operations -> branding -> legal -> business plan
 - Step 0 (idea discovery/validation) is optional; `output/ideas/selected-idea.md` bridges to Step 1
+- Supplementary workflows (/mvp-definition, /gtm-launch, /kpi-framework, /security-scan, /version-history, /tco-dashboard) can be used optionally at any point
 - Templates in `templates/` provide standardized document structure
 - Symlinks in `.agent/skills/` point to `.agents/skills/` for newer skills
 

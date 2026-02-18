@@ -2,7 +2,7 @@
 
 > AI한테 한국어로 "시장조사 해줘", "사업계획서 써줘" 하면 아이디어 브레인스토밍부터 사업성 평가, 시장조사, 재무모델링, 사업계획서까지 알아서 만들어주는 도구입니다.
 
-[Google Antigravity](https://antigravity.google)(AI IDE) 위에서 동작하며, `bash setup.sh` 한 줄이면 워크플로우 17개, 전문 스킬 16개, 문서 템플릿 10개가 자동 세팅됩니다. 코딩 없이 자연어만으로 사업 기획 전 과정을 수행할 수 있습니다.
+[Google Antigravity](https://antigravity.google)(AI IDE) 위에서 동작하며, `bash setup.sh` 한 줄이면 워크플로우 23개, 전문 스킬 17개, 문서 템플릿 13개가 자동 세팅됩니다. 코딩 없이 자연어만으로 사업 기획 전 과정을 수행할 수 있습니다.
 
 ---
 
@@ -136,6 +136,12 @@ chmod +x setup.sh && ./setup.sh
 | `/check-progress` | 기획 진행률 확인 |
 | `/export-documents` | 문서 HTML/PDF 내보내기 |
 | `/my-outputs` | 산출물 목록 조회 |
+| `/mvp-definition` | MVP 범위 정의 |
+| `/gtm-launch` | Go-To-Market 전략 |
+| `/kpi-framework` | KPI 프레임워크 |
+| `/security-scan` | 산출물 보안 스캔 |
+| `/version-history` | 변경 이력 관리 |
+| `/tco-dashboard` | TCO 대시보드 |
 
 ---
 
@@ -143,9 +149,9 @@ chmod +x setup.sh && ./setup.sh
 
 | 구성 | 개수 | 설명 |
 |------|------|------|
-| 워크플로우 | 17개 | `/시장조사`, `/재무모델링` 등 슬래시 명령어 또는 자연어로 실행 |
-| 전문 스킬 | 16개 | 리서처, 재무분석, 기회발굴, AI 사업 분석, 니치 검증, 부트스트랩 계산, 기술 스택 추천 등 자동 활성화 |
-| 문서 템플릿 | 10개 | 사업계획서, 재무예측, AI 재무, Micro-SaaS 재무, 부트스트랩 성장, 린캔버스, 피치덱 등 |
+| 워크플로우 | 23개 | `/시장조사`, `/재무모델링` 등 슬래시 명령어 또는 자연어로 실행 |
+| 전문 스킬 | 17개 | 리서처, 재무분석, 기회발굴, AI 사업 분석, 니치 검증, 부트스트랩 계산, 기술 스택 추천 등 자동 활성화 |
+| 문서 템플릿 | 13개 | 사업계획서, 재무예측, AI 재무, Micro-SaaS 재무, 부트스트랩 성장, 린캔버스, 피치덱 등 |
 | AI 동작 규칙 | 9개 | 한국어 소통, 문서 스타일, 안전 가이드라인, AI 도메인 지식, 품질 게이트, 데이터 신뢰도, 규모별 모드 전환 등 |
 
 ### 전문 스킬
@@ -193,11 +199,11 @@ chmod +x setup.sh && ./setup.sh
 antigravity-business-planner/
 ├── .agent/
 │   ├── rules/           # AI 동작 규칙 (9개)
-│   ├── workflows/       # 워크플로우 정의 (17개)
-│   └── skills/          # 전문 스킬 (13 core + 3 symlink)
+│   ├── workflows/       # 워크플로우 정의 (23개)
+│   └── skills/          # 전문 스킬 (14 core + 3 symlink)
 ├── .agents/
 │   └── skills/          # 확장 스킬 (launch/pricing/metrics)
-├── templates/           # 문서 템플릿 (10개)
+├── templates/           # 문서 템플릿 (13개)
 │   └── themes/          # HTML 내보내기 테마 (3종)
 ├── output/              # 모든 산출물 저장
 ├── setup.sh             # 원클릭 세팅 스크립트
@@ -228,5 +234,5 @@ antigravity-business-planner/
 
 ---
 
-> *17 workflows · 16 skills · 10 templates*
+> *23 workflows · 17 skills · 13 templates*
 > *Built for [Google Antigravity](https://antigravity.google)*

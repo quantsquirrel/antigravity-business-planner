@@ -100,6 +100,8 @@ directories=(
     "output/financials"
     "output/presentations"
     "output/samples/cafe"
+    "output/ideas/idea-001-sample-cafe"
+    "output/ideas/idea-002-sample-app"
 )
 
 for dir in "${directories[@]}"; do
@@ -111,7 +113,7 @@ for gitkeep_dir in "output/ideas" "output/research" "output/reports" "output/fin
     touch "$PROJECT_ROOT/$gitkeep_dir/.gitkeep"
 done
 
-echo -e "  ${GREEN}✓${NC} 22개 디렉토리 생성 완료"
+echo -e "  ${GREEN}✓${NC} 24개 디렉토리 생성 완료"
 echo ""
 
 # --- Step 3: Create Rules ---
@@ -201,6 +203,12 @@ cat << 'RULE5_EOF' > "$PROJECT_ROOT/.agent/rules/context-chaining.md"
 | 브랜딩 전략 (/branding-strategy) | output/ideas/*/hypothesis.md, output/research/*.md |
 | 법률 체크리스트 (/legal-checklist) | output/ideas/*/idea.json |
 | 사업계획서 (/business-plan-draft) | output/research/*.md, output/financials/*.md, output/reports/*.md |
+| MVP 정의 (/mvp-definition) | output/ideas/*/idea.json, output/ideas/*/evaluation.md |
+| GTM 전략 (/gtm-launch) | output/ideas/*/idea.json, output/research/*.md, output/reports/branding*.md |
+| KPI 프레임워크 (/kpi-framework) | output/financials/*.md, output/ideas/*/idea.json |
+| 보안 스캔 (/security-scan) | output/**/*.md (전체 스캔) |
+| 버전 관리 (/version-history) | output/reports/business-plan*.md, output/reports/CHANGELOG.md |
+| TCO 대시보드 (/tco-dashboard) | output/financials/*.md, output/ideas/*/idea.json |
 
 ## 요약 생성 규칙
 
@@ -302,6 +310,10 @@ cat << 'RULE7_EOF' > "$PROJECT_ROOT/.agent/rules/quality-gate.md"
 | 사업계획서 (/business-plan) | 전 섹션 완성 (8개 챕터) | 20개 |
 | 제품기획 (/product-planning) | 핵심 기능, 차별화, 로드맵 | 5개 |
 | 브랜딩 (/branding-strategy) | 브랜드 컨셉, 네이밍, 포지셔닝 | 3개 |
+| MVP 정의 (/mvp-definition) | Must-have 기능, Impact-Effort 매트릭스, 출시 기준 | 5개 |
+| GTM 전략 (/gtm-launch) | 타겟 고객, 채널 전략, 5단계 출시 계획 | 5개 |
+| KPI 프레임워크 (/kpi-framework) | North Star Metric, 핵심 KPI 5개, 측정 주기 | 5개 |
+| TCO 대시보드 (/tco-dashboard) | 비용 카테고리, 월별 TCO, 최적화 제안 | 5개 |
 
 ## 점검 결과 출력 형식
 
@@ -462,6 +474,12 @@ cat << 'WF1_EOF' > "$PROJECT_ROOT/.agent/workflows/market-research.md"
 * 각 항목을 표와 그래프로 정리합니다
 * 데이터 출처를 반드시 명시합니다
 * output/research/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 시장조사 완료 → `/competitor-analysis`로 경쟁 분석 진행
+* 시장 규모가 불확실하면 → `/idea-brainstorm`으로 관점 확장 후 재분석
+* MVP 범위를 먼저 좁히려면 → `/mvp-definition` (선택적 보조 워크플로우)
+* 전체 진행률 확인 → `/check-progress`
 WF1_EOF
 
 # Workflow 2: competitor-analysis.md
@@ -483,6 +501,11 @@ cat << 'WF2_EOF' > "$PROJECT_ROOT/.agent/workflows/competitor-analysis.md"
 * 경쟁사 비교표를 작성합니다
 * 포지셔닝 맵을 텍스트 기반으로 시각화합니다
 * output/research/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 경쟁 분석 완료 → `/menu-costing`으로 제품 원가 분석 진행
+* 경쟁이 치열한 경우 → `/lean-canvas`로 차별화 포인트 재정리
+* 전체 진행률 확인 → `/check-progress`
 WF2_EOF
 
 # Workflow 3: financial-modeling.md
@@ -506,6 +529,13 @@ cat << 'WF3_EOF' > "$PROJECT_ROOT/.agent/workflows/financial-modeling.md"
 * 주요 가정(assumptions)을 명확히 기술합니다
 * "이 수치는 추정치이며, 실제와 다를 수 있습니다"를 명시합니다
 * output/financials/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 재무 모델 완료 → `/operations-plan`으로 운영 계획 수립
+* 수익성이 낮은 경우 → `/menu-costing`으로 원가 구조 재검토
+* KPI를 먼저 정의하려면 → `/kpi-framework` (선택적 보조 워크플로우)
+* TCO를 상세 분석하려면 → `/tco-dashboard` (선택적 보조 워크플로우)
+* 전체 진행률 확인 → `/check-progress`
 WF3_EOF
 
 # Workflow 4: business-plan-draft.md
@@ -531,6 +561,13 @@ cat << 'WF4_EOF' > "$PROJECT_ROOT/.agent/workflows/business-plan-draft.md"
 * output/research/ 와 output/financials/ 에 있는 기존 분석 결과를 최대한 활용합니다
 * 각 섹션에 핵심 수치와 데이터를 포함합니다
 * output/reports/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 사업계획서 완료 → `/export-documents`로 HTML/PDF 변환하여 공유
+* 산출물 전체 목록 확인 → `/my-outputs`
+* 산출물 보안 점검 → `/security-scan` (선택적 보조 워크플로우)
+* 변경 이력 관리 → `/version-history` (선택적 보조 워크플로우)
+* 전체 진행률 확인 → `/check-progress`
 WF4_EOF
 
 # Workflow 5: branding-strategy.md
@@ -553,6 +590,11 @@ cat << 'WF5_EOF' > "$PROJECT_ROOT/.agent/workflows/branding-strategy.md"
 * 페르소나는 카드 형태로 정리합니다
 * 채널별 예산 배분 비율을 표로 제시합니다
 * output/reports/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 브랜딩 전략 완료 → `/legal-checklist`로 법률/인허가 요건 확인
+* 출시 전략을 구체화하려면 → `/gtm-launch` (선택적 보조 워크플로우)
+* 전체 진행률 확인 → `/check-progress`
 WF5_EOF
 
 # Workflow 6: operations-plan.md
@@ -576,6 +618,11 @@ cat << 'WF6_EOF' > "$PROJECT_ROOT/.agent/workflows/operations-plan.md"
 * 프로세스는 단계별 플로우로 정리합니다
 * 인력 계획은 표로 작성합니다
 * output/reports/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 운영 계획 완료 → `/branding-strategy`로 브랜딩/마케팅 전략 수립
+* 인력 계획이 불확실하면 → 운영 계획을 수정하여 단계별 채용 계획 보강
+* 전체 진행률 확인 → `/check-progress`
 WF6_EOF
 
 # Workflow 7: legal-checklist.md
@@ -600,6 +647,12 @@ cat << 'WF7_EOF' > "$PROJECT_ROOT/.agent/workflows/legal-checklist.md"
 * 각 항목에 관련 법규명과 관할 기관을 명시합니다
 * "법률 전문가의 자문을 받으시길 권합니다"를 반드시 포함합니다
 * output/reports/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 법률 체크리스트 완료 → `/business-plan-draft`로 종합 사업계획서 작성
+* 세금/4대보험 상세가 필요하면 → tax-guide 스킬이 자동 연동됩니다
+* 보안 점검이 필요하면 → `/security-scan` (선택적 보조 워크플로우)
+* 전체 진행률 확인 → `/check-progress`
 WF7_EOF
 
 # Workflow 8: menu-costing.md
@@ -623,6 +676,11 @@ cat << 'WF8_EOF' > "$PROJECT_ROOT/.agent/workflows/menu-costing.md"
 * 모든 수치는 표 형태로 정리합니다
 * 원가 구성 비율을 시각화합니다
 * output/financials/ 폴더에 결과를 저장합니다
+
+## 다음 단계
+* 원가 분석 완료 → `/financial-modeling`으로 재무 모델 수립
+* 가격 전략을 더 정교하게 하려면 → pricing-strategy 스킬이 자동 연동됩니다
+* 전체 진행률 확인 → `/check-progress`
 WF8_EOF
 
 # Workflow 9: check-progress.md
@@ -641,6 +699,11 @@ cat << 'WF9_EOF' > "$PROJECT_ROOT/.agent/workflows/check-progress.md"
 * 각 단계를 ✅/⬜ 로 표시합니다
 * 전체 진행률을 % 와 프로그레스 바로 보여줍니다
 * 추천 다음 액션을 제시합니다
+
+## 다음 단계
+* 미완료 단계가 있으면 → 해당 단계의 워크플로우를 실행하세요
+* 전체 완료 시 → `/business-plan-draft`로 종합 사업계획서 작성
+* 전체 산출물 확인 → `/my-outputs`
 WF9_EOF
 
 # Workflow 10: export-documents.md
@@ -661,6 +724,11 @@ cat << 'WF10_EOF' > "$PROJECT_ROOT/.agent/workflows/export-documents.md"
 ## 출력 형식
 * 원본 파일과 같은 폴더에 .html 파일로 저장합니다
 * 변환 완료 후 파일 경로와 브라우저에서 열기/PDF 저장 방법을 안내합니다
+
+## 다음 단계
+* 문서 내보내기 완료 → 생성된 HTML 파일을 브라우저에서 확인하세요
+* 추가 산출물이 필요하면 → `/check-progress`로 미완료 단계 확인
+* 전체 산출물 목록 → `/my-outputs`
 WF10_EOF
 
 # Workflow 11: idea-discovery.md
@@ -751,6 +819,12 @@ cat << 'WF12_EOF' > "$PROJECT_ROOT/.agent/workflows/idea-validation.md"
 * 확인된 사실과 추정을 구분하여 표기합니다
 * 확정된 아이디어는 output/ideas/{id}-{name}/ 폴더에 저장합니다
 * output/ideas/selected-idea.md에도 최신 Go 아이디어 참조를 유지합니다
+
+## 다음 단계
+* 아이디어 확정(Go) → `/market-research`로 본격 시장조사 시작
+* 수정(Pivot) → `/idea-discovery`로 재순환 (최대 2회)
+* 여러 아이디어 비교 → `/idea-portfolio`로 포트폴리오 확인
+* 전체 진행률 확인 → `/check-progress`
 WF12_EOF
 
 # Workflow 13: idea-portfolio.md
@@ -815,6 +889,12 @@ output/ideas/ 탐색 → 아이디어 유무 확인 → 포트폴리오 요약 �
 * 포트폴리오 요약을 표로 정리합니다
 * 진행률을 % 와 프로그레스 바로 보여줍니다
 * 결과물은 `output/ideas/portfolio.md`에 저장합니다
+
+## 다음 단계
+* 아이디어를 선택했으면 → `/idea-validation`으로 선택한 아이디어 검증
+* 새 아이디어를 추가하려면 → `/idea-discovery`로 아이디어 발굴
+* 아이디어를 더 발산하려면 → `/idea-brainstorm`으로 프레임워크 기반 확장
+* 전체 진행률 확인 → `/check-progress`
 WF13_EOF
 
 # Workflow 14: lean-canvas.md
@@ -1061,6 +1141,587 @@ cat << 'WF17_EOF' > "$PROJECT_ROOT/.agent/workflows/auto-plan.md"
 * 사용자가 동의하면 3개 단계를 동시에 안내합니다
 WF17_EOF
 
+# Workflow 18: mvp-definition.md
+cat << 'WF18_EOF' > "$PROJECT_ROOT/.agent/workflows/mvp-definition.md"
+# mvp-definition
+
+MVP(최소 기능 제품) 범위를 정의하고 출시 기준을 수립합니다.
+
+> 이 워크플로우는 tech-stack-recommender 스킬과 연동하여 기술 스택을 참조합니다.
+> 8단계 사업 기획 프로세스 완료 후 선택적으로 실행하는 보조 워크플로우입니다.
+
+## 트리거 조건
+* /idea-validation 또는 /lean-canvas 결과가 존재할 때 실행 권장
+* output/ideas/{id}-{name}/ 폴더 내 hypothesis.md 또는 evaluation.md 참조
+
+## 수행 작업
+* 사업 아이디어의 핵심 기능을 Must-have / Nice-to-have / Out-of-scope로 분류합니다
+* 기능 우선순위 매트릭스 (Impact vs Effort)를 작성합니다
+* 출시 기준(Launch Criteria) 체크리스트를 정의합니다
+* MVP 타임라인을 주 단위로 설계합니다
+* 기술적 의존성 맵을 작성합니다
+* MVP 예상 비용을 추정합니다
+
+## 출력 형식
+* 기능 분류표 (Must/Nice/Out) — 마크다운 표
+* Impact-Effort 매트릭스 — 마크다운 표 (Impact: High/Medium/Low × Effort: High/Medium/Low)
+* 출시 기준 체크리스트 — 체크박스 형식
+* MVP 타임라인 — 주 단위 표
+* output/ideas/{id}-{name}/mvp-definition.md에 저장합니다
+
+### 데이터 신뢰도 등급
+모든 추정치에 신뢰도 등급을 표기합니다:
+| 등급 | 의미 | 예시 |
+|------|------|------|
+| A | 검증됨 — 실제 데이터 기반 | 고객 인터뷰, 실측 데이터 |
+| B | 근거 있는 추정 — AI + 외부 데이터 | 벤치마크, 업계 평균 |
+| C | AI 추정 — 참고용 | AI가 생성한 초기 추정치 |
+
+> ⚠️ "이 분석의 수치는 AI 추정(신뢰도 C)이며, 실제 검증이 필요합니다."
+
+## Micro-SaaS MVP (v2.0 Phase 7)
+
+idea.json의 business_scale이 "micro" 또는 "small"인 경우, Micro-SaaS 전용 MVP 정의를 수행합니다.
+
+### 트리거 조건
+* output/ideas/{id}-{name}/idea.json의 business_scale 값이 "micro" 또는 "small"일 때 자동 활성화
+
+### 핵심 차이점
+
+| 항목 | 기존 (startup/enterprise) | Micro-SaaS (micro/small) |
+|------|-------------------------|------------------------|
+| 기능 범위 | 10+ 기능 | 1-3개 핵심 기능 |
+| 개발 기간 | 2-6개월 | 1-2주 ("1주 MVP" 원칙) |
+| 출시 형태 | 베타 → 정식 | 랜딩 페이지 + 핵심 기능 1개 |
+| 검증 방법 | 사용자 테스트, QA | Waitlist/Pre-order 검증 |
+| 기술 스택 | 팀 기반 선정 | 1인 운영 가능한 도구 |
+
+### Micro-SaaS MVP 체크리스트
+- [ ] 핵심 문제 1개가 명확히 정의됨
+- [ ] 해결 방법이 1줄로 설명 가능
+- [ ] 1-2주 내 만들 수 있는 범위
+- [ ] 랜딩 페이지로 수요 검증 가능
+- [ ] 월 $29-99 가격대에 지불 의향 확인
+
+### Waitlist/Pre-order 검증
+* 랜딩 페이지 제작 도구: Carrd, Framer, Notion
+* 이메일 수집: Buttondown, ConvertKit (무료 티어)
+* 결제 사전 검증: Gumroad, Stripe Payment Links
+* 목표: 100명 대기자 또는 10건 사전 주문
+
+## 다음 단계
+* MVP 정의 완료 후 → `/gtm-launch`로 출시 전략 수립
+* MVP 비용 산출 필요 시 → `/financial-modeling`으로 재무 모델링
+* 전체 진행률 확인 → `/check-progress`
+WF18_EOF
+
+# Workflow 19: gtm-launch.md
+cat << 'WF19_EOF' > "$PROJECT_ROOT/.agent/workflows/gtm-launch.md"
+# gtm-launch
+
+Go-to-Market(GTM) 런칭 전략을 수립합니다.
+
+> 이 워크플로우는 launch-strategy 스킬의 분석 결과를 한국어로 요약하고 8단계 프로세스에 연계합니다.
+> 8단계 사업 기획 프로세스 완료 후 선택적으로 실행하는 보조 워크플로우입니다.
+
+## 용어 매핑 (영어 → 한국어)
+
+| 영어 | 한국어 | 설명 |
+|------|--------|------|
+| ORB Framework | 채널 전략 프레임워크 | Owned/Rented/Borrowed 채널 분류 |
+| Owned Channels | 소유 채널 | 직접 통제 가능 (이메일, 블로그, 커뮤니티) |
+| Rented Channels | 임대 채널 | 플랫폼 의존 (SNS, 앱스토어) |
+| Borrowed Channels | 차용 채널 | 타인 청중 활용 (게스트 포스팅, 인플루언서) |
+| GTM | 시장 진입 전략 | Go-to-Market |
+| Product Hunt | 프로덕트 헌트 | 제품 런칭 플랫폼 |
+| Traction | 초기 견인 | 초기 사용자 확보 |
+
+## 트리거 조건
+* /mvp-definition 또는 /market-research 결과가 존재할 때 실행 권장
+* output/research/ 또는 output/ideas/{id}-{name}/ 내 산출물 참조
+
+## 수행 작업
+* 타겟 고객 세그먼트별 진입 전략을 수립합니다
+* 채널 전략을 ORB Framework 기반으로 설계합니다
+  - 소유 채널(Owned): 이메일, 블로그, 자체 커뮤니티
+  - 임대 채널(Rented): SNS, 앱스토어, 마켓플레이스
+  - 차용 채널(Borrowed): 게스트 콘텐츠, 인플루언서, 제휴
+* 런칭 타임라인을 5단계로 설계합니다 (Internal → Alpha → Beta → Early Access → Full Launch)
+* 초기 견인(Traction) 목표를 설정합니다 (1/3/6개월)
+* 런칭 체크리스트를 작성합니다
+
+## 출력 형식
+* 채널별 전략 표 — 마크다운 표 (채널명 / 유형(O/R/B) / 전략 / 우선순위 / 예상 비용)
+* 5단계 런칭 타임라인 표 — 마크다운 표 (단계 / 기간 / 목표 / 핵심 활동 / 성공 기준)
+* 런칭 체크리스트 — 체크박스 형식 (Pre-launch / Launch Day / Post-launch)
+* output/reports/gtm-launch.md에 저장합니다
+
+### 데이터 신뢰도 등급
+(동일 패턴: A 검증됨, B 근거있는 추정, C AI 추정)
+> ⚠️ "이 분석의 수치는 AI 추정(신뢰도 C)이며, 실제 검증이 필요합니다."
+
+## Product Hunt 런칭 전략
+
+### 준비 사항 (launch-strategy 스킬 참조)
+* 런칭 전: 영향력 있는 지지자와 관계 구축, 리스팅 최적화 (태그라인, 비주얼, 데모 영상)
+* 런칭 당일: 전일 이벤트로 진행, 모든 댓글에 실시간 응답, 기존 오디언스 참여 유도
+* 런칭 후: 참여자 후속 연락, 트래픽을 소유 채널로 전환 (이메일 등록)
+
+## Micro-SaaS GTM (v2.0 Phase 7)
+
+idea.json의 business_scale이 "micro" 또는 "small"인 경우, 1인 운영 가능한 GTM 전략을 수행합니다.
+
+### 트리거 조건
+* output/ideas/{id}-{name}/idea.json의 business_scale 값이 "micro" 또는 "small"일 때 자동 활성화
+
+### 핵심 차이점
+
+| 항목 | 기존 (startup/enterprise) | Micro-SaaS (micro/small) |
+|------|-------------------------|------------------------|
+| 채널 수 | 5-10개 동시 운영 | 1-2개 집중 |
+| 마케팅 예산 | 월 100만원+ | 월 0-10만원 |
+| 핵심 전략 | 유료 광고 + PR | SEO + 커뮤니티 + Building in Public |
+| Product Hunt | 팀 단위 준비 | 1인 준비 가능한 범위 |
+| 초기 목표 | DAU 1,000+ | 유료 고객 10명 |
+
+### 1인 GTM 채널 전략
+| 채널 | 비용 | 효과 (1인 기준) | 우선순위 |
+|------|------|----------------|---------|
+| SEO/블로그 | 무료 | 장기적 높음 | ⭐⭐⭐ |
+| 커뮤니티 (Reddit, IndieHackers) | 무료 | 즉각적 중간 | ⭐⭐⭐ |
+| Building in Public (Twitter/X) | 무료 | 중간 | ⭐⭐ |
+| Product Hunt | 무료 | 일시적 높음 | ⭐⭐ |
+| 유료 광고 | 높음 | CAC 민감 | ⭐ |
+
+### Building in Public 가이드
+* 매주 진행 상황 공유 (MRR, 사용자 수, 배운 점)
+* 실패도 공유 — 진정성이 관심을 유발
+* Twitter/X, IndieHackers, Reddit r/SaaS 활용
+* 해시태그: #buildinpublic #indiehackers #microsaas
+
+## 다음 단계
+* 런칭 전략 수립 후 → `/kpi-framework`로 성과 지표 설정
+* 브랜딩 연계 필요 시 → `/branding-strategy`로 브랜드 전략
+* 전체 진행률 확인 → `/check-progress`
+WF19_EOF
+
+# Workflow 20: kpi-framework.md
+cat << 'WF20_EOF' > "$PROJECT_ROOT/.agent/workflows/kpi-framework.md"
+# kpi-framework
+
+KPI 체계를 수립하고 성과 추적 기준을 설정합니다.
+
+> 이 워크플로우는 startup-metrics-framework 스킬의 지표 체계를 한국어로 요약하고 8단계 프로세스에 연계합니다.
+> 8단계 사업 기획 프로세스 완료 후 선택적으로 실행하는 보조 워크플로우입니다.
+
+## 용어 매핑 (영어 → 한국어)
+
+| 영어 | 한국어 | 설명 |
+|------|--------|------|
+| KPI | 핵심 성과 지표 | Key Performance Indicator |
+| North Star Metric | 북극성 지표 | 사업 핵심 가치를 대표하는 단일 지표 |
+| MRR | 월간 반복 매출 | Monthly Recurring Revenue |
+| ARR | 연간 반복 매출 | Annual Recurring Revenue |
+| Churn Rate | 이탈률 | 월간 구독 취소 비율 |
+| LTV | 고객 생애 가치 | Lifetime Value |
+| CAC | 고객 획득 비용 | Customer Acquisition Cost |
+| ARPU | 사용자당 평균 매출 | Average Revenue Per User |
+| NDR | 순수익 유지율 | Net Dollar Retention |
+| Unit Economics | 단위 경제학 | 고객 1명당 수익성 |
+| Cohort | 코호트 | 동일 시기 가입 고객 그룹 |
+
+## 트리거 조건
+* /financial-modeling 또는 /gtm-launch 결과가 존재할 때 실행 권장
+* output/financials/ 또는 output/reports/ 내 산출물 참조
+
+## 수행 작업
+* 사업 단계별 핵심 지표를 정의합니다 (Pre-launch / Launch / Growth / Scale)
+* North Star Metric(북극성 지표)을 설정합니다
+* KPI 대시보드 구조를 설계합니다
+* 지표별 목표값, 측정 주기, 측정 도구를 정합니다
+* 지표 간 인과관계 맵을 작성합니다
+* 벤치마크 대비 현재 위치를 평가합니다
+
+## 출력 형식
+* 사업 단계별 KPI 표 — 마크다운 표 (단계 / 핵심 지표 / 목표값 / 측정 주기 / 도구)
+* North Star Metric + 보조 지표 구조 — 트리 형태
+* 인과관계 맵 — 마크다운 목록 (A → B → C 형태)
+* output/reports/kpi-framework.md에 저장합니다
+
+### 데이터 신뢰도 등급
+(A 검증됨, B 근거있는 추정, C AI 추정)
+> ⚠️ "목표값은 AI 추정(신뢰도 C)이며, 실제 운영 데이터로 보정이 필요합니다."
+
+## 사업 단계별 KPI 체계
+
+### Pre-launch 단계
+| 지표 | 목표 예시 | 측정 도구 |
+|------|----------|----------|
+| 대기자 수 (Waitlist) | 100-500명 | Carrd, ConvertKit |
+| 랜딩 페이지 전환율 | 5-15% | Google Analytics |
+| 고객 인터뷰 수 | 20건+ | Notion, Google Docs |
+
+### Launch 단계
+| 지표 | 목표 예시 | 측정 도구 |
+|------|----------|----------|
+| 가입자 수 | 100명 (1개월) | 자체 대시보드 |
+| 활성 사용자 (DAU/WAU) | 30%+ 가입 대비 | Plausible, Mixpanel |
+| 첫 결제 전환율 | 5-10% | Stripe Dashboard |
+
+### Growth 단계
+| 지표 | 목표 예시 | 측정 도구 |
+|------|----------|----------|
+| MRR 성장률 | 15-20%/월 | Stripe, Baremetrics |
+| Churn Rate | 5% 이하 | 자체 집계 |
+| LTV/CAC | 3배 이상 | 계산 |
+
+### Scale 단계
+| 지표 | 목표 예시 | 측정 도구 |
+|------|----------|----------|
+| ARR | $100K+ | Stripe |
+| NDR | 110%+ | 코호트 분석 |
+| Rule of 40 | 40% 이상 | 성장률 + 이익률 |
+
+## North Star Metric 설정 가이드
+
+### 유형별 추천 NSM
+| 사업 유형 | 추천 NSM | 이유 |
+|----------|---------|------|
+| SaaS (B2B) | 주간 활성 팀 수 | 팀 단위 가치 반영 |
+| SaaS (B2C) | 주간 활성 사용자 | 개인 가치 반영 |
+| 마켓플레이스 | 주간 거래 완료 수 | 양면 가치 반영 |
+| 콘텐츠 | 주간 콘텐츠 소비 시간 | 참여도 반영 |
+| 커머스 | 월간 반복 구매 고객 수 | 충성도 반영 |
+
+## Micro-SaaS KPI (v2.0 Phase 7)
+
+idea.json의 business_scale이 "micro" 또는 "small"인 경우, SaaS 핵심 5대 지표에 집중합니다.
+
+### 트리거 조건
+* output/ideas/{id}-{name}/idea.json의 business_scale 값이 "micro" 또는 "small"일 때 자동 활성화
+
+### SaaS 핵심 5대 지표 (startup-metrics-framework 스킬 연동)
+
+| 지표 | 정의 | 건강 기준 | 위험 신호 |
+|------|------|----------|----------|
+| MRR | 월간 반복 매출 | 매월 10-20% 성장 | 3개월 연속 정체 |
+| Churn Rate | 월간 이탈률 | 5% 이하 | 10% 이상 |
+| LTV | 고객 생애 가치 | ARPU / Churn | LTV < 3×CAC |
+| CAC | 고객 획득 비용 | 1개월 매출 이하 | LTV/CAC < 3 |
+| ARPU | 사용자당 평균 매출 | 가격 티어 가중 평균 | 하락 추세 |
+
+### 간단한 측정 도구 (1인 운영)
+| 도구 | 비용 | 용도 |
+|------|------|------|
+| Plausible | $9/월 | 웹 트래픽 분석 |
+| Stripe Dashboard | 무료 | 매출, MRR, Churn |
+| Simple Analytics | $9/월 | 프라이버시 친화 분석 |
+| Google Sheets | 무료 | 커스텀 대시보드 |
+| Notion | 무료 | KPI 추적 템플릿 |
+
+### Unit Economics 계산
+```
+LTV = ARPU × (1 / Churn Rate)
+CAC = 총 마케팅비 / 신규 고객 수
+LTV/CAC > 3 → 건강한 비즈니스
+CAC 회수 기간 = CAC / ARPU → 3개월 이내 권장
+```
+
+## 다음 단계
+* KPI 체계 수립 후 → `/financial-modeling`로 재무 지표 연계
+* 전체 진행률 확인 → `/check-progress`
+* 운영 비용 추적 필요 시 → `/tco-dashboard`로 TCO 분석
+WF20_EOF
+
+# Workflow 21: security-scan.md
+cat << 'WF21_EOF' > "$PROJECT_ROOT/.agent/workflows/security-scan.md"
+# security-scan
+
+output/ 폴더의 산출물에서 개인정보 및 민감정보를 스캔합니다.
+
+> 사업 기획 과정에서 실제 연락처, 사업 기밀 등이 산출물에 포함될 수 있습니다.
+> 이 워크플로우는 산출물 공유 전 민감정보를 점검하는 사후 검증 도구입니다.
+> 8단계 사업 기획 프로세스 완료 후 선택적으로 실행하는 보조 워크플로우입니다.
+
+## 수행 작업
+* output/ 폴더 내 모든 마크다운(.md) 파일을 스캔합니다
+* 아래 스캔 패턴 표에 따라 개인정보 및 민감정보를 감지합니다
+* 각 발견 항목의 위험도를 분류합니다 (Critical / Warning / Info)
+* 마스킹 제안을 제공합니다 (자동 치환 예시)
+* 스캔 결과 요약 리포트를 생성합니다
+
+## 스캔 패턴
+
+### 개인정보 패턴 (Critical)
+
+| 패턴 | 설명 | 정규식 예시 | 마스킹 예시 |
+|------|------|-----------|-----------|
+| 전화번호 | 한국 휴대폰 | `01[016789]-\d{3,4}-\d{4}` | `010-****-****` |
+| 주민등록번호 | 13자리 | `\d{6}-[1-4]\d{6}` | `******-*******` |
+| 계좌번호 | 은행 계좌 | `\d{3,4}-\d{2,6}-\d{2,6}` | `***-****-****` |
+| 카드번호 | 16자리 | `\d{4}-\d{4}-\d{4}-\d{4}` | `****-****-****-****` |
+| 여권번호 | 영문+숫자 | `[A-Z]{1,2}\d{7,8}` | `M*******` |
+
+### 연락처/계정 패턴 (Warning)
+
+| 패턴 | 설명 | 정규식 예시 | 마스킹 예시 |
+|------|------|-----------|-----------|
+| 이메일 | @ 포함 | `[\w.-]+@[\w.-]+\.\w+` | `u***@domain.com` |
+| 주소 | 한국 도로명/지번 | 도로명, 번지 패턴 | `서울시 **구 **동` |
+| 사업자등록번호 | 10자리 | `\d{3}-\d{2}-\d{5}` | `***-**-*****` |
+
+### 사업 기밀 패턴 (Warning)
+
+| 패턴 | 설명 | 감지 키워드 |
+|------|------|-----------|
+| API 키 | 서비스 키 | `sk-`, `key_`, `api_key`, `secret` |
+| 비밀번호 | 패스워드 | `password:`, `pw:`, `비밀번호:` |
+| 실제 매출 | 내부 수치 | 구체적 금액 + "실제", "확정" 키워드 동시 출현 |
+
+### 참고 패턴 (Info)
+
+| 패턴 | 설명 | 비고 |
+|------|------|------|
+| 대표자 성명 | 실명 | "대표:", "성명:" 뒤의 한글 2-4자 |
+| 상호명 | 사업체명 | "상호:", "회사명:" 뒤 텍스트 |
+
+## 출력 형식
+
+### 스캔 결과 표
+| # | 파일 | 라인 | 패턴 | 발견 내용 | 위험도 | 마스킹 제안 |
+|---|------|------|------|----------|--------|-----------|
+| 1 | financials/projection.md | L23 | 전화번호 | 010-1234-5678 | Critical | 010-****-**** |
+| ... | | | | | | |
+
+### 요약 통계
+| 위험도 | 발견 수 |
+|--------|--------|
+| 🔴 Critical | 0건 |
+| 🟡 Warning | 0건 |
+| 🔵 Info | 0건 |
+| **합계** | **0건** |
+
+* output/reports/security-scan-result.md에 결과를 저장합니다
+
+## 스캔 옵션
+* `--all`: output/ 전체 스캔 (기본)
+* `--idea {id}`: 특정 아이디어 폴더만 스캔
+* `--fix`: 마스킹 자동 적용 (사용자 확인 후)
+
+## 주의사항
+* 이 스캔은 정규식 기반 패턴 매칭이며, 모든 민감정보를 감지하지 못할 수 있습니다
+* 맥락 기반 민감정보 (예: 추정치 vs 실제 수치)는 사용자가 직접 판단해야 합니다
+* 스캔 결과가 "0건"이라도 공유 전 육안 확인을 권장합니다
+
+## 다음 단계
+* 민감정보 발견 시 → 마스킹 적용 후 `/export-documents`로 문서 내보내기
+* 전체 진행률 확인 → `/check-progress`
+WF21_EOF
+
+# Workflow 22: version-history.md
+cat << 'WF22_EOF' > "$PROJECT_ROOT/.agent/workflows/version-history.md"
+# version-history
+
+output/ 산출물의 변경 이력을 관리합니다.
+
+> 사업 기획은 반복적인 프로세스입니다. 시장 데이터 업데이트, 가정 변경, 전략 수정 시
+> 이전 버전과의 차이를 기록하면 의사결정 과정을 추적할 수 있습니다.
+> 8단계 사업 기획 프로세스 완료 후 선택적으로 실행하는 보조 워크플로우입니다.
+
+## 추적 범위
+
+**주요 산출물만 추적합니다** (전체 output/ 추적 시 노이즈 과다):
+
+| 추적 대상 | 파일 경로 | 변경 빈도 |
+|----------|----------|----------|
+| 시장조사 보고서 | output/research/market-research.md | 분기 1회 |
+| 경쟁 분석 | output/research/competitor-analysis.md | 분기 1회 |
+| 재무 모델 | output/financials/*.md | 월 1회 |
+| 사업계획서 | output/reports/business-plan.md | 주요 변경 시 |
+| MVP 정의 | output/ideas/{id}-{name}/mvp-definition.md | 피벗 시 |
+
+> 위 외의 산출물도 사용자 요청 시 추적 가능합니다.
+
+## 수행 작업
+* 추적 대상 산출물의 현재 버전을 확인합니다
+* 변경 사항이 있으면 CHANGELOG.md를 생성하거나 업데이트합니다
+* 변경 내용, 변경 이유, 영향 범위를 기록합니다
+* 이전 버전과의 핵심 차이를 요약합니다
+* 버전 넘버링 규칙에 따라 버전을 부여합니다
+
+## 버전 넘버링 규칙
+
+| 변경 유형 | 버전 증가 | 예시 | 설명 |
+|----------|----------|------|------|
+| 최초 작성 | v1.0 | 최초 시장조사 완료 | 새 산출물 생성 |
+| 데이터 업데이트 | v1.x (패치) | 시장 규모 수치 보정 | 수치/데이터 변경 |
+| 섹션 추가/수정 | v1.x (마이너) | SWOT에 기회 항목 추가 | 구조 부분 변경 |
+| 전면 재작성 | vX.0 (메이저) | 피벗 후 시장조사 재수행 | 전체 내용 변경 |
+
+## CHANGELOG.md 형식
+
+[Keep a Changelog](https://keepachangelog.com/) 기반:
+
+```
+# Changelog
+
+## [v1.2] - 2026-02-18
+### Changed
+- 시장 규모 TAM 15조 → 18조로 수정 (2026년 데이터 반영)
+- BEP 기간 6개월 → 5개월로 단축 (원가 재계산)
+
+### Reason
+- 한국카페산업협회 2026년 보고서 발표에 따른 업데이트
+
+### Impact
+- 재무 모델의 매출 전망 상향 조정 필요
+- 사업계획서 Step 1, Step 4 업데이트 필요
+
+## [v1.1] - 2026-02-10
+### Added
+- 니치 검증 체크리스트 결과 추가
+
+### Reason
+- 커뮤니티 조사 완료
+
+## [v1.0] - 2026-02-01
+### Added
+- 최초 시장조사 보고서 작성
+```
+
+## 출력 형식
+* CHANGELOG.md 형식으로 기록합니다
+* output/ideas/{id}-{name}/CHANGELOG.md에 저장합니다
+* 변경 시마다 날짜, 변경 내용, 변경 이유, 영향 범위를 기록합니다
+
+## 다음 단계
+* 버전 이력 확인 후 → `/check-progress`로 전체 진행률 확인
+* 산출물 업데이트 필요 시 → 해당 워크플로우 재실행 (예: `/market-research`)
+* 문서 공유 전 → `/security-scan`으로 민감정보 점검
+WF22_EOF
+
+# Workflow 23: tco-dashboard.md
+cat << 'WF23_EOF' > "$PROJECT_ROOT/.agent/workflows/tco-dashboard.md"
+# tco-dashboard
+
+사업 운영의 총 비용(Total Cost of Ownership)을 추적합니다.
+
+> 이 워크플로우는 기획 단계의 초기 비용 추정과 운영 후 실제 비용 추적 모두에 활용됩니다.
+> /financial-modeling이 수익성 분석에 초점을 맞춘다면, /tco-dashboard는 비용 구조의 전체 가시성에 초점을 맞춥니다.
+> 8단계 사업 기획 프로세스 완료 후 선택적으로 실행하는 보조 워크플로우입니다.
+
+## 트리거 조건
+* /financial-modeling 결과가 존재할 때 실행 권장
+* output/financials/ 내 재무 산출물 참조
+
+## 수행 작업
+* 월별 TCO를 산출합니다 (고정비 + 변동비 + 숨겨진 비용)
+* 비용 카테고리별 분석을 수행합니다 (인프라, 인건비, 마케팅, 법률, 기타)
+* 비용 추세를 분석합니다 (3/6/12개월)
+* 비용 최적화 제안을 제공합니다
+* /financial-modeling 결과와 대비하여 차이를 분석합니다
+
+## 비용 분류 체계
+
+### 고정비 (Fixed Costs)
+매출과 무관하게 매월 발생하는 비용
+
+| 항목 | 예시 | 비고 |
+|------|------|------|
+| 임대료 | 월세, 관리비 | 오프라인 사업 |
+| 인건비 | 급여, 4대보험 | 직원 있는 경우 |
+| 구독료 | SaaS 도구, 호스팅 | 온라인 사업 |
+| 보험 | 사업자 보험, 배상책임 | 업종별 상이 |
+| 감가상각 | 장비, 인테리어 | 초기 투자 분할 |
+
+### 변동비 (Variable Costs)
+매출이나 사용량에 따라 변하는 비용
+
+| 항목 | 예시 | 비고 |
+|------|------|------|
+| 원재료 | 식자재, 부품 | 오프라인 |
+| API 호출 비용 | LLM, 결제 수수료 | AI/SaaS |
+| 마케팅비 | 광고, 프로모션 | 성장 단계 |
+| 물류비 | 배송, 포장 | 커머스 |
+
+### 숨겨진 비용 (Hidden Costs)
+간과하기 쉬운 비용
+
+| 항목 | 예시 | 추정 방법 |
+|------|------|----------|
+| 세금 | 부가세, 종합소득세 | 매출의 10-30% |
+| 수수료 | 카드결제(1.5-3%), PG(2-3.5%) | 거래 건별 |
+| 유지보수 | 장비 수리, 업데이트 | 초기 투자의 5-10%/년 |
+| 기회비용 | 대표의 시간 가치 | 시급 환산 |
+| 규제 비용 | 인허가 갱신, 교육 수료 | 업종별 상이 |
+
+## 출력 형식
+
+### 월별 TCO 표
+| 월 | 고정비 | 변동비 | 숨겨진 비용 | **합계** |
+|----|--------|--------|-----------|---------|
+| 1월 | 만원 | 만원 | 만원 | 만원 |
+| ... | | | | |
+
+### 카테고리별 비율 표
+| 카테고리 | 월 비용 | 비율 | 최적화 가능 |
+|---------|--------|------|-----------|
+| 인프라 | 만원 | % | ⭐⭐ |
+| 인건비 | 만원 | % | ⭐ |
+| 마케팅 | 만원 | % | ⭐⭐⭐ |
+| 법률/세금 | 만원 | % | ⭐ |
+| 기타 | 만원 | % | ⭐⭐ |
+
+### 비용 최적화 제안
+* 각 카테고리별 절감 방안 제시
+* 예상 절감액과 실행 난이도 표기
+
+* output/financials/tco-dashboard.md에 저장합니다
+
+### 데이터 신뢰도 등급
+> ⚠️ "비용 추정치는 AI 추정(신뢰도 C)이며, 실제 운영 데이터로 보정이 필요합니다."
+
+## Micro-SaaS TCO (v2.0 Phase 7)
+
+idea.json의 business_scale이 "micro" 또는 "small"인 경우, SaaS 도구별 상세 비용을 분석합니다.
+
+### 트리거 조건
+* `output/ideas/{id}-{name}/idea.json`의 `business_scale` 값이 `"micro"` 또는 `"small"`일 때 자동 활성화
+
+### SaaS 도구별 비용 상세
+
+| 카테고리 | 도구 예시 | 무료 티어 한도 | 유료 전환 시점 | 월 비용 |
+|---------|----------|-------------|-------------|--------|
+| 호스팅 | Vercel | 100GB 대역폭 | 월 100K 방문 | $20 |
+| DB | Supabase | 500MB, 50K 요청 | 데이터 1GB+ | $25 |
+| 인증 | Clerk | MAU 10K | MAU 10K+ | $25 |
+| 이메일 | Resend | 100통/일 | 일 100통+ | $20 |
+| 모니터링 | Sentry | 5K 이벤트 | 이벤트 5K+/월 | $26 |
+| 분석 | Plausible | - | 가입 즉시 | $9 |
+| 결제 | Stripe | - | 거래당 2.9%+30¢ | 거래 기반 |
+| AI API | OpenAI | - | 사용량 기반 | $50-500 |
+| 도메인 | Namecheap | - | 연 $10-15 | $1/월 |
+
+### "숨겨진 비용" 체크리스트
+- [ ] SSL 인증서 (Let's Encrypt 무료, 유료 와일드카드 $50-200/년)
+- [ ] 이메일 서비스 (Resend, SendGrid — 무료 한도 초과 시)
+- [ ] 에러 모니터링 (Sentry 무료 한도 초과 시)
+- [ ] 백업 스토리지 (S3, R2 — 소량 무료)
+- [ ] CDN (Cloudflare 무료, 프리미엄 기능 시 유료)
+- [ ] 도메인 프라이버시 (WHOIS 보호 $10-15/년)
+- [ ] 저작권료 (BGM, 폰트, 아이콘 라이선스)
+
+### BEP 대비 TCO (bootstrap-calculator 연동)
+* bootstrap-calculator의 BEP 고객 수와 TCO를 대비합니다
+* TCO가 BEP 이후에도 빠르게 증가하는 항목을 식별합니다
+* 스케일링 시 비용 급증 항목에 대한 대안을 제시합니다
+
+## 다음 단계
+* TCO 분석 후 → `/financial-modeling`로 재무 모델 업데이트
+* 비용 관련 KPI 설정 → `/kpi-framework`
+* 전체 진행률 확인 → `/check-progress`
+WF23_EOF
+
 echo -e "  ${GREEN}✓${NC} market-research.md"
 echo -e "  ${GREEN}✓${NC} competitor-analysis.md"
 echo -e "  ${GREEN}✓${NC} financial-modeling.md"
@@ -1078,6 +1739,12 @@ echo -e "  ${GREEN}✓${NC} lean-canvas.md"
 echo -e "  ${GREEN}✓${NC} idea-brainstorm.md"
 echo -e "  ${GREEN}✓${NC} my-outputs.md"
 echo -e "  ${GREEN}✓${NC} auto-plan.md"
+echo -e "  ${GREEN}✓${NC} mvp-definition.md"
+echo -e "  ${GREEN}✓${NC} gtm-launch.md"
+echo -e "  ${GREEN}✓${NC} kpi-framework.md"
+echo -e "  ${GREEN}✓${NC} security-scan.md"
+echo -e "  ${GREEN}✓${NC} version-history.md"
+echo -e "  ${GREEN}✓${NC} tco-dashboard.md"
 echo ""
 
 # --- Step 5: Create Skills ---
@@ -5635,6 +6302,253 @@ SAMPLE4_EOF
 echo -e "  ${GREEN}✓${NC} 04-사업계획서-요약.md"
 
 echo -e "  ${GREEN}✓${NC} 카페 사업 기획 샘플 데이터 4건 생성 완료"
+
+# Complete Sample 1: 카페 완성 샘플
+cat << 'CSAMPLE1_EOF' > "$PROJECT_ROOT/output/ideas/idea-001-sample-cafe/complete-sample.md"
+# 완성 샘플: 동네 스페셜티 카페 ☕
+
+> ⚠️ **면책 고지**: 이 샘플은 시연용이며, 실제 데이터가 아닙니다. 모든 수치는 AI 추정(신뢰도 C)입니다. 실제 창업 시 반드시 현장 조사와 전문가 상담을 병행하세요.
+
+## 사업 개요
+- **사업명**: 로스팅 하우스
+- **업종**: 스페셜티 카페 (오프라인)
+- **사업 규모**: small (소규모 창업)
+- **예상 투자금**: 5,000만원
+- **목표**: 6개월 내 BEP 달성
+
+---
+
+## Step 0: 아이디어 발견 & 검증
+
+### 가설 (hypothesis.md 요약)
+- 핵심 가설: "직장인 밀집 지역에 합리적 가격의 스페셜티 커피를 제공하면 충성 고객을 확보할 수 있다"
+- 타겟: 25-40세 직장인, 커피 품질에 관심 있으나 프랜차이즈에 불만
+
+### 검증 결과 (evaluation.md 요약)
+| 항목 | 점수 | 판정 |
+|------|------|------|
+| 시장 수요 | 4.2/5 [C] | ✅ Pass |
+| 차별화 가능성 | 3.8/5 [C] | ✅ Pass |
+| 실행 가능성 | 3.5/5 [C] | ⚠️ Moderate |
+| 수익성 | 3.3/5 [C] | ⚠️ Moderate |
+| **종합** | **74점** [C] | **진행 권장** |
+
+---
+
+## Step 1: 시장조사 (market-research 요약)
+
+### TAM/SAM/SOM [C]
+| 시장 | 규모 |
+|------|------|
+| TAM (국내 카페 시장) | 약 15조원 [C] |
+| SAM (서울 스페셜티 카페) | 약 5,000억원 [C] |
+| SOM (목표 상권 3km 반경) | 약 2억원/년 [C] |
+
+### 핵심 트렌드 [C]
+- 스페셜티 커피 시장 연 15% 성장
+- 소비자 60%가 "커피 맛"을 카페 선택 1순위로 꼽음
+- 1인 카페/소형 카페 창업 증가 추세
+
+---
+
+## Step 2: 경쟁분석 (competitor-analysis 요약)
+
+| 경쟁사 | 유형 | 강점 | 약점 | 가격대 |
+|--------|------|------|------|--------|
+| 스타벅스 | 프랜차이즈 | 브랜드, 접근성 | 획일적 맛 | 5,000-7,000원 |
+| 블루보틀 | 프리미엄 | 품질, 경험 | 높은 가격 | 6,000-8,000원 |
+| 동네 카페 A | 개인 | 친근함 | 품질 불균일 | 3,500-5,000원 |
+
+### 차별화 전략 [C]
+- 가격: 프리미엄 대비 20% 저렴 (4,500-5,500원)
+- 품질: 직접 로스팅으로 신선도 보장
+- 경험: 로스팅 과정 공개, 커피 교육 프로그램
+
+---
+
+## Step 3: SWOT 분석 요약
+
+| | 긍정 | 부정 |
+|---|------|------|
+| **내부** | S: 직접 로스팅 기술, 낮은 원가 | W: 브랜드 인지도 제로, 1인 운영 한계 |
+| **외부** | O: 스페셜티 시장 성장, 건강 트렌드 | T: 프랜차이즈 확장, 임대료 상승 |
+
+---
+
+## Step 4: 재무모델링 (financial-modeling 요약)
+
+### 초기 투자 [C]
+| 항목 | 금액 |
+|------|------|
+| 보증금 | 1,500만원 |
+| 인테리어 | 1,500만원 |
+| 장비 (에스프레소 머신, 로스터) | 1,200만원 |
+| 초기 재료비 | 300만원 |
+| 기타 (인허가, 마케팅) | 500만원 |
+| **합계** | **5,000만원** |
+
+### 월 손익 예상 [C]
+| 항목 | 금액 |
+|------|------|
+| 매출 (일 80잔 × 5,000원 × 25일) | 1,000만원 |
+| 원재료비 (30%) | -300만원 |
+| 임대료 | -200만원 |
+| 인건비 (본인 + 파트타임 1명) | -250만원 |
+| 기타 (수도광열, 소모품) | -100만원 |
+| **월 영업이익** | **150만원** |
+
+### BEP: **약 5.5개월** [C]
+
+---
+
+## Step 5: 운영계획 (operations-plan 요약)
+- 영업시간: 07:00-21:00 (주 6일)
+- 인력: 오전 본인, 오후 파트타임 1명
+- 원두 로스팅: 주 2회 (화, 금)
+- 재고 관리: 주 1회 발주
+
+## Step 6: 브랜딩 (branding-strategy 요약)
+- 브랜드명: 로스팅 하우스
+- 슬로건: "매일 볶는 신선함"
+- 톤앤매너: 따뜻하고 전문적인
+- SNS: 인스타그램 (로스팅 과정 릴스)
+
+## Step 7: 법률/규제 (legal-checklist 요약)
+- [x] 사업자등록 (간이과세자, 연 매출 1억 미만)
+- [x] 식품제조가공업 등록
+- [x] 위생교육 수료
+- [ ] 옥외광고물 허가
+- [ ] 음악 저작권료 (BGM)
+
+## Step 8: 사업계획서
+→ 전체 사업계획서는 output/reports/business-plan.md에서 확인
+
+---
+
+> 📌 이 샘플은 `/auto-plan`으로 8단계를 순차 실행하면 생성되는 산출물의 축약 버전입니다.
+> 실제 사용 시 각 단계에서 더 상세한 분석이 수행됩니다.
+CSAMPLE1_EOF
+
+# Complete Sample 2: AI SaaS 완성 샘플
+cat << 'CSAMPLE2_EOF' > "$PROJECT_ROOT/output/ideas/idea-002-sample-app/complete-sample.md"
+# 완성 샘플: AI 회의록 요약 SaaS 🤖
+
+> ⚠️ **면책 고지**: 이 샘플은 시연용이며, 실제 데이터가 아닙니다. 모든 수치는 AI 추정(신뢰도 C)입니다. 실제 창업 시 반드시 시장 검증과 사용자 테스트를 병행하세요.
+
+## 사업 개요
+- **사업명**: MeetNote AI
+- **업종**: AI SaaS (온라인)
+- **사업 규모**: micro (Micro-SaaS, 1인 빌더)
+- **예상 초기 비용**: $200/월
+- **목표**: 6개월 내 MRR $1,000 달성
+
+---
+
+## Step 0: 아이디어 발견 & 검증
+
+### 가설 (hypothesis.md 요약)
+- 핵심 가설: "원격 근무 팀의 회의록 작성 부담을 AI로 해결하면 월 $19-49에 구독할 것이다"
+- 타겟: 원격 근무 스타트업, 5-20명 규모 팀
+
+### 검증 결과 [C]
+| 항목 | 점수 | 판정 |
+|------|------|------|
+| 시장 수요 | 4.5/5 [C] | ✅ Pass |
+| 차별화 가능성 | 3.2/5 [C] | ⚠️ Moderate |
+| 실행 가능성 | 4.0/5 [C] | ✅ Pass |
+| 수익성 | 3.8/5 [C] | ✅ Pass |
+| **종합** | **78점** [C] | **진행 권장** |
+
+---
+
+## Step 1: 시장조사 (니치 시장 분석)
+
+### 니치 검증 체크리스트 [C]
+| 항목 | 결과 | 판정 |
+|------|------|------|
+| 커뮤니티 규모 | Reddit r/RemoteWork 2.1M, r/SaaS 50K | ✅ Pass |
+| 불만 시그널 | Otter.ai 리뷰 3.2/5, "정확도 낮다" 반복 | ✅ Pass |
+| 지불 의향 | "I'd pay for better transcription" 20건+ | ✅ Pass |
+| 경쟁사 수 | 직접 경쟁 4개 (과포화 아님) | ✅ Pass |
+| 키워드 검색량 | "AI meeting notes" 12,100/월 | ✅ Pass |
+| **판정** | **5/5 Pass** | **니치 유효** ✅ |
+
+---
+
+## Step 2: 경쟁분석
+
+| 경쟁사 | 가격 | 강점 | 약점 |
+|--------|------|------|------|
+| Otter.ai | $16.99/월 | 인지도 | 비영어 정확도 낮음 |
+| Fireflies.ai | $18/월 | 통합 | 한국어 미지원 |
+| Clova Note | 무료 | 한국어 | 팀 기능 부재 |
+
+### 차별화: 한국어+영어 하이브리드, 팀 협업 기능
+
+---
+
+## Step 3: SWOT 분석 요약
+
+| | 긍정 | 부정 |
+|---|------|------|
+| **내부** | S: AI/개발 역량, 1인 린 운영 | W: 마케팅 리소스 부족, 브랜드 없음 |
+| **외부** | O: 원격근무 확산, AI 비용 하락 | T: 빅테크 진입(Zoom AI), API 가격 변동 |
+
+---
+
+## Step 4: 재무모델링 (Micro-SaaS)
+
+### 월 비용 구조 [C]
+| 항목 | 비용 |
+|------|------|
+| Vercel (호스팅) | $20 |
+| OpenAI API | $50-200 (사용량 연동) |
+| Supabase (DB) | $25 |
+| 도메인 | $1 |
+| 기타 (이메일, 모니터링) | $10 |
+| **합계** | **$106-256/월** |
+
+### SaaS 핵심 지표 목표 [C]
+| 지표 | 6개월 목표 | 12개월 목표 |
+|------|-----------|-----------|
+| MRR | $1,000 | $5,000 |
+| 유료 고객 | 30명 | 100명 |
+| Churn | 5% 이하 | 3% 이하 |
+| LTV/CAC | 3x | 5x |
+| ARPU | $35 | $50 |
+
+### BEP: **유료 고객 8명** (월 고정비 $256 / ARPU $35) [C]
+
+---
+
+## Step 5: 운영계획
+- 개발: 주 30시간 (기능 개발 + 버그 수정)
+- 고객 지원: 주 5시간 (이메일 + 인터콤)
+- 마케팅: 주 5시간 (블로그 + 커뮤니티)
+- 배포: CI/CD 자동화 (Vercel + GitHub Actions)
+
+## Step 6: 브랜딩
+- 브랜드: MeetNote AI
+- 슬로건: "Your meetings, automatically noted"
+- 채널: Twitter (Building in Public), Product Hunt
+
+## Step 7: 법률/규제
+- [x] 사업자등록 (간이과세자)
+- [x] 이용약관 (templates/terms-of-service-template.md 참고)
+- [x] 개인정보처리방침 (templates/privacy-policy-template.md 참고)
+- [ ] AI 기본법 대응 (고위험 AI 해당 여부 검토)
+- [ ] 해외 결제 설정 (Stripe)
+
+## Step 8: 사업계획서
+→ 전체 사업계획서는 output/reports/business-plan.md에서 확인
+
+---
+
+> 📌 이 샘플은 `/auto-plan`으로 8단계를 순차 실행하면 생성되는 산출물의 축약 버전입니다.
+> Micro-SaaS(business_scale: micro) 설정 시 각 단계에서 소규모 사업 전용 분석이 자동 활성화됩니다.
+CSAMPLE2_EOF
+
+echo -e "  ${GREEN}✓${NC} 완성 샘플 2종 (카페/AI SaaS) 생성 완료"
 echo ""
 
 # --- Step 8: Python environment setup ---
@@ -5705,11 +6619,11 @@ echo -e "${BOLD}============================================================${NC
 echo ""
 echo "  생성된 항목:"
 echo -e "    ${GREEN}•${NC} 작동 원칙: 9개 (한국어 소통, 문서 스타일, 안전 가이드라인, 업데이트 체크, 컨텍스트 체이닝, AI 도메인 지식, 품질 게이트, 데이터 신뢰도, 규모별 모드 전환)"
-echo -e "    ${GREEN}•${NC} 기획 단계: 17개 (아이디어 발굴부터 사업계획서까지)"
+echo -e "    ${GREEN}•${NC} 기획 단계: 23개 (아이디어 발굴부터 사업계획서까지)"
 echo -e "    ${GREEN}•${NC} 전문 분석 도구: 16개 (재무, 경쟁, SWOT, AI 비즈니스, 니치 검증, 부트스트랩 계산, 기술 스택 추천 등 + 5개 공유 스크립트)"
 echo -e "    ${GREEN}•${NC} 문서 양식: 10개 (사업계획서, 재무예측, AI 재무, Micro-SaaS 재무, 부트스트랩 성장, 린캔버스, 포트폴리오 등)"
 echo -e "    ${GREEN}•${NC} 외부 도구 연동 설정: 1개"
-echo -e "    ${GREEN}•${NC} 샘플 데이터: 카페 사업 4건"
+echo -e "    ${GREEN}•${NC} 샘플 데이터: 카페 사업 4건 + 완성 샘플 2종 (카페/AI SaaS)"
 echo ""
 echo "  다음 단계:"
 echo -e "    1. ${BOLD}Antigravity${NC}를 실행합니다"
@@ -5735,6 +6649,12 @@ echo -e "    ${YELLOW}/my-outputs${NC}             — 산출물 대시보드"
 echo -e "    ${YELLOW}/auto-plan${NC}              — 전체 기획 자동 진행"
 echo -e "    ${YELLOW}/check-progress${NC}        — 기획 진행률 확인"
 echo -e "    ${YELLOW}/export-documents${NC}      — 문서 PDF 내보내기"
+echo -e "    ${YELLOW}/mvp-definition${NC}       — MVP 범위 정의"
+echo -e "    ${YELLOW}/gtm-launch${NC}           — GTM 런칭 전략"
+echo -e "    ${YELLOW}/kpi-framework${NC}        — KPI 체계 수립"
+echo -e "    ${YELLOW}/security-scan${NC}        — 민감정보 스캔"
+echo -e "    ${YELLOW}/version-history${NC}      — 버전 이력 관리"
+echo -e "    ${YELLOW}/tco-dashboard${NC}        — TCO 비용 추적"
 echo ""
 echo -e "  💡 명령어를 외울 필요 없습니다!"
 echo -e "     '시장 조사해줘', '재무 분석 부탁해' 처럼 자연어로 요청하면 됩니다."

@@ -22,6 +22,10 @@
 | 사업계획서 (/business-plan) | 전 섹션 완성 (8개 챕터) | 20개 |
 | 제품기획 (/product-planning) | 핵심 기능, 차별화, 로드맵 | 5개 |
 | 브랜딩 (/branding-strategy) | 브랜드 컨셉, 네이밍, 포지셔닝 | 3개 |
+| MVP 정의 (/mvp-definition) | Must-have 기능, Impact-Effort 매트릭스, 출시 기준 | 5개 |
+| GTM 전략 (/gtm-launch) | 타겟 고객, 채널 전략, 5단계 출시 계획 | 5개 |
+| KPI 프레임워크 (/kpi-framework) | North Star Metric, 핵심 KPI 5개, 측정 주기 | 5개 |
+| TCO 대시보드 (/tco-dashboard) | 비용 카테고리, 월별 TCO, 최적화 제안 | 5개 |
 
 ## 점검 결과 출력 형식
 

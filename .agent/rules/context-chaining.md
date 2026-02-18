@@ -20,6 +20,12 @@
 | 사업계획서 (/business-plan-draft) | output/research/*.md, output/financials/*.md, output/reports/*.md |
 | AI 분석 (ai-business-analyst) | output/ideas/*/idea.json (ai_business 블록), output/ideas/*/ai-analysis.md |
 | AI 재무 모델링 (/financial-modeling + AI) | output/ideas/*/ai-analysis.md, output/financials/원가*.md, templates/ai-business-financial-template.md |
+| MVP 정의 (/mvp-definition) | output/ideas/*/idea.json, output/ideas/*/evaluation.md |
+| GTM 전략 (/gtm-launch) | output/ideas/*/idea.json, output/research/*.md, output/reports/branding*.md |
+| KPI 프레임워크 (/kpi-framework) | output/financials/*.md, output/ideas/*/idea.json |
+| 보안 스캔 (/security-scan) | output/**/*.md (전체 스캔) |
+| 버전 관리 (/version-history) | output/reports/business-plan*.md, output/reports/CHANGELOG.md |
+| TCO 대시보드 (/tco-dashboard) | output/financials/*.md, output/ideas/*/idea.json |
 
 ## 요약 생성 규칙
 

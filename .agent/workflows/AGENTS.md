@@ -27,6 +27,12 @@ Slash-command workflow definitions for structured business planning steps. Users
 | `idea-brainstorm.md` | `/idea-brainstorm` — 역발상 리스크 발견 + 다각적 관점 분석 (Invisible Framework) |
 | `my-outputs.md` | `/my-outputs` — output/ 전체 산출물 통합 대시보드 생성 |
 | `auto-plan.md` | `/auto-plan` — 사업 기획 8단계 전체 자동 순차 진행, HITL 3곳에서 의사결정 확인 |
+| `mvp-definition.md` | `/mvp-definition` — MVP 범위 정의, Impact-Effort 매트릭스, 출시 기준 체크리스트 |
+| `gtm-launch.md` | `/gtm-launch` — Go-To-Market 전략, 5단계 출시 계획, Product Hunt 가이드 |
+| `kpi-framework.md` | `/kpi-framework` — North Star Metric, SaaS 5대 지표, KPI 대시보드 |
+| `security-scan.md` | `/security-scan` — output/ 산출물 개인정보/민감정보 스캔 및 마스킹 |
+| `version-history.md` | `/version-history` — 사업계획서 변경 이력 관리, CHANGELOG 생성 |
+| `tco-dashboard.md` | `/tco-dashboard` — 총 소유 비용(TCO) 추적, 비용 최적화 제안 |
 
 ## For AI Agents
 

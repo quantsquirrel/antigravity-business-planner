@@ -1640,7 +1640,7 @@
                 <span class="hero-divider"></span>
                 <span class="hero-tag">비개발자를 위한 사업 기획 도구</span>
                 <span class="hero-divider"></span>
-                <span class="hero-tag">자동 분석 17개 · 전문 스킬 16개 · 문서 양식 10개</span>
+                <span class="hero-tag">자동 분석 23개 · 전문 스킬 17개 · 문서 양식 13개</span>
             </div>
         </div>
     </div>
@@ -1711,7 +1711,7 @@
                     <pre>bash setup.sh</pre>
                 </div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                    ⏱️ 약 1-2분 소요 | 워크플로우 17개, 스킬 16개, 템플릿 10개, 샘플 데이터가 자동 생성됩니다.
+                    ⏱️ 약 1-2분 소요 | 워크플로우 23개, 스킬 17개, 템플릿 13개, 샘플 데이터가 자동 생성됩니다.
                 </p>
 
                 <h3>Step 3: 사업 기획 시작!</h3>
@@ -1779,8 +1779,41 @@
                             <td><code>/auto-plan</code></td>
                             <td>8단계 기획 자동 안내 (HITL 3곳) | 각 단계별 output/</td>
                         </tr>
+                        <tr>
+                            <td>MVP 범위 정의</td>
+                            <td><code>/mvp-definition</code></td>
+                            <td>MVP 범위 정의, Impact-Effort 매트릭스, 출시 기준 체크리스트</td>
+                        </tr>
+                        <tr>
+                            <td>Go-To-Market 전략</td>
+                            <td><code>/gtm-launch</code></td>
+                            <td>Go-To-Market 전략, 5단계 출시 계획, Product Hunt 가이드</td>
+                        </tr>
+                        <tr>
+                            <td>KPI 프레임워크</td>
+                            <td><code>/kpi-framework</code></td>
+                            <td>North Star Metric, SaaS 5대 지표, KPI 대시보드</td>
+                        </tr>
+                        <tr>
+                            <td>보안 스캔</td>
+                            <td><code>/security-scan</code></td>
+                            <td>output/ 산출물 개인정보/민감정보 스캔 및 마스킹</td>
+                        </tr>
+                        <tr>
+                            <td>변경 이력 관리</td>
+                            <td><code>/version-history</code></td>
+                            <td>사업계획서 변경 이력 관리, CHANGELOG 생성</td>
+                        </tr>
+                        <tr>
+                            <td>TCO 대시보드</td>
+                            <td><code>/tco-dashboard</code></td>
+                            <td>총 소유 비용(TCO) 추적, 비용 최적화 제안</td>
+                        </tr>
                     </tbody>
                 </table>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.75rem; margin-bottom: 0;">
+                    💡 하단 6개(/mvp-definition ~ /tco-dashboard)는 8단계 기획 완료 후 선택적으로 실행하는 보조 워크플로우입니다.
+                </p>
 
                 <div class="success-box">
                     <h4>처음이라면 이렇게 시작하세요</h4>
@@ -1853,7 +1886,7 @@
                         </tbody>
                     </table>
                     <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.75rem; margin-bottom: 0;">
-                        16개 전문 스킬이 대화 내용을 분석하여 가장 적합한 기능을 자동으로 선택합니다.
+                        17개 전문 스킬이 대화 내용을 분석하여 가장 적합한 기능을 자동으로 선택합니다.
                     </p>
                 </div>
 
@@ -2089,11 +2122,11 @@
                         <p>사업 기획에 필요한 모든 것이 하나의 패키지에 담겨 있습니다. 별도로 찾거나 설치할 것이 없습니다.</p>
                     </div>
                     <div class="highlight-card">
-                        <h4>🔄 17가지 자동 분석</h4>
+                        <h4>🔄 23가지 자동 분석</h4>
                         <p>시장 조사부터 사업계획서까지, 대화창에 입력하면 자동으로 분석해줍니다.</p>
                     </div>
                     <div class="highlight-card">
-                        <h4>🧠 16가지 전문 분석</h4>
+                        <h4>🧠 17가지 전문 분석</h4>
                         <p>재무 분석, SWOT 분석 등 전문가 수준의 분석을 AI가 수행합니다.</p>
                     </div>
                     <div class="highlight-card">
@@ -2137,7 +2170,7 @@
 │   ├── <span class="file">data-confidence.md</span>           <span class="desc">데이터 신뢰도</span>
 │   └── <span class="file">mode-handler.md</span>              <span class="desc">모드 핸들러</span>
 │
-├── <span class="folder">🔄 .agent/workflows/</span> <span class="desc">── 자동 분석 기능 (17개)</span>
+├── <span class="folder">🔄 .agent/workflows/</span> <span class="desc">── 자동 분석 기능 (23개)</span>
 │   ├── <span class="file">market-research.md</span>           <span class="desc">시장 조사</span>
 │   ├── <span class="file">competitor-analysis.md</span>       <span class="desc">경쟁 분석</span>
 │   ├── <span class="file">financial-modeling.md</span>        <span class="desc">재무 모델링</span>
@@ -2154,9 +2187,15 @@
 │   ├── <span class="file">lean-canvas.md</span>               <span class="desc">Lean Canvas</span>
 │   ├── <span class="file">idea-brainstorm.md</span> <span class="desc">브레인스토밍</span>
 │   ├── <span class="file">my-outputs.md</span>                <span class="desc">산출물 대시보드</span>
-│   └── <span class="file">auto-plan.md</span>                 <span class="desc">자동 기획 안내</span>
+│   ├── <span class="file">auto-plan.md</span>                 <span class="desc">자동 기획 안내</span>
+│   ├── <span class="file">mvp-definition.md</span>            <span class="desc">MVP 범위 정의</span>
+│   ├── <span class="file">gtm-launch.md</span>                <span class="desc">Go-To-Market 전략</span>
+│   ├── <span class="file">kpi-framework.md</span>             <span class="desc">KPI 프레임워크</span>
+│   ├── <span class="file">security-scan.md</span>             <span class="desc">보안 스캔</span>
+│   ├── <span class="file">version-history.md</span>           <span class="desc">변경 이력 관리</span>
+│   └── <span class="file">tco-dashboard.md</span>             <span class="desc">TCO 대시보드</span>
 │
-├── <span class="folder">🧠 .agent/skills/</span> <span class="desc">── 전문 분석 도구 (16개 + 9 스크립트)</span>
+├── <span class="folder">🧠 .agent/skills/</span> <span class="desc">── 전문 분석 도구 (17개 + 9 스크립트)</span>
 │   ├── <span class="file">business-researcher.md</span>       <span class="desc">사업 리서처</span>
 │   ├── <span class="file">financial-analyst.md</span>         <span class="desc">재무 분석가</span>
 │   ├── <span class="file">report-writer.md</span>             <span class="desc">보고서 작성</span>
@@ -2170,6 +2209,7 @@
 │   ├── <span class="folder">niche-validator/</span>             <span class="desc">니치 시장 검증</span>
 │   ├── <span class="folder">bootstrap-calculator/</span>        <span class="desc">부트스트랩 재무 계산</span>
 │   ├── <span class="folder">tech-stack-recommender/</span>      <span class="desc">기술 스택 추천</span>
+│   ├── <span class="folder">tax-guide/</span>                   <span class="desc">세금 가이드</span>
 │   ├── <span class="file">data-visualizer.md</span>           <span class="desc">데이터 시각화</span>
 │   ├── <span class="folder">progress-tracker/</span>            <span class="desc">진행률 추적 + 스크립트</span>
 │   ├── <span class="folder">document-exporter/</span>           <span class="desc">문서 내보내기 + 스크립트</span>
@@ -2180,7 +2220,7 @@
 │       ├── <span class="file">create_portfolio_dashboard.py</span> <span class="desc">포트폴리오 대시보드</span>
 │       └── <span class="file">create_outputs_dashboard.py</span> <span class="desc">산출물 대시보드</span>
 │
-├── <span class="folder">📄 templates/</span> <span class="desc">── 문서 템플릿 (10개)</span>
+├── <span class="folder">📄 templates/</span> <span class="desc">── 문서 템플릿 (13개)</span>
 │
 ├── <span class="folder">📂 output/</span> <span class="desc">── 산출물 저장소</span>
 │   ├── <span class="folder">ideas/</span>          <span class="desc">아이디어 결과</span>
@@ -2212,17 +2252,17 @@
                         </tr>
                         <tr>
                             <td><strong>.agent/workflows/</strong></td>
-                            <td>17개</td>
+                            <td>23개</td>
                             <td>대화창에서 실행하는 자동 분석 기능</td>
                         </tr>
                         <tr>
                             <td><strong>.agent/skills/</strong></td>
-                            <td>16개 (13 core + 3 symlink) + 9개 스크립트</td>
+                            <td>17개 (14 core + 3 symlink) + 9개 스크립트</td>
                             <td>전문 영역별 자동 분석 도구</td>
                         </tr>
                         <tr>
                             <td><strong>templates/</strong></td>
-                            <td>10개</td>
+                            <td>13개</td>
                             <td>문서 작성을 위한 표준 템플릿</td>
                         </tr>
                         <tr>
@@ -2275,7 +2315,7 @@
                     </div>
                 </div>
 
-                <h3>3.2 자동 분석 기능 — 17가지</h3>
+                <h3>3.2 자동 분석 기능 — 23가지</h3>
                 <p>Antigravity 대화창에 말하면 자동으로 실행되는 분석 기능입니다.</p>
 
                 <div class="highlight-grid">
@@ -2391,7 +2431,7 @@
                     <li><strong>Context Chaining</strong> — 각 기획 단계의 결과가 다음 단계에 자동으로 전달됩니다</li>
                 </ul>
 
-                <h3>3.3 전문 분석 도구 — 16가지</h3>
+                <h3>3.3 전문 분석 도구 — 17가지</h3>
                 <div class="info-box">
                     <strong>이 도구들은 AI가 필요할 때 자동으로 사용합니다</strong><br>
                     <span style="color: var(--text-secondary); font-size: 0.92rem;">
@@ -2435,6 +2475,7 @@
                     <li><strong>니치 시장 검증</strong> — 커뮤니티 수요, 지불 의향, 니치 스코어</li>
                     <li><strong>부트스트랩 재무 계산</strong> — MRR BEP, SaaS 비용, 성장 시나리오</li>
                     <li><strong>기술 스택 추천</strong> — 사업 유형별 스택, 자동화 도구, 비용 최적화</li>
+                    <li><strong>세금 가이드</strong> — 개인사업자 세금 종류, 간이/일반과세 선택, 신고 일정, 4대 보험, 절세 전략</li>
                 </ul>
 
                 <h3>3.4 자동으로 만들어주는 문서 양식</h3>
@@ -2476,6 +2517,18 @@
                     <div class="highlight-card">
                         <h4>🚀 부트스트랩 성장 전략</h4>
                         <p><strong>어떤 내용이 포함되나요?</strong> Phase별 로드맵, 채널 ROI 분석, Product Hunt 런칭 전략, 자금 없이 성장하는 단계별 실행 계획</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📜 이용약관</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 서비스 이용 조건, 회원 가입/탈퇴, 면책 조항, 분쟁 해결, 개인사업자/법인 대응</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🔒 개인정보처리방침</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 수집 항목, 이용 목적, 보유 기간, 제3자 제공, 파기 절차, 정보주체 권리</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📝 서비스 계약서</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 계약 조건, SLA, 대금 지급, 지식재산권, 해지 조건, 손해배상</p>
                     </div>
                 </div>
                 </details>
@@ -2529,8 +2582,8 @@
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">4단계: 자동 분석 기능 설치</div>
-                            <div class="timeline-meta">17가지 분석 기능</div>
-                            <div class="timeline-desc">시장 조사, 경쟁 분석, 재무 모델링, 사업계획서 작성 등 17가지 자동 분석 기능을 설치합니다</div>
+                            <div class="timeline-meta">23가지 분석 기능</div>
+                            <div class="timeline-desc">시장 조사, 경쟁 분석, 재무 모델링, 사업계획서 작성 등 23가지 자동 분석 기능을 설치합니다</div>
                         </div>
                     </div>
 
@@ -2538,8 +2591,8 @@
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">5단계: 전문 분석 도구 설치</div>
-                            <div class="timeline-meta">16가지 전문 도구</div>
-                            <div class="timeline-desc">사업 리서처, 재무 분석가, SWOT 분석, 데이터 시각화, AI 사업 분석, 니치 시장 검증, 부트스트랩 재무 계산, 기술 스택 추천 등 16가지 전문 분석 도구를 설치합니다</div>
+                            <div class="timeline-meta">17가지 전문 도구</div>
+                            <div class="timeline-desc">사업 리서처, 재무 분석가, SWOT 분석, 데이터 시각화, AI 사업 분석, 니치 시장 검증, 부트스트랩 재무 계산, 기술 스택 추천, 세금 가이드 등 17가지 전문 분석 도구를 설치합니다</div>
                         </div>
                     </div>
 
@@ -2547,8 +2600,8 @@
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">6단계: 문서 양식 설치</div>
-                            <div class="timeline-meta">10가지 문서 양식</div>
-                            <div class="timeline-desc">사업계획서, 재무 예측서, 시장 분석서, 피치덱, 아이디어 평가서, 포트폴리오 대시보드, Lean Canvas, AI 사업 재무 분석, Micro-SaaS 재무 모델, 부트스트랩 성장 전략 양식을 설치합니다</div>
+                            <div class="timeline-meta">13가지 문서 양식</div>
+                            <div class="timeline-desc">사업계획서, 재무 예측서, 시장 분석서, 피치덱, 아이디어 평가서, 포트폴리오 대시보드, Lean Canvas, AI 사업 재무 분석, Micro-SaaS 재무 모델, 부트스트랩 성장 전략, 이용약관, 개인정보처리방침, 서비스 계약서 양식을 설치합니다</div>
                         </div>
                     </div>
 
