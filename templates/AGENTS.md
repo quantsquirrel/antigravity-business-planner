@@ -1,5 +1,5 @@
 <!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-02-16 | Updated: 2026-02-16 -->
+<!-- Generated: 2026-02-16 | Updated: 2026-02-18 -->
 
 # templates
 
@@ -21,6 +21,11 @@ Document templates and HTML export themes. Templates define the standard structu
 | `terms-of-service-template.md` | 이용약관 템플릿: 서비스 이용 조건, 면책 조항, 분쟁 해결, 개인사업자/법인 대응 |
 | `privacy-policy-template.md` | 개인정보처리방침 템플릿: 수집 항목, 이용 목적, 보유 기간, 제3자 제공, 파기 절차 |
 | `service-agreement-template.md` | 서비스 계약서 템플릿: 계약 조건, SLA, 대금 지급, 지식재산권, 해지 조건 |
+| `blueprint-for-cursor.md` | AI 코딩 에이전트용 명세서: 프로젝트 개요, 기술 스택 추천 조합, 파일 구조, 기능 명세, 데이터 스키마, API, UI/UX |
+| `exit-due-diligence.md` | 사업 매각 데이터룸 체크리스트: 재무/고객/기술/법률/운영 5개 영역, 매각 준비도 자가 점검 100점 |
+| `n8n-workflow-spec.json` | 자동화 워크플로우 설계 명세 (JSON): 트리거, 단계별 노드, 에러 처리, 변수, 테스트 체크리스트, 비용 산정 |
+| `nps-survey.md` | NPS 순추천지수 조사 템플릿: 설문 양식 (한/영), 이메일 템플릿, 인앱 모달 가이드, 결과 해석, 운영 가이드 |
+| `sla-lite.md` | 1인 SaaS 서비스 수준 약속: 가용률, 응답 시간, 백업, 환불, 변경 고지, 면책 조항 (한/영 병기) |
 
 ## Subdirectories
 

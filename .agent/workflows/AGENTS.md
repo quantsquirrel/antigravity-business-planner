@@ -1,5 +1,5 @@
 <!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-02-16 | Updated: 2026-02-16 -->
+<!-- Generated: 2026-02-16 | Updated: 2026-02-18 -->
 
 # workflows
 
@@ -33,6 +33,10 @@ Slash-command workflow definitions for structured business planning steps. Users
 | `security-scan.md` | `/security-scan` — output/ 산출물 개인정보/민감정보 스캔 및 마스킹 |
 | `version-history.md` | `/version-history` — 사업계획서 변경 이력 관리, CHANGELOG 생성 |
 | `tco-dashboard.md` | `/tco-dashboard` — 총 소유 비용(TCO) 추적, 비용 최적화 제안 |
+| `automation-blueprint.md` | `/automation-blueprint` — AI 자동화 파이프라인 설계: 자동화 기회 발굴, 워크플로우 명세, ROI 계산 |
+| `exit-strategy.md` | `/exit-strategy` — 사업 매각/Exit 준비 감사: Due Diligence, ARR Multiple, 매각 플랫폼, 6개월 타임라인 |
+| `global-expansion.md` | `/global-expansion` — 해외 진출 실행 가이드: i18n, 결제 인프라, 국가별 규제, 글로벌 마케팅 |
+| `solo-sustainability.md` | `/solo-sustainability` — 1인 사업자 장기 지속가능성: 에너지 관리, CS 자동화, 번아웃 진단, 고용 의사결정 |
 
 ## For AI Agents
 

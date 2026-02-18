@@ -1,5 +1,5 @@
 <!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-02-16 | Updated: 2026-02-16 -->
+<!-- Generated: 2026-02-16 | Updated: 2026-02-18 -->
 
 # rules
 
@@ -18,6 +18,9 @@ Behavioral rules automatically applied to all agent responses. These are always 
 | `ai-domain-knowledge.md` | AI 도메인 지식: AI 기술 트렌드 10개, 비즈니스 모델 패턴 6개, 한국 AI 시장 특수 사항, AI 비용 참고 데이터, 용어 매핑 |
 | `quality-gate.md` | 산출물 품질 게이트: 저장 전 필수 항목 5가지 자동 점검, 워크플로우별 필수 섹션 및 최소 데이터 포인트 정의 |
 | `data-confidence.md` | 데이터 신뢰도 등급: 수치 데이터 4등급(A/B/C/D) 태깅, 경고 규칙, MCP 연동, Context Chaining 연동 |
+| `ai-safety-rules.md` | AI 안전 가드레일: Guardrail 설계 체크리스트, 환각 감지/대응, 블랙박스 자동화 금지, Red Teaming 가이드 |
+| `data-governance-checklist.md` | 데이터 거버넌스: PII 마스킹 계획, AI 기본법 체크리스트, GDPR 체크리스트, 도메인별 강화 모듈 (HIPAA/KYC) |
+| `handoff-protocol.md` | 외부 도구 핸드오프: Context Prompt Packet 표준, Cursor/노코드/자동화 도구용 변환 가이드, export 연동 |
 
 ## For AI Agents
 

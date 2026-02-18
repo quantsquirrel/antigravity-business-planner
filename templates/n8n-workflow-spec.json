@@ -1,0 +1,135 @@
+{
+  "_comment": "자동화 워크플로우 설계용 명세입니다. n8n, Make(Integromat), Zapier에서 시나리오를 만들 때 이 구조를 참고하세요. 각 필드의 설명을 읽고, 실제 값으로 교체하세요.",
+  "_guide": "사용법: (1) 이 파일을 복사합니다 (2) 각 필드의 설명 문자열을 실제 값으로 바꿉니다 (3) 완성된 명세를 바탕으로 n8n/Make에서 워크플로우를 구성합니다",
+  "workflow_name": "여기에 워크플로우 이름 입력 (예: 신규-고객-온보딩-자동화)",
+  "description": "이 워크플로우가 무엇을 하는지 한 줄 설명 (예: 새 고객 가입 시 환영 이메일 발송 + Slack 알림 + CRM 등록)",
+  "version": "1.0",
+  "author": "작성자 이름",
+  "created_date": "YYYY-MM-DD",
+  "trigger": {
+    "type": "트리거 유형 (webhook / schedule / event / manual 중 선택)",
+    "description": "자동화가 시작되는 조건을 자연어로 설명 (예: 새 사용자가 회원가입 폼을 제출하면)",
+    "config": {
+      "webhook_url": "웹훅 URL (webhook 유형일 때만 필요)",
+      "schedule": "실행 주기 (schedule 유형일 때만 필요, 예: 매일 오전 9시, 매주 월요일)",
+      "event_source": "이벤트 출처 (event 유형일 때만, 예: Stripe, Supabase)"
+    }
+  },
+  "steps": [
+    {
+      "step": 1,
+      "name": "데이터 수신",
+      "type": "노드 유형 (HTTP Request / Function / IF / Switch / Set 등)",
+      "description": "이 단계가 하는 일을 자연어로 설명",
+      "input": "이전 단계에서 받는 데이터 (예: { name, email, plan })",
+      "output": "다음 단계로 전달하는 데이터",
+      "tool": "사용하는 외부 서비스 (예: Supabase, Google Sheets, Slack)",
+      "config": {
+        "method": "HTTP 메서드 (GET/POST/PUT/DELETE)",
+        "url": "API 엔드포인트 URL",
+        "headers": {},
+        "body": {}
+      },
+      "error_handling": "이 단계 실패 시 처리 방법 (예: 다음 단계 건너뛰기, 재시도 3회)"
+    },
+    {
+      "step": 2,
+      "name": "조건 분기",
+      "type": "IF",
+      "description": "조건에 따라 다른 경로로 분기 (예: 유료 플랜이면 A, 무료면 B)",
+      "condition": "분기 조건을 자연어로 (예: plan === 'pro')",
+      "true_path": "조건이 참일 때 다음 단계 번호",
+      "false_path": "조건이 거짓일 때 다음 단계 번호"
+    },
+    {
+      "step": 3,
+      "name": "이메일 발송",
+      "type": "이메일 서비스 노드",
+      "description": "환영 이메일 발송",
+      "input": "수신자 이메일, 이름",
+      "output": "발송 결과 (성공/실패)",
+      "tool": "이메일 서비스 (예: Resend, SendGrid, Gmail)",
+      "config": {
+        "to": "수신자 이메일 (이전 단계에서 가져옴)",
+        "subject": "이메일 제목 (예: {{name}}님, 환영합니다!)",
+        "template": "이메일 템플릿 ID 또는 HTML 내용"
+      }
+    },
+    {
+      "step": 4,
+      "name": "알림 발송",
+      "type": "메신저 알림 노드",
+      "description": "팀 채널에 새 고객 알림",
+      "tool": "알림 서비스 (예: Slack, Discord, Telegram)",
+      "config": {
+        "channel": "알림 채널 (예: #new-customers)",
+        "message": "알림 메시지 (예: 새 고객 가입: {{name}} ({{plan}}))"
+      }
+    },
+    {
+      "step": 5,
+      "name": "데이터 저장",
+      "type": "데이터베이스/스프레드시트 노드",
+      "description": "고객 정보를 CRM 또는 시트에 기록",
+      "tool": "저장 도구 (예: Google Sheets, Notion, Airtable)",
+      "config": {
+        "destination": "저장 위치 (예: 시트 이름, 테이블 이름)",
+        "fields_mapping": "입력 데이터와 저장 필드 매핑"
+      }
+    }
+  ],
+  "error_handling": {
+    "on_failure": "전체 실패 시 처리 방법 (stop: 중단 / continue: 다음 단계 진행 / retry: 재시도)",
+    "max_retries": 3,
+    "retry_interval_seconds": 60,
+    "notification": {
+      "enabled": true,
+      "channel": "에러 알림 채널 (예: Slack #alerts, 이메일)",
+      "message": "에러 알림 메시지 (예: 워크플로우 '{{workflow_name}}' 실패: {{error_message}})"
+    },
+    "fallback": "최종 실패 시 대안 동작 (예: 수동 처리 큐에 추가)"
+  },
+  "variables": {
+    "_comment": "워크플로우 전체에서 재사용하는 값. n8n의 Environment Variables 또는 .env에 설정하세요.",
+    "API_KEY": "외부 서비스 API 키 (보안: 절대 이 파일에 실제 키를 적지 마세요)",
+    "BASE_URL": "서비스 기본 URL (예: https://myapp.com)",
+    "ADMIN_EMAIL": "관리자 이메일 주소"
+  },
+  "testing": {
+    "test_data": {
+      "_comment": "테스트용 샘플 데이터. 실제 데이터 대신 이 값으로 먼저 테스트하세요.",
+      "sample_input": {
+        "name": "테스트 사용자",
+        "email": "test@example.com",
+        "plan": "pro"
+      }
+    },
+    "checklist": [
+      "트리거가 정상 작동하는가?",
+      "각 단계의 출력 데이터가 올바른가?",
+      "조건 분기가 의도대로 동작하는가?",
+      "에러 발생 시 알림이 오는가?",
+      "실제 외부 서비스(이메일, Slack 등)에 정상 전달되는가?"
+    ]
+  },
+  "estimated_cost": {
+    "_comment": "예상 비용 산정. 무료 티어를 초과하는 경우만 기재하세요.",
+    "monthly_fixed": "월 고정 비용 (예: $0 — 무료 티어 이내)",
+    "per_execution": "실행당 비용 (예: $0.001 — API 호출 비용)",
+    "monthly_estimate": "월 예상 총비용 (예: 일 100회 실행 기준 $3/월)",
+    "free_tier_limit": "무료 범위 (예: n8n Cloud 기준 월 5,000회 실행)"
+  },
+  "documentation": {
+    "related_workflows": ["연관 워크플로우 이름 1", "연관 워크플로우 이름 2"],
+    "references": [
+      "n8n 공식 문서: https://docs.n8n.io",
+      "Make 공식 문서: https://www.make.com/en/help"
+    ],
+    "changelog": [
+      {
+        "date": "YYYY-MM-DD",
+        "change": "최초 작성"
+      }
+    ]
+  }
+}

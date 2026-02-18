@@ -1640,7 +1640,7 @@
                 <span class="hero-divider"></span>
                 <span class="hero-tag">비개발자를 위한 사업 기획 도구</span>
                 <span class="hero-divider"></span>
-                <span class="hero-tag">자동 분석 23개 · 전문 스킬 17개 · 문서 양식 13개</span>
+                <span class="hero-tag">자동 분석 27개 · 전문 스킬 22개 · 문서 양식 18개</span>
             </div>
         </div>
     </div>
@@ -1711,7 +1711,7 @@
                     <pre>bash setup.sh</pre>
                 </div>
                 <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                    ⏱️ 약 1-2분 소요 | 워크플로우 23개, 스킬 17개, 템플릿 13개, 샘플 데이터가 자동 생성됩니다.
+                    ⏱️ 약 1-2분 소요 | 워크플로우 27개, 스킬 22개, 템플릿 18개, 샘플 데이터가 자동 생성됩니다.
                 </p>
 
                 <h3>Step 3: 사업 기획 시작!</h3>
@@ -1809,10 +1809,30 @@
                             <td><code>/tco-dashboard</code></td>
                             <td>총 소유 비용(TCO) 추적, 비용 최적화 제안</td>
                         </tr>
+                        <tr>
+                            <td>자동화 파이프라인 설계</td>
+                            <td><code>/automation-blueprint</code></td>
+                            <td>AI 자동화 파이프라인 설계</td>
+                        </tr>
+                        <tr>
+                            <td>Exit 전략 감사</td>
+                            <td><code>/exit-strategy</code></td>
+                            <td>사업 매각/Exit 준비 감사</td>
+                        </tr>
+                        <tr>
+                            <td>해외 진출 가이드</td>
+                            <td><code>/global-expansion</code></td>
+                            <td>해외 진출 실행 가이드</td>
+                        </tr>
+                        <tr>
+                            <td>1인 사업 지속가능성</td>
+                            <td><code>/solo-sustainability</code></td>
+                            <td>1인 사업자 장기 지속가능성 점검</td>
+                        </tr>
                     </tbody>
                 </table>
                 <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.75rem; margin-bottom: 0;">
-                    💡 하단 6개(/mvp-definition ~ /tco-dashboard)는 8단계 기획 완료 후 선택적으로 실행하는 보조 워크플로우입니다.
+                    💡 하단 10개(/mvp-definition ~ /solo-sustainability)는 8단계 기획 완료 후 선택적으로 실행하는 보조 워크플로우입니다.
                 </p>
 
                 <div class="success-box">
@@ -1886,7 +1906,7 @@
                         </tbody>
                     </table>
                     <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.75rem; margin-bottom: 0;">
-                        17개 전문 스킬이 대화 내용을 분석하여 가장 적합한 기능을 자동으로 선택합니다.
+                        22개 전문 스킬이 대화 내용을 분석하여 가장 적합한 기능을 자동으로 선택합니다.
                     </p>
                 </div>
 
@@ -2122,11 +2142,11 @@
                         <p>사업 기획에 필요한 모든 것이 하나의 패키지에 담겨 있습니다. 별도로 찾거나 설치할 것이 없습니다.</p>
                     </div>
                     <div class="highlight-card">
-                        <h4>🔄 23가지 자동 분석</h4>
+                        <h4>🔄 27가지 자동 분석</h4>
                         <p>시장 조사부터 사업계획서까지, 대화창에 입력하면 자동으로 분석해줍니다.</p>
                     </div>
                     <div class="highlight-card">
-                        <h4>🧠 17가지 전문 분석</h4>
+                        <h4>🧠 22가지 전문 분석</h4>
                         <p>재무 분석, SWOT 분석 등 전문가 수준의 분석을 AI가 수행합니다.</p>
                     </div>
                     <div class="highlight-card">
@@ -2159,7 +2179,7 @@
 
                 <div class="tree"><span class="tree-header">📂 antigravity-business-planner/</span>
 │
-├── <span class="folder">📋 .agent/rules/</span> <span class="desc">── AI 동작 규칙 (9개)</span>
+├── <span class="folder">📋 .agent/rules/</span> <span class="desc">── AI 동작 규칙 (12개)</span>
 │   ├── <span class="file">korean-communication.md</span>      <span class="desc">한국어 소통</span>
 │   ├── <span class="file">business-planning-style.md</span>   <span class="desc">문서 스타일</span>
 │   ├── <span class="file">safety-guidelines.md</span>         <span class="desc">안전 가이드</span>
@@ -2168,9 +2188,12 @@
 │   ├── <span class="file">ai-domain-knowledge.md</span>       <span class="desc">AI 도메인 지식</span>
 │   ├── <span class="file">quality-gate.md</span>              <span class="desc">품질 게이트</span>
 │   ├── <span class="file">data-confidence.md</span>           <span class="desc">데이터 신뢰도</span>
-│   └── <span class="file">mode-handler.md</span>              <span class="desc">모드 핸들러</span>
+│   ├── <span class="file">mode-handler.md</span>              <span class="desc">모드 핸들러</span>
+│   ├── <span class="file">ai-safety-rules.md</span>           <span class="desc">AI 안전 가드레일</span>
+│   ├── <span class="file">data-governance-checklist.md</span> <span class="desc">데이터 거버넌스</span>
+│   └── <span class="file">handoff-protocol.md</span>          <span class="desc">핸드오프 프로토콜</span>
 │
-├── <span class="folder">🔄 .agent/workflows/</span> <span class="desc">── 자동 분석 기능 (23개)</span>
+├── <span class="folder">🔄 .agent/workflows/</span> <span class="desc">── 자동 분석 기능 (27개)</span>
 │   ├── <span class="file">market-research.md</span>           <span class="desc">시장 조사</span>
 │   ├── <span class="file">competitor-analysis.md</span>       <span class="desc">경쟁 분석</span>
 │   ├── <span class="file">financial-modeling.md</span>        <span class="desc">재무 모델링</span>
@@ -2193,9 +2216,13 @@
 │   ├── <span class="file">kpi-framework.md</span>             <span class="desc">KPI 프레임워크</span>
 │   ├── <span class="file">security-scan.md</span>             <span class="desc">보안 스캔</span>
 │   ├── <span class="file">version-history.md</span>           <span class="desc">변경 이력 관리</span>
-│   └── <span class="file">tco-dashboard.md</span>             <span class="desc">TCO 대시보드</span>
+│   ├── <span class="file">tco-dashboard.md</span>             <span class="desc">TCO 대시보드</span>
+│   ├── <span class="file">automation-blueprint.md</span>      <span class="desc">자동화 파이프라인</span>
+│   ├── <span class="file">exit-strategy.md</span>             <span class="desc">Exit 전략 감사</span>
+│   ├── <span class="file">global-expansion.md</span>          <span class="desc">해외 진출 가이드</span>
+│   └── <span class="file">solo-sustainability.md</span>       <span class="desc">1인 사업 지속가능성</span>
 │
-├── <span class="folder">🧠 .agent/skills/</span> <span class="desc">── 전문 분석 도구 (17개 + 9 스크립트)</span>
+├── <span class="folder">🧠 .agent/skills/</span> <span class="desc">── 전문 분석 도구 (22개 + 9 스크립트)</span>
 │   ├── <span class="file">business-researcher.md</span>       <span class="desc">사업 리서처</span>
 │   ├── <span class="file">financial-analyst.md</span>         <span class="desc">재무 분석가</span>
 │   ├── <span class="file">report-writer.md</span>             <span class="desc">보고서 작성</span>
@@ -2210,6 +2237,11 @@
 │   ├── <span class="folder">bootstrap-calculator/</span>        <span class="desc">부트스트랩 재무 계산</span>
 │   ├── <span class="folder">tech-stack-recommender/</span>      <span class="desc">기술 스택 추천</span>
 │   ├── <span class="folder">tax-guide/</span>                   <span class="desc">세금 가이드</span>
+│   ├── <span class="folder">ai-pricing-calculator/</span>       <span class="desc">AI 서비스 비용 계산</span>
+│   ├── <span class="folder">customer-success-designer/</span>   <span class="desc">고객 성공 온보딩 설계</span>
+│   ├── <span class="folder">nocode-decision-tree/</span>        <span class="desc">코드/노코드 의사결정</span>
+│   ├── <span class="folder">prompt-asset-designer/</span>       <span class="desc">프롬프트 설계 관리</span>
+│   ├── <span class="folder">revenue-diversification/</span>     <span class="desc">수익 다각화 전략</span>
 │   ├── <span class="file">data-visualizer.md</span>           <span class="desc">데이터 시각화</span>
 │   ├── <span class="folder">progress-tracker/</span>            <span class="desc">진행률 추적 + 스크립트</span>
 │   ├── <span class="folder">document-exporter/</span>           <span class="desc">문서 내보내기 + 스크립트</span>
@@ -2220,7 +2252,7 @@
 │       ├── <span class="file">create_portfolio_dashboard.py</span> <span class="desc">포트폴리오 대시보드</span>
 │       └── <span class="file">create_outputs_dashboard.py</span> <span class="desc">산출물 대시보드</span>
 │
-├── <span class="folder">📄 templates/</span> <span class="desc">── 문서 템플릿 (13개)</span>
+├── <span class="folder">📄 templates/</span> <span class="desc">── 문서 템플릿 (18개)</span>
 │
 ├── <span class="folder">📂 output/</span> <span class="desc">── 산출물 저장소</span>
 │   ├── <span class="folder">ideas/</span>          <span class="desc">아이디어 결과</span>
@@ -2228,6 +2260,9 @@
 │   ├── <span class="folder">financials/</span>     <span class="desc">재무 분석</span>
 │   ├── <span class="folder">reports/</span>        <span class="desc">보고서</span>
 │   ├── <span class="folder">presentations/</span>  <span class="desc">피치덱</span>
+│   ├── <span class="folder">tech-spec/</span>      <span class="desc">기술 명세</span>
+│   ├── <span class="folder">strategy/</span>       <span class="desc">전략 문서</span>
+│   ├── <span class="folder">operations/</span>     <span class="desc">운영 문서</span>
 │   └── <span class="folder">samples/</span>        <span class="desc">샘플 데이터</span>
 │
 ├── <span class="file">⚡ setup.sh</span>                      <span class="desc">자동 설치 프로그램</span>
@@ -2247,22 +2282,22 @@
                     <tbody>
                         <tr>
                             <td><strong>.agent/rules/</strong></td>
-                            <td>9개</td>
-                            <td>AI 에이전트의 동작 규칙 정의 (소통 방식, 문서 스타일, 안전 가이드라인, 업데이트 확인, 컨텍스트 체이닝, AI 도메인 지식, 품질 게이트, 데이터 신뢰도, 모드 핸들러)</td>
+                            <td>12개</td>
+                            <td>AI 에이전트의 동작 규칙 정의 (소통 방식, 문서 스타일, 안전 가이드라인, 업데이트 확인, 컨텍스트 체이닝, AI 도메인 지식, 품질 게이트, 데이터 신뢰도, 모드 핸들러, AI 안전 가드레일, 데이터 거버넌스, 핸드오프 프로토콜)</td>
                         </tr>
                         <tr>
                             <td><strong>.agent/workflows/</strong></td>
-                            <td>23개</td>
+                            <td>27개</td>
                             <td>대화창에서 실행하는 자동 분석 기능</td>
                         </tr>
                         <tr>
                             <td><strong>.agent/skills/</strong></td>
-                            <td>17개 (14 core + 3 symlink) + 9개 스크립트</td>
+                            <td>22개 (19 core + 3 symlink) + 9개 스크립트</td>
                             <td>전문 영역별 자동 분석 도구</td>
                         </tr>
                         <tr>
                             <td><strong>templates/</strong></td>
-                            <td>13개</td>
+                            <td>18개</td>
                             <td>문서 작성을 위한 표준 템플릿</td>
                         </tr>
                         <tr>
@@ -2313,9 +2348,21 @@
                         <h4>📊 데이터 신뢰도</h4>
                         <p><strong>무엇을 하나요?</strong> 분석에 사용된 데이터의 출처와 신뢰도 등급(높음/중간/낮음)을 자동으로 표시합니다.</p>
                     </div>
+                    <div class="highlight-card">
+                        <h4>🛡️ AI 안전 가드레일</h4>
+                        <p><strong>무엇을 하나요?</strong> AI 출력물의 환각(hallucination) 방지, 편향 검증, 민감 정보 필터링 등 AI 안전 규칙을 자동 적용합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📊 데이터 거버넌스</h4>
+                        <p><strong>무엇을 하나요?</strong> 수집 데이터의 분류, 보관 기한, 접근 권한, 삭제 정책 등 데이터 거버넌스 체크리스트를 자동 검증합니다.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🔗 핸드오프 프로토콜</h4>
+                        <p><strong>무엇을 하나요?</strong> 외부 도구(n8n, Zapier 등)로 작업을 전달할 때 데이터 형식, 인증, 에러 처리 등 핸드오프 규칙을 적용합니다.</p>
+                    </div>
                 </div>
 
-                <h3>3.2 자동 분석 기능 — 23가지</h3>
+                <h3>3.2 자동 분석 기능 — 27가지</h3>
                 <p>Antigravity 대화창에 말하면 자동으로 실행되는 분석 기능입니다.</p>
 
                 <div class="highlight-grid">
@@ -2431,7 +2478,7 @@
                     <li><strong>Context Chaining</strong> — 각 기획 단계의 결과가 다음 단계에 자동으로 전달됩니다</li>
                 </ul>
 
-                <h3>3.3 전문 분석 도구 — 17가지</h3>
+                <h3>3.3 전문 분석 도구 — 22가지</h3>
                 <div class="info-box">
                     <strong>이 도구들은 AI가 필요할 때 자동으로 사용합니다</strong><br>
                     <span style="color: var(--text-secondary); font-size: 0.92rem;">
@@ -2476,6 +2523,11 @@
                     <li><strong>부트스트랩 재무 계산</strong> — MRR BEP, SaaS 비용, 성장 시나리오</li>
                     <li><strong>기술 스택 추천</strong> — 사업 유형별 스택, 자동화 도구, 비용 최적화</li>
                     <li><strong>세금 가이드</strong> — 개인사업자 세금 종류, 간이/일반과세 선택, 신고 일정, 4대 보험, 절세 전략</li>
+                    <li><strong>AI 서비스 비용 계산</strong> — AI 서비스 토큰 기반 비용 산정, API 호출 비용 최적화</li>
+                    <li><strong>고객 성공 온보딩 설계</strong> — 고객 성공 및 온보딩 자동화 여정 설계</li>
+                    <li><strong>코드/노코드 의사결정</strong> — 코드 vs 노코드 vs AI 코딩 도구 선택 가이드</li>
+                    <li><strong>프롬프트 설계 관리</strong> — AI 프롬프트 자산 설계 및 품질 관리</li>
+                    <li><strong>수익 다각화 전략</strong> — 수익원 다각화 전략 평가 및 포트폴리오 분석</li>
                 </ul>
 
                 <h3>3.4 자동으로 만들어주는 문서 양식</h3>
@@ -2530,6 +2582,26 @@
                         <h4>📝 서비스 계약서</h4>
                         <p><strong>어떤 내용이 포함되나요?</strong> 계약 조건, SLA, 대금 지급, 지식재산권, 해지 조건, 손해배상</p>
                     </div>
+                    <div class="highlight-card">
+                        <h4>🤖 AI 코딩 에이전트 명세서</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 프로젝트 개요, 기술 스택, 기능 명세, 데이터 스키마 — AI 코딩 에이전트에게 전달할 프로젝트 블루프린트</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📋 사업 매각 체크리스트</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 재무/고객/기술/법률/운영 데이터룸 체크리스트, 자가 점검 — Exit 실사 대비 문서</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>⚙️ 자동화 워크플로우 명세</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 트리거, 단계, 에러 처리, 비용 산정 — n8n 등 자동화 도구용 워크플로우 설계 명세 (JSON)</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📊 NPS 순추천지수 조사</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 설문 양식, 이메일/인앱 모달 템플릿, 결과 해석 가이드 — 고객 만족도 측정</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>📜 SaaS 서비스 수준 약속</h4>
+                        <p><strong>어떤 내용이 포함되나요?</strong> 가용률, 응답 시간, 환불 정책, 면책 조항 — 1인 SaaS 서비스 수준 약속 문서</p>
+                    </div>
                 </div>
                 </details>
             </section>
@@ -2582,8 +2654,8 @@
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">4단계: 자동 분석 기능 설치</div>
-                            <div class="timeline-meta">23가지 분석 기능</div>
-                            <div class="timeline-desc">시장 조사, 경쟁 분석, 재무 모델링, 사업계획서 작성 등 23가지 자동 분석 기능을 설치합니다</div>
+                            <div class="timeline-meta">27가지 분석 기능</div>
+                            <div class="timeline-desc">시장 조사, 경쟁 분석, 재무 모델링, 사업계획서 작성 등 27가지 자동 분석 기능을 설치합니다</div>
                         </div>
                     </div>
 
@@ -2591,8 +2663,8 @@
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">5단계: 전문 분석 도구 설치</div>
-                            <div class="timeline-meta">17가지 전문 도구</div>
-                            <div class="timeline-desc">사업 리서처, 재무 분석가, SWOT 분석, 데이터 시각화, AI 사업 분석, 니치 시장 검증, 부트스트랩 재무 계산, 기술 스택 추천, 세금 가이드 등 17가지 전문 분석 도구를 설치합니다</div>
+                            <div class="timeline-meta">22가지 전문 도구</div>
+                            <div class="timeline-desc">사업 리서처, 재무 분석가, SWOT 분석, 데이터 시각화, AI 사업 분석, 니치 시장 검증, 부트스트랩 재무 계산, 기술 스택 추천, 세금 가이드 등 22가지 전문 분석 도구를 설치합니다</div>
                         </div>
                     </div>
 
@@ -2600,8 +2672,8 @@
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
                             <div class="timeline-title">6단계: 문서 양식 설치</div>
-                            <div class="timeline-meta">13가지 문서 양식</div>
-                            <div class="timeline-desc">사업계획서, 재무 예측서, 시장 분석서, 피치덱, 아이디어 평가서, 포트폴리오 대시보드, Lean Canvas, AI 사업 재무 분석, Micro-SaaS 재무 모델, 부트스트랩 성장 전략, 이용약관, 개인정보처리방침, 서비스 계약서 양식을 설치합니다</div>
+                            <div class="timeline-meta">18가지 문서 양식</div>
+                            <div class="timeline-desc">사업계획서, 재무 예측서, 시장 분석서, 피치덱, 아이디어 평가서, 포트폴리오 대시보드, Lean Canvas, AI 사업 재무 분석, Micro-SaaS 재무 모델, 부트스트랩 성장 전략, 이용약관, 개인정보처리방침, 서비스 계약서, AI 코딩 에이전트 명세서, 사업 매각 체크리스트, 자동화 워크플로우 명세, NPS 조사, SaaS 서비스 수준 약속 양식을 설치합니다</div>
                         </div>
                     </div>
 

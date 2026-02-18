@@ -1,9 +1,9 @@
-<!-- Generated: 2026-02-16 | Updated: 2026-02-16 -->
+<!-- Generated: 2026-02-16 | Updated: 2026-02-18 -->
 
 # antigravity-business-planner
 
 ## Purpose
-Google Antigravity(AI IDE) 기반의 사업 기획 도구. 비개발자도 자연어(한국어)로 시장조사, 경쟁분석, 재무모델링, 사업계획서 작성 등 사업 기획 전 과정을 수행할 수 있도록 Rules, Workflows, Skills, Templates를 패키징한 프로젝트.
+Google Antigravity(AI IDE) 기반의 사업 기획 도구. 비개발자도 자연어(한국어)로 시장조사, 경쟁분석, 재무모델링, 사업계획서 작성 등 사업 기획 전 과정을 수행할 수 있도록 12 Rules, 27 Workflows, 22 Skills, 19 Templates를 패키징한 프로젝트.
 
 ## Key Files
 
@@ -19,7 +19,7 @@ Google Antigravity(AI IDE) 기반의 사업 기획 도구. 비개발자도 자�
 
 | Directory | Purpose |
 |-----------|---------|
-| `.agent/` | Primary agent configuration: rules, workflows, and 9 core skills (see `.agent/AGENTS.md`) |
+| `.agent/` | Primary agent configuration: 12 rules, 27 workflows, and 19 core skills + 3 symlinked (see `.agent/AGENTS.md`) |
 | `.agents/` | Extended skills: launch-strategy, pricing-strategy, startup-metrics-framework (see `.agents/AGENTS.md`) |
 | `output/` | All generated artifacts: ideas, research, financials, reports, presentations (see `output/AGENTS.md`) |
 | `templates/` | Document templates and HTML themes for export (see `templates/AGENTS.md`) |
@@ -43,7 +43,7 @@ Google Antigravity(AI IDE) 기반의 사업 기획 도구. 비개발자도 자�
 - Skills activate automatically when relevant context is detected
 - Output follows the planning flow: (optional) idea discovery -> market research -> SWOT -> product planning -> financial modeling -> operations -> branding -> legal -> business plan
 - Step 0 (idea discovery/validation) is optional; `output/ideas/selected-idea.md` bridges to Step 1
-- Supplementary workflows (/mvp-definition, /gtm-launch, /kpi-framework, /security-scan, /version-history, /tco-dashboard) can be used optionally at any point
+- Supplementary workflows (/mvp-definition, /gtm-launch, /kpi-framework, /security-scan, /version-history, /tco-dashboard, /automation-blueprint, /exit-strategy, /global-expansion, /solo-sustainability) can be used optionally at any point
 - Templates in `templates/` provide standardized document structure
 - Symlinks in `.agent/skills/` point to `.agents/skills/` for newer skills
 

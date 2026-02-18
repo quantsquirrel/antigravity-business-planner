@@ -1,5 +1,5 @@
 <!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-02-16 | Updated: 2026-02-16 -->
+<!-- Generated: 2026-02-16 | Updated: 2026-02-18 -->
 
 # .agent
 
@@ -10,9 +10,9 @@ Primary agent configuration directory for Google Antigravity. Contains rules (be
 
 | Directory | Purpose |
 |-----------|---------|
-| `rules/` | Behavioral rules automatically applied to all agent responses (see `rules/AGENTS.md`) |
-| `skills/` | 9 core skills + 3 symlinked extended skills for specialized tasks (see `skills/AGENTS.md`) |
-| `workflows/` | 16 slash-command workflow definitions for structured business planning steps (see `workflows/AGENTS.md`) |
+| `rules/` | 11 behavioral rules automatically applied to all agent responses (see `rules/AGENTS.md`) |
+| `skills/` | 15 core skills + 3 symlinked extended skills for specialized tasks (see `skills/AGENTS.md`) |
+| `workflows/` | 27 slash-command workflow definitions for structured business planning steps (see `workflows/AGENTS.md`) |
 
 ## For AI Agents
 
