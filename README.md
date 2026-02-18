@@ -2,7 +2,7 @@
 
 > AI한테 한국어로 "시장조사 해줘", "사업계획서 써줘" 하면 아이디어 브레인스토밍부터 사업성 평가, 시장조사, 재무모델링, 사업계획서까지 알아서 만들어주는 도구입니다.
 
-[Google Antigravity](https://antigravity.google)(AI IDE) 위에서 동작하며, `bash setup.sh` 한 줄이면 워크플로우 17개, 전문 스킬 13개, 문서 템플릿 8개가 자동 세팅됩니다. 코딩 없이 자연어만으로 사업 기획 전 과정을 수행할 수 있습니다.
+[Google Antigravity](https://antigravity.google)(AI IDE) 위에서 동작하며, `bash setup.sh` 한 줄이면 워크플로우 17개, 전문 스킬 16개, 문서 템플릿 10개가 자동 세팅됩니다. 코딩 없이 자연어만으로 사업 기획 전 과정을 수행할 수 있습니다.
 
 ---
 
@@ -108,9 +108,9 @@ chmod +x setup.sh && ./setup.sh
 | 구성 | 개수 | 설명 |
 |------|------|------|
 | 워크플로우 | 17개 | `/시장조사`, `/재무모델링` 등 슬래시 명령어 또는 자연어로 실행 |
-| 전문 스킬 | 13개 | 리서처, 재무분석, 기회발굴, AI 사업 분석 등 자동 활성화되는 전문 능력 |
-| 문서 템플릿 | 8개 | 사업계획서, 재무예측, AI 재무 모델, 린캔버스, 피치덱 등 |
-| AI 동작 규칙 | 8개 | 한국어 소통, 문서 스타일, 안전 가이드라인, AI 도메인 지식, 품질 게이트, 데이터 신뢰도 등 |
+| 전문 스킬 | 16개 | 리서처, 재무분석, 기회발굴, AI 사업 분석, 니치 검증, 부트스트랩 계산, 기술 스택 추천 등 자동 활성화 |
+| 문서 템플릿 | 10개 | 사업계획서, 재무예측, AI 재무, Micro-SaaS 재무, 부트스트랩 성장, 린캔버스, 피치덱 등 |
+| AI 동작 규칙 | 9개 | 한국어 소통, 문서 스타일, 안전 가이드라인, AI 도메인 지식, 품질 게이트, 데이터 신뢰도, 규모별 모드 전환 등 |
 
 ### 전문 스킬
 
@@ -129,6 +129,9 @@ chmod +x setup.sh && ./setup.sh
 | pricing-strategy | 가격 전략 분석 |
 | startup-metrics-framework | 스타트업 핵심 지표 |
 | ai-business-analyst | AI 사업 유형 분류·경쟁력 평가 |
+| niche-validator | 니치 시장 검증 (커뮤니티 수요, 지불 의향, 니치 스코어) |
+| bootstrap-calculator | 부트스트랩 재무 계산 (MRR BEP, SaaS 비용, 성장 시나리오) |
+| tech-stack-recommender | 1인 빌더 기술 스택 추천 (사업 유형별 스택, 자동화 도구, 비용 최적화) |
 
 스킬은 관련 맥락이 감지되면 자동으로 활성화됩니다.
 
@@ -144,6 +147,19 @@ chmod +x setup.sh && ./setup.sh
 - **AI 트렌드 지식 베이스** — LLM, RAG, Agent 등 10개 기술 트렌드 + 6개 비즈니스 모델 패턴 + 한국 AI 시장 참조 데이터
 - **산출물 품질 게이트** — 저장 전 필수 항목 5가지 자동 점검 + 워크플로우별 기준
 - **데이터 신뢰도 4등급** — 모든 수치에 출처 등급(A공식/B2차/CAI추정/D가정) 태깅
+
+---
+
+## 1인 빌더/Micro-SaaS도 지원합니다
+
+"혼자서 SaaS 만들고 싶어", "1인 개발 사업을 하고 싶어" 같은 소규모 사업 아이디어도 전문적으로 분석합니다. 아이디어 발굴 시작 시 사업 규모를 선택하면, 전체 프로세스가 규모에 맞게 자동 전환됩니다.
+
+- **규모별 자동 전환** — micro(1인)/small(2-5인)/startup/enterprise 4단계, 선택에 따라 분석 관점이 자동 조정
+- **니치 시장 검증** — TAM/SAM/SOM 대신 커뮤니티 수요, 지불 의향, 니치 스코어로 시장 유효성 판단
+- **MRR 중심 재무 모델** — SaaS 도구비 기반 비용 구조, Unit Economics (ARPU/Churn/LTV/CAC), 구독자 성장 시나리오
+- **자동화 스택 운영 계획** — 공급망/인력/시설 대신 1인 자동화 도구 스택 + 주간 시간 배분
+- **부트스트랩 성장 전략** — 광고 대신 SEO/커뮤니티/Product Hunt 런칭 + 레퍼럴 프로그램
+- **기술 스택 추천** — 사업 유형별 프론트/백/DB/배포 추천 + 무료 티어 활용 전략
 
 ---
 
@@ -164,12 +180,12 @@ chmod +x setup.sh && ./setup.sh
 ```
 antigravity-business-planner/
 ├── .agent/
-│   ├── rules/           # AI 동작 규칙 (8개)
+│   ├── rules/           # AI 동작 규칙 (9개)
 │   ├── workflows/       # 워크플로우 정의 (17개)
-│   └── skills/          # 전문 스킬 (10 core + 3 symlink)
+│   └── skills/          # 전문 스킬 (13 core + 3 symlink)
 ├── .agents/
 │   └── skills/          # 확장 스킬 (launch/pricing/metrics)
-├── templates/           # 문서 템플릿 (8개)
+├── templates/           # 문서 템플릿 (10개)
 │   └── themes/          # HTML 내보내기 테마 (3종)
 ├── output/              # 모든 산출물 저장
 ├── setup.sh             # 원클릭 세팅 스크립트
@@ -200,5 +216,5 @@ antigravity-business-planner/
 
 ---
 
-> *17 workflows · 13 skills · 8 templates*
+> *17 workflows · 16 skills · 10 templates*
 > *Built for [Google Antigravity](https://antigravity.google)*
