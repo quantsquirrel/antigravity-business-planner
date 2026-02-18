@@ -41,3 +41,35 @@ idea.json에 `ai_business.detected: true`가 설정된 경우, AI 특화 재무 
 * 기존 재무 모델과 동일하게 마크다운 표 형식으로 정리합니다
 * AI 비용은 고정비/변동비를 명확히 분리하여 표기합니다
 * output/financials/ 폴더에 결과를 저장합니다
+
+## Micro-SaaS 재무 모델링 (v2.0 Phase 7)
+
+idea.json의 `business_scale`이 `"micro"` 또는 `"small"`인 경우, Micro-SaaS 전용 재무 모델을 수행합니다.
+
+### 트리거 조건
+* `output/ideas/{id}-{name}/idea.json`의 `business_scale` 값이 `"micro"` 또는 `"small"`일 때 자동 활성화
+* AI 사업인 경우(`ai_business.detected: true`) Phase 6 AI 재무 분석도 병행 가능
+
+### 사용 템플릿
+* 기존 재무 템플릿 대신 `templates/micro-saas-financial-template.md` 양식을 사용합니다
+* 기존 `templates/financial-projection-template.md`의 항목 중 해당되는 부분도 병행 참조합니다
+
+### 핵심 차이점 (기존 대비)
+
+| 항목 | 기존 (startup/enterprise) | Micro-SaaS (micro/small) |
+|------|-------------------------|------------------------|
+| 초기 투자 | 시설, 장비, 인테리어, 보증금 | 도메인, 호스팅, SaaS 도구 ($100-500) |
+| 월 고정비 | 임대료, 인건비, 보험 | SaaS 구독, API, 호스팅 ($50-500) |
+| 월 변동비 | 원재료, 유틸리티 | API 호출, 결제 수수료, 대역폭 |
+| 수익 모델 | 다양 (판매, 서비스, 구독) | 구독 (MRR) 중심 |
+| BEP 기준 | 월 매출 > 월 비용 | MRR > 월 고정비 |
+| 핵심 지표 | 매출총이익률, 영업이익률, BEP | MRR, Churn, LTV/CAC, ARPU |
+
+### 추가 분석 항목
+* **비용 스케일링**: 유료 고객 50/100/500/1,000명 구간별 비용 곡선
+* **가격 민감도**: 가격 x1.5, x0.7 시 전환율 변화 시뮬레이션
+* **도구 비용 최적화**: 무료 티어 -> 유료 전환 시점 분석
+
+### 출력 형식
+* `templates/micro-saas-financial-template.md` 양식에 맞춰 작성
+* output/financials/ 폴더에 결과를 저장합니다

@@ -16,6 +16,12 @@
 * 각 단계 완료 후 핵심 결과를 1-2줄로 요약하고 다음 단계를 자동으로 제안합니다
 * 의사결정 포인트(HITL) 3곳에서 사용자의 확인을 받습니다
 
+### 사업 규모 확인 (v2.0 Phase 7)
+
+* Step 0 시작 시 `idea.json`에 `business_scale` 값이 없으면 사용자에게 규모 선택을 안내합니다
+* "어떤 규모의 사업인가요? (1인/소규모/스타트업/기존사업)"
+* 선택 결과를 `idea.json`에 저장하고 이후 전 단계에 전파합니다
+
 ## 8단계 프로세스
 
 | Step | 워크플로우 | 핵심 산출물 | HITL |
@@ -63,6 +69,7 @@
 * idea.json에서 자원/자금(resources) 점수 ≤ 2 → "💡 자금 계획이 불분명합니다. 재무 모델링(/financial-modeling)을 우선 검토하세요."
 * idea.json에 ai_business.detected: true → "💡 AI 사업으로 감지되었습니다. AI 특화 재무 모델(/financial-modeling + AI 템플릿)을 활용하세요."
 * 데이터 신뢰도 D등급 비율 > 30% → "💡 가정 데이터가 많습니다. 시장조사(/market-research)로 데이터를 보강하세요."
+* business_scale이 "micro" 또는 "small" → "💡 1인/소규모 빌더 모드입니다. 운영 계획은 자동화 스택 중심, 재무 모델은 Micro-SaaS 템플릿으로 진행합니다."
 
 ## Context Chaining 연동
 

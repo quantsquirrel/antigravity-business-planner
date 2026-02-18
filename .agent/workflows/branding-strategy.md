@@ -16,3 +16,34 @@
 * 페르소나는 카드 형태로 정리합니다
 * 채널별 예산 배분 비율을 표로 제시합니다
 * output/reports/ 폴더에 결과를 저장합니다
+
+## 부트스트랩 마케팅 전략 (v2.0 Phase 7)
+
+idea.json의 `business_scale`이 `"micro"` 또는 `"small"`인 경우, 기존 마케팅 채널 전략 대신 부트스트랩 성장 전략을 수립합니다.
+
+### 트리거 조건
+* `output/ideas/{id}-{name}/idea.json`의 `business_scale` 값이 `"micro"` 또는 `"small"`일 때 자동 활성화
+
+### 사용 템플릿
+* `templates/bootstrap-growth-template.md` 양식을 참조합니다
+
+### 마케팅 채널 대체
+
+| 기존 (startup/enterprise) | micro/small 대체 |
+|--------------------------|-----------------|
+| 온/오프라인 광고 | SEO + 콘텐츠 마케팅 |
+| PR/미디어 | Product Hunt + IndieHackers |
+| 영업팀 | 커뮤니티 참여 + 개인 브랜드 |
+| 브랜드 광고 | 기술 블로그 + 비교 페이지 |
+| 대규모 이벤트 | 온라인 웨비나 + 뉴스레터 |
+
+### 추가 분석 항목
+* **개인 브랜드 전략**: 창업자의 전문성을 콘텐츠로 전환하는 방법
+* **커뮤니티 마케팅 플랜**: 타겟 커뮤니티 3곳 선정 + 참여 전략
+* **Product Hunt 런칭 계획**: 체크리스트 기반 준비
+* **레퍼럴 프로그램 설계**: 기존 고객 활용 구전 마케팅
+* **가격 전략**: 프리미엄 모델 (Free/Pro/Team), 연간 할인율
+
+### 출력 형식
+* `templates/bootstrap-growth-template.md` 양식에 맞춰 작성
+* output/reports/ 폴더에 결과를 저장합니다
