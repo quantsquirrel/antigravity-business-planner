@@ -18,6 +18,9 @@ Document templates and HTML export themes. Templates define the standard structu
 | `lean-canvas-template.md` | Lean Canvas template: 9-block business model canvas (problem, solution, UVP, channels, revenue, cost, metrics, unfair advantage, customer segments) |
 | `portfolio-template.md` | Portfolio dashboard template: multi-idea status overview, stage summary, user notes |
 | `ai-business-financial-template.md` | AI 사업 특화 재무 모델: AI 변동비(API/GPU/데이터), 비용 스케일링, Unit Economics, AI 재무 건전성 5개 지표, AI 비용 리스크 |
+| `terms-of-service-template.md` | 이용약관 템플릿: 서비스 이용 조건, 면책 조항, 분쟁 해결, 개인사업자/법인 대응 |
+| `privacy-policy-template.md` | 개인정보처리방침 템플릿: 수집 항목, 이용 목적, 보유 기간, 제3자 제공, 파기 절차 |
+| `service-agreement-template.md` | 서비스 계약서 템플릿: 계약 조건, SLA, 대금 지급, 지식재산권, 해지 조건 |
 
 ## Subdirectories
 
