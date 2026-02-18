@@ -1,11 +1,11 @@
 ---
 name: export-spec
-description: MVP 스펙을 AI 코딩 도구(.cursorrules, ai-instructions.md)로 변환합니다.
+description: MVP 스펙을 Antigravity 에이전트 규칙 또는 AI 코딩 도구(.cursorrules, ai-instructions.md)로 변환합니다.
 ---
 
 # export-spec
 
-MVP 스펙을 AI 코딩 도구용 포맷으로 자동 변환하여, Cursor / Bolt / v0 등에서 바로 사용할 수 있는 프로젝트 설정 파일을 생성합니다.
+MVP 스펙을 Antigravity 에이전트 규칙 또는 외부 AI 코딩 도구용 포맷으로 자동 변환합니다. Antigravity에서는 `.agent/rules/`와 `CLAUDE.md`로, 외부 도구에서는 `.cursorrules`와 `ai-instructions.md`로 변환하여 바로 사용할 수 있습니다.
 
 ## 활성화 조건
 
@@ -13,9 +13,84 @@ MVP 스펙을 AI 코딩 도구용 포맷으로 자동 변환하여, Cursor / Bol
 * /ai-builder 워크플로우 실행 시 자동 연동
 * 사용자가 "스펙 내보내기" 또는 "export spec" 요청 시 수동 활성화
 
+## 출력 형식 선택
+
+| 대상 환경 | 생성 파일 | 설명 |
+|----------|----------|------|
+| **Antigravity (1순위)** | `.agent/rules/mvp-spec.md` + `CLAUDE.md` 추가 | Antigravity 에이전트가 직접 참조 |
+| **Cursor** | `.cursorrules` | Cursor AI 프로젝트 규칙 |
+| **Bolt / v0 / Lovable** | `ai-instructions.md` | 자연어 기반 지시서 |
+
 ## 수행 작업
 
-### Lean Canvas → 시스템 프롬프트 변환 로직
+### Antigravity 에이전트 규칙 생성 (1순위)
+
+ABP 산출물을 Antigravity 에이전트가 직접 참조할 수 있는 규칙 파일로 변환합니다.
+
+#### .agent/rules/mvp-spec.md 생성 템플릿
+
+```markdown
+# MVP 구현 규칙
+
+## 프로젝트 개요
+{Lean Canvas 고유 가치 제안 요약}
+
+## 타겟 사용자
+{고객 세그먼트 기반 페르소나}
+- 핵심 니즈: {문제 필드 기반}
+- 기대 경험: {UVP 기반}
+
+## 기술 스택
+{tech-stack-recommender 결과 기반}
+- Frontend: {프론트엔드 프레임워크}
+- Backend: {백엔드 프레임워크}
+- Database: {데이터베이스}
+- Deployment: {배포 플랫폼}
+
+## 구현 우선순위
+{MVP Must-have 기능 우선순위순}
+1. {기능 1}: {설명} — 필수
+2. {기능 2}: {설명} — 필수
+3. {기능 3}: {설명} — 선택
+
+## 데이터 모델
+{주요 엔티티 및 관계}
+
+## 코딩 규칙
+- TypeScript strict mode 필수
+- 핵심 비즈니스 로직 단위 테스트 필수
+- 환경변수로 시크릿 관리 (.env.local)
+- {추가 규칙: tech-stack-recommender 결과에 따라 동적 삽입}
+
+## 보안 요구사항
+- OWASP Top 10 준수
+- 모든 API에 인증/인가 미들웨어 적용
+- Parameterized query / ORM 필수
+- HTTPS 필수
+```
+
+#### CLAUDE.md 추가 블록
+
+프로젝트 루트의 `CLAUDE.md`에 아래 블록을 추가하여 에이전트 컨텍스트를 강화합니다:
+
+```markdown
+# MVP Implementation Context
+
+## 핵심 참조 문서
+- MVP 정의: output/ideas/{id}-{name}/mvp-definition.md
+- Lean Canvas: output/ideas/{id}-{name}/lean-canvas.md
+- 기술 스택: output/ideas/{id}-{name}/tech-stack.md
+- 구현 규칙: .agent/rules/mvp-spec.md
+
+## 구현 원칙
+- Must-have 기능부터 순서대로 구현
+- 기능 하나 완성할 때마다 커밋
+- AI 생성 코드는 보안 검토 후 배포
+```
+
+---
+
+### Lean Canvas → 시스템 프롬프트 변환 로직 (외부 도구용)
 
 Lean Canvas의 각 필드를 AI 코딩 도구가 이해할 수 있는 기술 명세로 변환합니다:
 
@@ -168,6 +243,12 @@ Lean Canvas의 각 필드를 AI 코딩 도구가 이해할 수 있는 기술 명
 
 ## 출력 형식
 
+### Antigravity 환경 (1순위)
+* `.agent/rules/mvp-spec.md` — 에이전트 구현 규칙 파일 생성
+* `CLAUDE.md` — MVP 컨텍스트 블록 추가 (기존 내용 보존)
+* output/reports/export-spec.md에 변환 결과 요약을 저장합니다
+
+### 외부 도구 환경 (대안)
 * `.cursorrules` 파일을 프로젝트 루트에 생성합니다
 * `ai-instructions.md` 파일을 프로젝트 루트에 생성합니다
 * output/reports/export-spec.md에 변환 결과 요약을 저장합니다
