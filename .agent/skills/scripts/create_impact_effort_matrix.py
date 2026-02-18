@@ -15,8 +15,7 @@ Usage:
 import argparse
 import json
 import sys
-import os
-import glob
+from pathlib import Path
 
 # Quadrant definitions (Impact high/low x Effort high/low)
 QUADRANTS = {
@@ -72,10 +71,9 @@ def load_from_json(json_path):
 def load_from_dir(dir_path):
     """Scan directory for idea.json files and load all."""
     ideas = []
-    pattern = os.path.join(dir_path, "*/idea.json")
-    for json_path in sorted(glob.glob(pattern)):
+    for json_path in sorted(Path(dir_path).glob("*/idea.json")):
         try:
-            idea = load_from_json(json_path)
+            idea = load_from_json(str(json_path))
             ideas.append(idea)
         except (json.JSONDecodeError, KeyError) as e:
             print(f"  경고: {json_path} 로드 실패 — {e}", file=sys.stderr)
@@ -204,7 +202,9 @@ def render_chart(ideas, output_path):
             plt.rcParams['font.family'] = font_name
             plt.rcParams['axes.unicode_minus'] = False
             break
-        except Exception:
+        except Exception as e:
+            import warnings
+            warnings.warn(f"Font setup failed: {e}")
             continue
 
     fig, ax = plt.subplots(figsize=(10, 8))

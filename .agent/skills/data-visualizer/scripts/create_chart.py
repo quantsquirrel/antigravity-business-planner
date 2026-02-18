@@ -32,7 +32,9 @@ def setup_korean_font():
             plt.rcParams['font.family'] = font_name
             plt.rcParams['axes.unicode_minus'] = False
             return
-        except Exception:
+        except Exception as e:
+            import warnings
+            warnings.warn(f"Font setup failed: {e}")
             continue
     print("Warning: Korean font not found. Text may not display correctly.")
 

@@ -13,10 +13,11 @@ Requires Python 3.8+ standard library only (json, os, pathlib, datetime).
 
 import argparse
 import json
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
+
+from _shared import find_project_root, _status_label
 
 STAGES = [
     {"id": 0, "name": "아이디어 발굴", "icon": "&#128161;"},
@@ -68,15 +69,6 @@ CATEGORY_META = {
 IGNORED_FILES = {".gitkeep", ".DS_Store", "dashboard.html"}
 
 
-def find_project_root():
-    """Find the project root by traversing up from this script's location.
-
-    Path: scripts/ -> skills/ -> .agent/ -> project root
-    """
-    script_path = Path(__file__).resolve()
-    return script_path.parent.parent.parent.parent
-
-
 def format_file_size(size_bytes):
     """Format file size in human-readable form."""
     if size_bytes >= 1_048_576:
@@ -115,8 +107,8 @@ def scan_directory(dir_path):
     return files
 
 
-def load_ideas(ideas_dir):
-    """Scan output/ideas/*/idea.json and return list of idea dicts."""
+def _load_ideas_with_stats(ideas_dir):
+    """Scan output/ideas/*/idea.json and return list of idea dicts with file counts."""
     ideas_dir = Path(ideas_dir)
     if not ideas_dir.exists():
         return []
@@ -256,12 +248,6 @@ def check_global_stage_completion(output_dir):
     return completed
 
 
-def _status_label(status):
-    """Return Korean label for status."""
-    mapping = {"go": "Go", "pivot": "Pivot", "drop": "Drop"}
-    return mapping.get(status, status or "미평가")
-
-
 def _status_class(status):
     """Return CSS class name for status badge."""
     if status == "go":
@@ -354,7 +340,7 @@ def generate_html(output_dir, idea_filter=None):
     generated_at = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     # Scan all categories
-    ideas = load_ideas(output_dir / "ideas")
+    ideas = _load_ideas_with_stats(output_dir / "ideas")
     research_files = scan_directory(output_dir / "research")
     financials_files = scan_directory(output_dir / "financials")
     reports_files = scan_directory(output_dir / "reports")

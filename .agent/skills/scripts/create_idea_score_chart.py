@@ -14,7 +14,6 @@ Usage:
 import argparse
 import json
 import sys
-import os
 
 # Evaluation items with weights and Korean R&D keyword mapping
 ITEMS = [
@@ -140,7 +139,9 @@ def render_radar(name, scores, output_path):
             plt.rcParams['font.family'] = font_name
             plt.rcParams['axes.unicode_minus'] = False
             break
-        except Exception:
+        except Exception as e:
+            import warnings
+            warnings.warn(f"Font setup failed: {e}")
             continue
 
     labels = [item["label"] for item in ITEMS]

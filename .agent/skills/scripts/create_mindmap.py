@@ -11,34 +11,12 @@ Usage:
 """
 
 import argparse
-import json
 import math
 import sys
 from datetime import datetime
 from pathlib import Path
 
-
-# -- Data Loading ----------------------------------------------------------
-
-def load_ideas(ideas_dir):
-    """output/ideas/*/idea.json 파일들을 로드하여 리스트로 반환합니다."""
-    ideas_dir = Path(ideas_dir)
-    if not ideas_dir.exists():
-        return []
-
-    ideas = []
-    for child in sorted(ideas_dir.iterdir()):
-        if child.is_dir():
-            idea_file = child / "idea.json"
-            if idea_file.exists():
-                try:
-                    with open(idea_file, "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                    data["dir_path"] = str(child)
-                    ideas.append(data)
-                except (json.JSONDecodeError, OSError):
-                    continue
-    return ideas
+from _shared import load_ideas, _status_label
 
 
 # -- Keyword Extraction & Relationship Building ----------------------------
@@ -105,18 +83,6 @@ def _status_emoji(status):
         "drop": "\U0001f534",
     }
     return mapping.get(status, "\u26aa")
-
-
-def _status_label(status):
-    """상태 라벨을 반환합니다."""
-    mapping = {
-        "go": "Go",
-        "pivot": "Pivot",
-        "pivot-optimize": "Pivot",
-        "pivot-review": "Pivot",
-        "drop": "Drop",
-    }
-    return mapping.get(status, status or "N/A")
 
 
 # -- ASCII Mindmap ---------------------------------------------------------
