@@ -1,10 +1,10 @@
 <!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-02-16 | Updated: 2026-02-18 -->
+<!-- Generated: 2026-02-16 | Updated: 2026-02-19 (Phase G) -->
 
 # skills
 
 ## Purpose
-Specialized capability packages that activate based on context. Contains 15 core skills (direct directories) and 3 extended skills (symlinks to `.agents/skills/`). Each skill has a `SKILL.md` defining its role, and some include `scripts/` with Python automation.
+Specialized capability packages that activate based on context. Contains 17 core skills (direct directories) and 3 extended skills (symlinks to `.agents/skills/`). Each skill has a `SKILL.md` defining its role, and some include `scripts/` with Python automation.
 
 ## Subdirectories
 
@@ -26,6 +26,8 @@ Specialized capability packages that activate based on context. Contains 15 core
 | `nocode-decision-tree/` | 코드 vs 노코드 vs AI 코딩 도구 의사결정 트리, 도구 비교, 전환 비용 예측 |
 | `prompt-asset-designer/` | AI 서비스 프롬프트 설계, RAG 파이프라인 명세, Eval 기준, Guardrails 체크리스트 |
 | `revenue-diversification/` | 수익 다각화 전략 평가, 2차 수익원 비교, Impact-Effort 매트릭스, 기존 자산 활용 |
+| `export-spec/` | MVP 스펙을 AI 코딩 도구(.cursorrules, ai-instructions.md)로 변환 |
+| `reality-check/` | 시장조사 AI 추정치를 실제 데이터와 대조 검증, 신뢰도 판정 |
 | `launch-strategy/` | *Symlink* -> `../../.agents/skills/launch-strategy` — Product launch planning |
 | `pricing-strategy/` | *Symlink* -> `../../.agents/skills/pricing-strategy` — Pricing and monetization design |
 | `startup-metrics-framework/` | *Symlink* -> `../../.agents/skills/startup-metrics-framework` — KPI and metrics tracking |

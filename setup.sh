@@ -92,6 +92,8 @@ directories=(
     ".agent/skills/niche-validator"
     ".agent/skills/bootstrap-calculator"
     ".agent/skills/tech-stack-recommender"
+    ".agent/skills/export-spec"
+    ".agent/skills/reality-check"
     ".agent/skills/scripts"
     "templates"
     "output/ideas"
@@ -113,7 +115,7 @@ for gitkeep_dir in "output/ideas" "output/research" "output/reports" "output/fin
     touch "$PROJECT_ROOT/$gitkeep_dir/.gitkeep"
 done
 
-echo -e "  ${GREEN}✓${NC} 24개 디렉토리 생성 완료"
+echo -e "  ${GREEN}✓${NC} 26개 디렉토리 생성 완료"
 echo ""
 
 # --- Step 3: Create Rules ---
@@ -1749,6 +1751,9 @@ echo -e "  ${GREEN}✓${NC} quick-start.md"
 echo -e "  ${GREEN}✓${NC} customer-discovery.md"
 echo -e "  ${GREEN}✓${NC} payment-setup.md"
 echo -e "  ${GREEN}✓${NC} pmf-measurement.md"
+echo -e "  ${GREEN}✓${NC} ai-builder.md"
+echo -e "  ${GREEN}✓${NC} deploy-guide.md"
+echo -e "  ${GREEN}✓${NC} growth-loop.md"
 echo ""
 
 # Workflow 24: quick-start.md
@@ -1756,7 +1761,7 @@ cat << 'WF24_EOF' > "$PROJECT_ROOT/.agent/workflows/quick-start.md"
 # quick-start
 
 10분 안에 사업 아이디어를 빠르게 정리하는 경량 워크플로우입니다.
-31개 전문 워크플로우의 온보딩 부담 없이, 비개발자도 바로 시작할 수 있습니다.
+34개 전문 워크플로우의 온보딩 부담 없이, 비개발자도 바로 시작할 수 있습니다.
 
 > "완벽한 계획보다 빠른 첫 걸음이 낫습니다."
 
@@ -2693,6 +2698,152 @@ idea.json의 business_scale이 "micro" 또는 "small"인 경우, 간이 PMF 측�
 * 전체 진행률 확인 → `/check-progress`
 * 운영 비용 추적 필요 시 → `/tco-dashboard`로 TCO 분석
 WF27_EOF
+
+# Workflow 28: ai-builder.md
+cat << 'WF28_EOF' > "$PROJECT_ROOT/.agent/workflows/ai-builder.md"
+# ai-builder
+
+AI 코딩 도구(Cursor, Bolt, v0, Lovable 등)를 활용하여 MVP를 직접 구현하는 가이드를 제공합니다.
+
+> 이 워크플로우는 ABP 산출물(MVP 정의, Lean Canvas, 페르소나)을 AI 코딩 도구의 입력으로 변환합니다.
+> /mvp-definition 또는 /lean-canvas 완료 후 실행을 권장합니다.
+
+## 트리거 조건
+* /mvp-definition 또는 /lean-canvas 결과가 존재할 때 실행 권장
+* output/ideas/{id}-{name}/ 내 산출물 참조
+
+## 용어 매핑 (영어 → 한국어)
+
+| 영어 | 한국어 | 설명 |
+|------|--------|------|
+| AI Coding Tool | AI 코딩 도구 | 자연어로 코드를 생성하는 도구 (Cursor, Bolt 등) |
+| Prompt Engineering | 프롬프트 엔지니어링 | AI에게 정확한 지시를 내리는 기술 |
+| Scaffold | 스캐폴드 | 프로젝트 초기 구조/뼈대 |
+| Tech Stack | 기술 스택 | 프로젝트에 사용하는 기술 조합 |
+| Boilerplate | 보일러플레이트 | 반복적으로 사용하는 기본 코드 템플릿 |
+| Component | 컴포넌트 | 재사용 가능한 UI 구성 요소 |
+| Deployment | 배포 | 코드를 서버에 올려 서비스하는 과정 |
+| Version Control | 버전 관리 | 코드 변경 이력을 추적하는 시스템 (Git) |
+
+## 수행 작업
+* ABP 산출물에서 AI 코딩 도구 입력용 프롬프트를 생성합니다
+* 기술 스택 추천 및 프로젝트 구조를 설계합니다
+* AI 코딩 도구별 최적 워크플로우를 안내합니다
+* MVP 핵심 기능별 구현 순서를 제안합니다
+* 코드 품질 체크리스트를 제공합니다
+
+## 출력 규칙
+* output/reports/ai-builder.md에 저장합니다
+
+### 데이터 신뢰도 등급
+(A 검증됨, B 근거있는 추정, C AI 추정)
+> ⚠️ "AI 코딩 도구의 기능과 가격은 빠르게 변동됩니다. 공식 사이트에서 최신 정보를 확인하세요."
+
+## 다음 단계
+* MVP 구현 완료 후 → \`/deploy-guide\`로 배포
+* 스펙 변환 필요 시 → export-spec 스킬 활용
+* 전체 진행률 확인 → \`/check-progress\`
+WF28_EOF
+
+# Workflow 29: deploy-guide.md
+cat << 'WF29_EOF' > "$PROJECT_ROOT/.agent/workflows/deploy-guide.md"
+# deploy-guide
+
+1인 빌더를 위한 첫 배포부터 운영까지 안내하는 배포 가이드입니다.
+
+> 이 워크플로우는 MVP를 실제 서비스로 배포하고, CI/CD 파이프라인과 비용 관리까지 한 번에 설정합니다.
+> /ai-builder 또는 /mvp-definition 완료 후 실행을 권장합니다.
+
+## 트리거 조건
+* /ai-builder 또는 /mvp-definition 결과가 존재할 때 실행 권장
+* 배포 가능한 코드가 준비되었을 때
+
+## 용어 매핑 (영어 → 한국어)
+
+| 영어 | 한국어 | 설명 |
+|------|--------|------|
+| CI/CD | 지속적 통합/배포 | Continuous Integration / Continuous Deployment |
+| PaaS | 플랫폼 서비스 | Platform as a Service (Vercel, Railway 등) |
+| Container | 컨테이너 | 앱을 격리된 환경에서 실행하는 기술 (Docker) |
+| CDN | 콘텐츠 전송 네트워크 | 전 세계에 콘텐츠를 빠르게 전달하는 네트워크 |
+| SSL | 보안 인증서 | 웹사이트 HTTPS 암호화 |
+| DNS | 도메인 네임 시스템 | 도메인 주소를 IP로 변환하는 시스템 |
+| Uptime | 가동률 | 서비스가 정상 작동하는 시간 비율 |
+| Rollback | 롤백 | 문제 발생 시 이전 버전으로 되돌리기 |
+
+## 수행 작업
+* 호스팅 플랫폼 선택 트리를 제공합니다
+* CI/CD 파이프라인 설정을 안내합니다
+* 도메인 및 SSL 설정을 안내합니다
+* 월간 비용 예측 및 최적화를 제안합니다
+* 배포 체크리스트를 제공합니다
+
+## 출력 규칙
+* output/reports/deploy-guide.md에 저장합니다
+
+### 데이터 신뢰도 등급
+(A 검증됨, B 근거있는 추정, C AI 추정)
+> ⚠️ "호스팅 비용은 사용량에 따라 변동됩니다. 무료 티어 한도를 반드시 확인하세요."
+
+## 다음 단계
+* 배포 완료 후 → \`/growth-loop\`로 성장 루프 구축
+* GTM 전략 필요 시 → \`/gtm-launch\`
+* 전체 진행률 확인 → \`/check-progress\`
+WF29_EOF
+
+# Workflow 30: growth-loop.md
+cat << 'WF30_EOF' > "$PROJECT_ROOT/.agent/workflows/growth-loop.md"
+# growth-loop
+
+출시 후 성장 루프(텔레메트리 + 피드백 + KPI)를 구축하여 데이터 기반 제품 개선 사이클을 운영합니다.
+
+> 이 워크플로우는 런칭 후 사용자 행동 데이터를 수집·분석하고, 피드백을 체계화하여 지속적 성장을 이끄는 루프를 설계합니다.
+> /gtm-launch 또는 /deploy-guide 완료 후 실행을 권장합니다.
+
+> **안전 면책**: 분석 도구 설치 시 개인정보보호법을 준수해야 합니다. 사용자 동의 없는 데이터 수집은 법적 문제를 야기할 수 있습니다.
+
+## 트리거 조건
+* /gtm-launch 또는 /deploy-guide 완료 후 실행 권장
+* output/reports/ 내 기존 산출물 참조
+
+## 용어 매핑 (영어 → 한국어)
+
+| 영어 | 한국어 | 설명 |
+|------|--------|------|
+| Telemetry | 텔레메트리 | 제품 사용 데이터를 자동 수집·전송하는 체계 |
+| Event Schema | 이벤트 스키마 | 사용자 행동 데이터의 구조 정의 |
+| Funnel | 퍼널 | 사용자가 목표 행동까지 거치는 단계별 흐름 |
+| A/B Test | A/B 테스트 | 두 가지 변형을 비교하여 더 나은 성과를 찾는 실험 |
+| NPS | 순추천지수 | Net Promoter Score |
+| DAU/WAU/MAU | 일간/주간/월간 활성 사용자 | Daily/Weekly/Monthly Active Users |
+| Cohort | 코호트 | 동일 시기 가입 고객 그룹 |
+| Feature Flag | 기능 플래그 | 코드 변경 없이 기능을 켜고 끌 수 있는 토글 |
+| Session Replay | 세션 리플레이 | 사용자의 실제 사용 과정을 영상처럼 재현 |
+| Heatmap | 히트맵 | 사용자 상호작용을 시각화한 지도 |
+| GDPR | 일반 데이터 보호 규정 | EU 개인정보보호 규정 |
+| Cookie Consent | 쿠키 동의 | 쿠키 사용에 대한 사전 동의 절차 |
+
+## 수행 작업
+* 분석 도구를 선택하고 설치합니다 (PostHog, Amplitude, GA4, Plausible, Mixpanel)
+* 이벤트 스키마를 설계합니다
+* 피드백 수집 체계를 구축합니다 (NPS, Tally/Typeform)
+* KPI 대시보드를 연동합니다 (/kpi-framework, /pmf-measurement)
+* 성장 루프를 운영하고 반복합니다
+
+## 출력 규칙
+* output/reports/growth-loop.md에 저장합니다
+
+### 데이터 신뢰도 등급
+(A 검증됨, B 근거있는 추정, C AI 추정)
+> ⚠️ "분석 도구 비교 정보는 2024-2025 기준(신뢰도 B)이며, 최신 가격/기능은 공식 사이트에서 확인하세요."
+
+## 다음 단계
+* 리텐션 심화 분석 → \`/pmf-measurement\`
+* 성과 지표 체계 → \`/kpi-framework\`
+* 1인 운영 지속가능성 → \`/solo-sustainability\`
+* 전체 진행률 확인 → \`/check-progress\`
+WF30_EOF
+
 # --- Step 5: Create Skills ---
 echo -e "${BLUE}[5/10]${NC} 스킬 (Skills) 생성 중..."
 
@@ -4697,6 +4848,8 @@ echo -e "  ${GREEN}✓${NC} progress-tracker/scripts/check_progress.py"
 echo -e "  ${GREEN}✓${NC} document-exporter/SKILL.md"
 echo -e "  ${GREEN}✓${NC} document-exporter/scripts/export_docs.py"
 echo -e "  ${GREEN}✓${NC} opportunity-finder/SKILL.md"
+echo -e "  ${GREEN}✓${NC} export-spec/SKILL.md"
+echo -e "  ${GREEN}✓${NC} reality-check/SKILL.md"
 echo ""
 
 # ── 공유 스크립트 (Shared Scripts) ──
@@ -7565,8 +7718,8 @@ echo -e "${BOLD}============================================================${NC
 echo ""
 echo "  생성된 항목:"
 echo -e "    ${GREEN}•${NC} 작동 원칙: 9개 (한국어 소통, 문서 스타일, 안전 가이드라인, 업데이트 체크, 컨텍스트 체이닝, AI 도메인 지식, 품질 게이트, 데이터 신뢰도, 규모별 모드 전환)"
-echo -e "    ${GREEN}•${NC} 기획 단계: 23개 (아이디어 발굴부터 사업계획서까지)"
-echo -e "    ${GREEN}•${NC} 전문 분석 도구: 16개 (재무, 경쟁, SWOT, AI 비즈니스, 니치 검증, 부트스트랩 계산, 기술 스택 추천 등 + 5개 공유 스크립트)"
+echo -e "    ${GREEN}•${NC} 기획 단계: 30개 (아이디어 발굴부터 성장 루프까지)"
+echo -e "    ${GREEN}•${NC} 전문 분석 도구: 18개 (재무, 경쟁, SWOT, AI 비즈니스, 니치 검증, 부트스트랩 계산, 기술 스택 추천, 스펙 변환, AI 추정 검증 등 + 5개 공유 스크립트)"
 echo -e "    ${GREEN}•${NC} 문서 양식: 10개 (사업계획서, 재무예측, AI 재무, Micro-SaaS 재무, 부트스트랩 성장, 린캔버스, 포트폴리오 등)"
 echo -e "    ${GREEN}•${NC} 외부 도구 연동 설정: 1개"
 echo -e "    ${GREEN}•${NC} 샘플 데이터: 카페 사업 4건 + 완성 샘플 2종 (카페/AI SaaS)"
@@ -7605,6 +7758,9 @@ echo -e "    ${YELLOW}/quick-start${NC}           — 10분 비즈니스 플랜"
 echo -e "    ${YELLOW}/customer-discovery${NC}    — 고객 검증"
 echo -e "    ${YELLOW}/payment-setup${NC}         — 결제 인프라 셋업"
 echo -e "    ${YELLOW}/pmf-measurement${NC}       — PMF 측정 루프"
+echo -e "    ${YELLOW}/ai-builder${NC}            — AI 코딩 도구 MVP 구현"
+echo -e "    ${YELLOW}/deploy-guide${NC}          — 배포 가이드"
+echo -e "    ${YELLOW}/growth-loop${NC}           — 성장 루프"
 echo ""
 echo -e "  💡 명령어를 외울 필요 없습니다!"
 echo -e "     '시장 조사해줘', '재무 분석 부탁해' 처럼 자연어로 요청하면 됩니다."

@@ -1,5 +1,5 @@
 <!-- Parent: ../AGENTS.md -->
-<!-- Generated: 2026-02-16 | Updated: 2026-02-19 -->
+<!-- Generated: 2026-02-16 | Updated: 2026-02-19 (Phase G) -->
 
 # workflows
 
@@ -41,6 +41,9 @@ Slash-command workflow definitions for structured business planning steps. Users
 | `customer-discovery.md` | `/customer-discovery` — 고객 검증: Mom Test, 인터뷰 스크립트, Red-teaming, Pivot/Persevere |
 | `payment-setup.md` | `/payment-setup` — 결제 인프라 구축: PG 선택 트리, 구독 설정, 테스트 가이드 |
 | `pmf-measurement.md` | `/pmf-measurement` — PMF 측정 루프: Sean Ellis 40%, 코호트 리텐션, PMF 대시보드 |
+| `ai-builder.md` | `/ai-builder` — AI 코딩 도구(Cursor, Bolt, v0, Lovable) 활용 MVP 구현 가이드 |
+| `deploy-guide.md` | `/deploy-guide` — 1인 빌더 배포 가이드: CI/CD, 호스팅, 비용 관리 |
+| `growth-loop.md` | `/growth-loop` — 출시 후 성장 루프: 텔레메트리, 피드백, KPI 연동 |
 
 ## For AI Agents
 
